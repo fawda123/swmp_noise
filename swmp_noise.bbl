@@ -1,0 +1,164 @@
+\begin{thebibliography}{}
+
+\bibitem[Batt and Carpenter, 2012]{Batt12}
+Batt RD, Carpenter SR. 2012.
+\newblock Free-water lake metabolism: Addressing noisy time series with a
+  {K}alman filter.
+\newblock Limnology and Oceanography: Methods, 10:20--30.
+
+\bibitem[Caffrey, 2003]{Caffrey03}
+Caffrey JM. 2003.
+\newblock Production, respiration and net ecosystem metabolism in {U.S.}
+  estuaries.
+\newblock Environmental Monitoring and Assessment, 81(1-3):207--219.
+
+\bibitem[Caffrey, 2004]{Caffrey04}
+Caffrey JM. 2004.
+\newblock Factors controlling net ecosystem metabolism in {U.S.} estuaries.
+\newblock Estuaries, 27(1):90--101.
+
+\bibitem[Caffrey et~al., 2013]{Caffrey13}
+Caffrey JM, Murrell MC, Amacker KS, Harper J, Phipps S, Woodrey M. 2013.
+\newblock Seasonal and inter-annual patterns in primary production, respiration
+  and net ecosystem metabolism in 3 estuaries in the northeast {G}ulf of
+  {M}exico.
+\newblock Estuaries and Coasts.
+
+\bibitem[{CDMO (Centralized Data Management Office)}, 2014]{CDMO14}
+{CDMO (Centralized Data Management Office)}. 2014.
+\newblock {National Estuarine Research Reserve System}.
+\newblock \url{http://cdmo.baruch.sc.edu/}. (Accessed January, 2014).
+
+\bibitem[Collins et~al., 2013]{Collins13}
+Collins JR, Raymond PA, Bohlen WF, Howard-Strobel MM. 2013.
+\newblock Estimates of new and total productivity in {C}entral {L}ong {I}sland
+  {S}ound from in situ measurements of nitrate and dissolved oxygen.
+\newblock Estuaries and Coasts, 36(1):74--97.
+
+\bibitem[Coloso et~al., 2011]{Coloso11}
+Coloso JJ, Cole JJ, Pace ML. 2011.
+\newblock Difficulty in discerning drivers of lake ecosystem metabolism with
+  high-frequency data.
+\newblock Ecosystems, 14(6):935--948.
+
+\bibitem[Cryer and Chan, 2008]{Cryer08}
+Cryer JD, Chan KS. 2008.
+\newblock Time Series Analysis with Applications in R.
+\newblock Springer, New York, New York, second edition.
+
+\bibitem[Diaz, 2008]{Diaz08}
+Diaz RJ. 2008.
+\newblock Spreading dead zones and consequences for marine ecosystems.
+\newblock Science, 321:926--929.
+
+\bibitem[Foreman and Henry, 1989]{Foreman89}
+Foreman MGG, Henry RF. 1989.
+\newblock The harmonic analysis of tidal model time series.
+\newblock Advances in Water Resources, 12(3):109--120.
+
+\bibitem[Hilboron and Mangel, 1997]{Hilborn97}
+Hilboron R, Mangel M. 1997.
+\newblock The Ecological Detective: Confronting Models with Data.
+\newblock Princeton University Press, Princeton, New Jersey.
+
+\bibitem[Hirsch et~al., 2010]{Hirsch10}
+Hirsch RM, Moyer DL, Archfield SA. 2010.
+\newblock Weighted regressions on time, discharge, and season ({WRTDS}), with
+  an application to {C}hesapeake {B}ay river inputs.
+\newblock Journal of the American Water Resources Association, 46(5):857--880.
+
+\bibitem[Hopkinson and Smith, 2005]{Hopkinson05}
+Hopkinson CS, Smith EM. 2005.
+\newblock Estuarine respiration: an overview of benthic, pelagic, and whole
+  system respiration.
+\newblock In: Giorgio PAD, Williams P, editors, Respiration in Aquatic
+  Ecosystems, pages 122--146. Oxford Press, Oxford, United Kingdom.
+
+\bibitem[Howarth et~al., 2014]{Howarth14}
+Howarth RW, Hayn M, Marino RM, Ganju N, Foreman K, McGlathery K, Giblin AE,
+  Berg P, Walker JD. 2014.
+\newblock Metabolism of a nitrogen-enriched coastal marine lagoon during the
+  summertime.
+\newblock Biogeochemistry, 118(1-3):1--20.
+
+\bibitem[Kemp and Testa, 2012]{Kemp12}
+Kemp WM, Testa JM. 2012.
+\newblock Metabolic balance between ecosystem production and consumption.
+\newblock In: Wolanski E, McLusky DS, editors, Treatise on Estuarine and
+  Coastal Science, pages 83--118. Academic Press, New York.
+
+\bibitem[Kemp et~al., 2009]{Kemp09}
+Kemp WM, Testa JM, Conley DJ, Gilbert D, Hagy JD. 2009.
+\newblock Temporal responses of coastal hypoxia to nutrient loading and
+  physical controls.
+\newblock Biogeosciences, 6(12):2985--3008.
+
+\bibitem[Needoba et~al., 2012]{Needoba12}
+Needoba JA, Peterson TD, Johnson KS. 2012.
+\newblock Method for the quantification of aquatic primary production and net
+  ecosystem metabolism using in situ dissolved oxygen sensors.
+\newblock In: Tiquia-Arashiro SM, editor, Molecular Biological Technologies for
+  Ocean Sensing, pages 73--101. Springer, New York.
+
+\bibitem[Nidzieko et~al., 2014]{Nidzieko14}
+Nidzieko NJ, Needoba JA, Monismith SG, Johnson KS. 2014.
+\newblock Fortnightly tidal modulations affect net community production in a
+  mesotidal estuary.
+\newblock Estuaries and Coasts.
+
+\bibitem[Odum, 1956]{Odum56}
+Odum HT. 1956.
+\newblock Primary production in flowing waters.
+\newblock Limnology and Oceanography, 1(2):102--117.
+
+\bibitem[Pamatmat, 1997]{Pamatmat97}
+Pamatmat MM. 1997.
+\newblock Non-photosynthetic oxygen production and non-respiratory oxygen
+  uptake in the dark: A theory of oxygen dynamics in plankton communities.
+\newblock Marine Biology, 129(4):735--746.
+
+\bibitem[{RDCT (R Development Core Team)}, 2014]{RDCT14}
+{RDCT (R Development Core Team)}. 2014.
+\newblock {R: A language and environment for statistical computing, v3.1.0. R
+  Foundation for Statistical Computing, Vienna, Austria}.
+\newblock \url{http://www.R-project.org}.
+
+\bibitem[Sanger et~al., 2002]{Sanger02}
+Sanger DM, Arendt MD, Chen Y, Wenner EL, Holland AF, Edwards D, Caffrey J.
+  2002.
+\newblock A synthesis of water quality data: National estuarine research
+  reserve system-wide monitoring program (1995-2000).
+\newblock Technical report, National Estuarine Research Reserve Technical
+  Report Series 2002:3. South Carolina Department of Natural Resources, Marine
+  Resources Division Contribution No. 500, Charleston, South Carolina.
+
+\bibitem[Staehr et~al., 2010]{Staehr10}
+Staehr PA, Bade D, de~Bogert MCV, Koch GR, Williamson C, Hanson P, Cole JJ,
+  Kratz T. 2010.
+\newblock Lake metabolism and the diel oxygen technique: State of the science.
+\newblock Limnology and Oceanography: Methods, 8:628--644.
+
+\bibitem[Th\'{e}bault et~al., 2008]{Thebault08}
+Th\'{e}bault J, Schraga TS, Cloern JE, Dunlavey EG. 2008.
+\newblock Primary production and carrying capacity of former salt ponds after
+  reconnection to {S}an {F}rancisco {B}ay.
+\newblock Wetlands, 28(3):841--851.
+
+\bibitem[Wenner et~al., 2004]{Wenner04}
+Wenner E, Sanger D, Arendt M, Holland AF, Chen Y. 2004.
+\newblock Variability in dissolved oxygen and other water-quality variables
+  within the {N}ational {E}stuarine {R}esearch {R}eserve {S}ystem.
+\newblock Journal of Coastal Research, 45(SI):17--38.
+
+\bibitem[Yin et~al., 2004]{Yin04}
+Yin KD, Lin ZF, Ke ZY. 2004.
+\newblock Temporal and spatial distribution of dissolved oxygen in the {P}earl
+  {R}iver {E}stuary and adjacent coastal waters.
+\newblock Continental Shelf Research, 24(16):1935--1948.
+
+\bibitem[Ziegler and Benner, 1998]{Ziegler98}
+Ziegler S, Benner R. 1998.
+\newblock Ecosystem metabolism in a subtropical, seagrass-dominated lagoon.
+\newblock Marine Ecology Progress Series, 173:1--12.
+
+\end{thebibliography}

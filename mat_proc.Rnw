@@ -1,0 +1,36 @@
+\subsection{Weighted regression for modelling and detiding \ac{DO} time series}
+
+The weighted regression model for detiding \ac{DO} time series was adapted from the \ac{WRTDS} method developed by \citet{Hirsch10}.  The \ac{WRTDS} method was developed to model pollutant concentration in streams and normalize predictions to changes in discharge.  The functional form of our model differs from the original model by relating observed \ac{DO} for to observation time and astronomical tidal height:
+\begin{equation}\label{funform}
+DO_{obs}= \beta_0 + \beta_1 t + \beta_2 H
+\end{equation}
+where $t$ is decimal time and $H$ is tide height. Each observation contains a timestamp variable with date and time to the nearest half hour.  Decimal time  is calculated as a continuous value starting at zero and increasing with each time step.  Each unit of measurement (day, hour, etc.) is converted as a fraction of time on the annual scale and added to represent decimal time \citep{Hirsch10}.  The functional form differed from the original \ac{WRTDS} method that included parameters to estimate variation of the response variable on a sinuisoidal period in addition to parameters $\beta_0$ to $\beta_2$.  Although \ac{DO} variation can follow a diel periodicity, \textit{in situ} measurements are poorly characterized by a sine wave.  For example, rates of change may be abrupt following diurnal variation in irradiance or daily \ac{DO} variation may be muted given the weather, as on cloudy days.  Sinuisoidal terms were not included in the model to avoid constraining the predictions to this assumption. 
+
+Weighted regression is similar to a moving window approach that allows for estimation of \ac{DO} throughout the time series by adapting to variation through time as a function of tide. A separate regression model is estimated sequentially for each observation in the time series using a set of weights that are relevant to the point of reference (i.e., center of the window).  A single weight vector is calculated that quantifies the relevance of observations to the center of the window in respect to decimal time.  Specifically,  each observation is given a weight using a tri-cube weighting function \citep{Hirsch10}:
+\begin{equation}
+w= \left\{ 
+  \begin{array}{l l}
+    \left(1-\left(d/h\right)^3\right)^3 & \quad \textrm{if } |d| \leq h \\
+    0 & \quad \textrm{if } |d| > h 
+  \end{array} \right.
+\end{equation}
+where the weight $w$ is inversely proportional to the distance $d$ from the center of the window.  Weights exceeding the maximum width of the window $h$ are equal to zero.  This approach gives higher importance to observations within the window that are relevant to the point of reference.  Rather than using different weight vectors for multiple variables as in \cite{Hirsch10}, a single weight vector was used for decimal time.  This weight vector implicitly accounted for variation in tidal height throughout the time series since the highest weights were in the center of the window, therefore giving highest importance to the tidal height occurring at the point of reference. 
+
+A nontrivial issue with the weighted regression approach is the choice of window width for calculating weights.  Excessively large or small window widths may respectively under- or over-fit the data.  Additionally, optimal window widths may depend on the objective for using the model.  The weighted regression approach can be used for both predicting \ac{DO} and normalizing to remove the variance in the \ac{DO} signal from tidal changes.  Optimal window widths that minimize prediction error or fit to the observed data are typically smaller than the optimum window widths for normalizing the time series.  Similarly, window widths that more effectively detide the \ac{DO} signal may produce predictions for the observed data that are not optimal.  Evaluations of the weighted regression method with simulated \ac{DO} time series described below used different window widths to identify an approximate optimal window width for detiding the \ac{DO} signal.  As such, the ability of the models to predict observed \ac{DO} was not a primary concern given that the optimal window width for detiding likely corresponds to a model that predicts \ac{DO} as a function of tide rather than observed \ac{DO} as a function of both tide and biological variation.  
+
+\subsection{Detiding the \ac{DO} signal using weighted regression}
+
+The primary objective of the analysis was to evaluate ability of the weighted regression method to detide a \ac{DO} signal.  \citet{Hirsch10} developed the normalization approach for the \ac{WRTDS} method using a two-dimensional interpolation grid that contains predicted values of pollutant concentrations across the time series and the range of stream discharge values observed in the study system \citep{Hirsch10}.  Normalized values are obtained by averaging the predicted values across the range of discharge values that are likely to occur on a given day.  The normalized values represent variation in pollutant concentration that is independent of changes in discharge.  
+
+Predicted values of \ac{DO} concentration were normalized to remove variation from tidal height changes, although the approach herein differs from \citet{Hirsch10}.  Our adapted approach uses weighted regression to isolate sources of variation in the observed \ac{DO} signal that are related to unique effects of tidal height and biological process (\cref{fig:do_dtd}).  Two sets of values are predicted for the observed time series $DO_{obs}$, rather than creating an interpolation grid.  The first set of values uses the observed tidal height and second set uses the mean tidal height across the time series, $DO_{tid}$ and $DO_{mtd}$ respectively.  In other words, the first set of predictions represent \ac{DO} as a function of time and tide, where the second set represents \ac{DO} conditional on time and a constant tidal height:
+\begin{equation} \label{do_tid}
+DO_{tid} = f(DO_{obs}|H, t)
+\end{equation}
+\begin{equation} \label{do_mtd}
+DO_{mtd} = f(DO_{obs}|\bar{H}, t)
+\end{equation}
+Both predictions are used to normalize or detide the \ac{DO} signal.  Residuals, $DO_{res}$, are calculated by subtracting $DO_{obs}$ from $DO_{dtd}$ and represent random variation in the \ac{DO} signal from biological processes independent of the tide. The residuals are added to $DO_{mtd}$ to create the final detided time series $DO_{dtd}$:
+\begin{equation} \label{do_dtd}
+DO_{dtd} = DO_{mtd} + DO_{res}
+\end{equation}
+A critical assumption was that process and observation error in $DO_{obs}$ cpautred by $DO_{res}$ are explicitly related to the biological \ac{DO} signal in addition to $DO_{mtd}$ from the second set of predicted values. 

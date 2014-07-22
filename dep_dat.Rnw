@@ -1,0 +1,76 @@
+<<>>=
+
+######
+# sim conditions to eval
+tide_cat <- c('Diurnal', 'Semidiurnal', 'Mixed Semidiurnal')
+tide_cat <- factor(tide_cat, levels = tide_cat)
+bio_rng <- round(seq(0, 2, length = 3),2)
+tide_assoc <- round(seq(0, 2, length = 3), 2)
+err_rng_pro <- round(seq(0, 2, length = 3), 2)
+err_rng_obs <- round(seq(0, 2, length = 3), 2)
+
+eval_grd <- expand.grid(tide_cat, bio_rng, tide_assoc, err_rng_pro, 
+  err_rng_obs)
+names(eval_grd) <- c('tide_cat', 'bio_rng', 'tide_assoc', 'err_rng_pro', 
+  'err_rng_obs')
+save(eval_grd, file = 'eval_grd.RData')
+
+######
+# window widths to eval for each sim condition
+wins <- c(1, seq(5, 20, by = 5))
+
+wins_grd <- expand.grid(wins)
+names(wins_grd) <- c('dec_time')
+
+######
+# combined grid for each condition/window comb
+comb_grd <- expand.grid(tide_cat, bio_rng, tide_assoc, err_rng_pro, err_rng_obs,
+  wins)
+names(comb_grd) <- c(names(eval_grd), names(wins_grd))
+save(comb_grd, file = 'comb_grd.RData')
+
+# ######
+# # simulation results
+# 
+# load('prdnrm.RData')
+# load('comb_grd.RData')
+# 
+# # summarize results from prdnrm
+# jitt <- rnorm(nrow(prdnrm[[1]]), 0, 1e-10)
+# perf <- ldply(
+#   prdnrm, 
+#   .progress = 'tk', 
+#   .fun = function(x){
+#     
+#     with(x,{
+#       
+#       dtd_cor <<- cor(DO_dtd + jitt, DO_bio + jitt)
+#       dtd_err <<- rmse(DO_dtd + jitt, DO_bio + jitt)
+#       
+#       })
+#     
+#     out <- c(dtd_cor, dtd_err)
+#     
+#     out
+#     
+#     }
+#   )
+# 
+# # combine, make appropriate column names
+# perf <- cbind(comb_grd, perf)
+# perf_nms <- c('dtd_cor', 'dtd_err')
+# names(perf)[grep('V', names(perf))] <- perf_nms
+# perf$uni_comb <- row.names(perf)
+# 
+# # save
+# mod_perf <- perf
+# save(mod_perf, file = 'mod_perf.RData')
+
+# 'mod_perf' is all results for each simulation/window combination 
+load('mod_perf.RData')
+
+# used in beginning of assessment
+perf_means <- colMeans(mod_perf[, grepl('dtd|prd', names(mod_perf))])
+perf_rngs <- apply(mod_perf[, grepl('dtd|prd', names(mod_perf))], 2, range)
+
+@

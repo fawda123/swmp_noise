@@ -1,0 +1,1367 @@
+\documentclass[letterpaper,12pt,oneside]{article}
+\usepackage[paperwidth=8.5in,paperheight=11in,top=1in,bottom=1in,left=1in,right=1in]{geometry}
+\usepackage{setspace}
+\usepackage[colorlinks=true,allcolors=Blue]{hyperref}
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage{indentfirst}
+\usepackage{titlesec}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{verbatim}
+\usepackage{rotating}
+\usepackage{tabularx}
+\usepackage{outlines}
+\usepackage{lineno}
+\usepackage{array}
+\usepackage{times}
+\usepackage{cleveref}
+\usepackage{acronym}
+\usepackage[position=t]{subfig}
+\usepackage{paralist}
+\usepackage[noae]{Sweave}
+\usepackage{natbib}
+\usepackage{array}
+\usepackage{pdflscape}
+\usepackage{bm}
+\usepackage{showlabels}
+\bibpunct{(}{)}{,}{a}{}{,}
+
+% page margins and section title formatting
+\linespread{2}
+\setlength{\footskip}{0.5in}
+\titleformat*{\section}{\Large\bf\em}
+\titleformat*{\subsection}{\singlespace\large\bf}
+\titleformat*{\subsubsection}{\singlespace\normalsize\bf\em}
+\titlespacing{\section}{0in}{0in}{0in}
+\titlespacing{\subsection}{0in}{0in}{0in}
+\titlespacing{\subsubsection}{0in}{0in}{0in}
+
+% cleveref options
+\crefname{table}{Table}{Tables}
+\crefname{figure}{Fig.}{Figs.}
+\renewcommand{\figurename}{Fig.}
+
+% aliased citations
+\defcitealias{CDMO14}{CDMO 2014}
+\defcitealias{RDCT14}{RDCT 2014}
+
+% acronyms
+\acrodef{DO}[DO]{dissolved oxygen}
+\acrodef{NERRS}[NERRS]{National Estuarine Research Reserve System}
+\acrodef{RMSE}[RMSE]{root mean square error}
+\acrodef{SWMP}[SWMP]{System Wide Monitoring Program}
+\acrodef{WRTDS}[WRTDS]{weighted regression on time, discharge, and season}
+
+% assorted functions
+% for multiple rows in table headers
+\newcommand{\head}[2]{\multicolumn{1}{>{\arraybackslash}p{#1}}{#2}}
+% for milligrams per litre
+\newcommand{\mgl}{mg L$^{-1}$}
+
+% hides (not removes) numbering for section, subsection, etc.
+% left indents
+\renewcommand{\thesection}{}
+\renewcommand{\thesubsection}{}
+\renewcommand{\thesubsubsection}{}
+\makeatletter
+\def\@seccntformat#1{\csname #1ignore\expandafter\endcsname\csname the#1\endcsname\quad}
+\let\sectionignore\@gobbletwo
+\def\@subseccntformat#1{\csname #1ignore\expandafter\endcsname\csname the#1\endcsname\quad}
+\let\subsectionignore\@gobbletwo
+\def\@subsubseccntformat#1{\csname #1ignore\expandafter\endcsname\csname the#1\endcsname\quad}
+\let\subsubsectionignore\@gobbletwo
+\let\latex@numberline\numberline
+\def\numberline#1{\if\relax#1\relax\else\latex@numberline{#1}\fi}
+\makeatother
+
+%knitr options
+<<setup, cache = F, echo = F>>=
+# set global chunk options
+opts_chunk$set(fig.align = 'center', message = F, dev = 'pdf', dev.args = list(family = 'serif'), fig.pos = '!ht', warning = F, echo = F)
+options(replace.assign=TRUE,width=90,digits=1)
+@
+
+% dependent data
+<<dep_dat, eval = T, echo = F, results = 'hide', child = 'dep_dat.Rnw'>>=
+@
+
+\begin{document}
+
+\raggedbottom
+% \linenumbers
+\raggedright
+\urlstyle{same}
+\setlength{\parindent}{0.5in}
+\renewcommand\refname{References \vspace{12pt}}
+
+%%%%%%
+% title page
+\input{titlepage.tex}
+
+%%%%%%
+% acknowledgments
+\section{Acknowledgments}
+
+%%%%%%
+% abstract
+\centerline{{\bf Abstract}}
+\begin{singlespace} \small
+\noindent 
+\input{abstract.tex}
+\normalsize
+\end{singlespace}
+\noindent {\bf Key words}:
+
+\acresetall
+\clearpage
+
+%%%%%%
+% intro
+\section{Introduction} \label{intro}
+<<intro, child = 'intro.Rnw'>>=
+@
+
+%%%%%%
+% materials and procedures
+\section{Materials and Procedures}
+<<mat_proc, child = 'mat_proc.Rnw'>>=
+@
+
+%%%%%%
+% assessment
+\section{Assessment}
+<<assess, child = 'assess.Rnw'>>=
+@
+
+%%%%%%
+% discussion
+\section{Discussion}
+<<discussion, child = 'discussion.Rnw'>>=
+@
+
+%%%%%%
+% comments and recs
+\section{Comments and recommendations}
+
+%%%%%%
+% refs
+\begin{singlespace}
+\bibliographystyle{M:/docs/bibtex_bst/apalike_mine}
+\bibliography{M:/docs/ref_diss}
+\end{singlespace}
+\clearpage
+
+%%%%%%
+% figures
+
+% example of creating simulated time series
+\centering\vspace*{\fill}
+<<do_sim, eval = T, echo = F, cache = T, fig.width = 8, fig.height = 7, eval.after='fig.cap', fig.cap = 'Example of creating a simulated \\ac{DO} time series.  Simulated values were estimated every thirty minutes for 31 days.  Yellow indicates daylight periods.'>>=
+# create time vector
+vec <- c('2014-05-01 00:00:00', '2014-05-31 00:00:00')
+vec <- as.POSIXct(vec, format = '%Y-%m-%d %H:%M:%S')
+vec <- seq(vec[1], vec[2], by = 60*30)
+
+# create simulated time series of DO, tide, etc.
+DO_sim <- ts_create(
+  vec, 
+  do.amp = 2, 
+  tide_cat = 'Mixed Semidiurnal', 
+  tide_assoc = 4,
+  err_rng_obs = 2, 
+  err_rng_pro = 2, 
+  seeded = T
+  )  
+
+levs <- c('e_obs', 'e_pro', 'DO_unc', 'DO_die', 'DO_bio', 'DO_adv', 'DO_obs')
+to.plo <- melt(DO_sim, id.var = c('Day', 'sunrise'),
+  measure.var = levs
+  )
+to.plo$variable <- factor(to.plo$variable, levels = levs)
+
+ylab<-expression(paste('DO (mg ',L^-1,')'))
+p <- ggplot(to.plo, aes(x = Day, y = value, col = sunrise)) +
+  geom_line() +
+  facet_wrap(~ variable, scales = 'free_y', ncol = 1) + 
+  theme_bw() +
+  ylab(ylab) + 
+  scale_colour_gradientn(colours = c('orange', 'black')) +
+  theme(legend.position = 'none')
+ 
+facet_wrap_labeller(p, labels = c(
+  expression(italic(epsilon [ obs])),
+  expression(italic(epsilon [pro])),
+  expression(italic(
+    paste(DO [unc], '=', epsilon [ obs] + epsilon [ pro]))),
+  expression(italic(DO [die])),
+  expression(italic(paste(DO [bio], '=', DO [die] + DO [unc]))), 
+  expression(italic(DO [adv])),
+  expression(italic(paste(DO [obs], '=', DO [bio] + DO [adv])))
+  ))
+@
+\vfill
+\clearpage
+
+% example of detiding a simulated time series
+\centering\vspace*{\fill}
+<<do_dtd, eval = T, echo = F, cache = T, fig.width = 8, fig.height = 5, eval.after='fig.cap', fig.cap = 'Example of detiding a simulated \\ac{DO} time series.  Simulated values are those in \\cref{fig:do_sim}.  Yellow indicates daylight periods.'>>=
+######
+# examples of how detiding works
+
+vec <- c('2014-05-01 00:00:00', '2014-05-31 00:00:00')
+vec <- as.POSIXct(vec, format = '%Y-%m-%d %H:%M:%S')
+vec <- seq(vec[1], vec[2], by = 60*30)
+
+# create simulated time series of DO, tide, etc.
+DO_sim <- ts_create(
+  vec, 
+  do.amp = 2, 
+  tide_cat = 'Mixed Semidiurnal', 
+  tide_assoc = 4,
+  err_rng_obs = 2, 
+  err_rng_pro = 2, 
+  seeded = T
+  )  
+prd_tmp <- wtreg_fun(DO_sim)
+prd_tmp$DO_res <- with(prd_tmp, DO_obs - DO_prd)
+
+levs <- c('DO_obs', 'DO_prd', 'DO_nrm', 'DO_res', 'DO_dtd')
+to.plo <- melt(prd_tmp, id.var = c('Day', 'sunrise'),
+  measure.var = levs
+  )
+to.plo$variable <- factor(to.plo$variable, levels = levs)
+
+ylab<-expression(paste('DO (mg ',L^-1,')'))
+p <- ggplot(to.plo, aes(x = Day, y = value, col = sunrise)) +
+  geom_line() +
+  facet_wrap(~ variable, scales = 'free_y', ncol = 1) + 
+  theme_bw() +
+  ylab(ylab) + 
+  scale_colour_gradientn(colours = c('orange', 'black')) +
+  theme(legend.position = 'none')
+ 
+facet_wrap_labeller(p, labels = c(
+  expression(italic(DO [obs])),
+  expression(italic(DO [tid])),
+  expression(italic(DO [mtd])),
+  expression(italic(
+    paste(DO [res], '=', DO [obs] - DO [tid]))),
+  expression(italic(
+    paste(DO [dtd], '=', DO [mtd] + DO [res])))
+  ))
+
+
+@
+\vfill
+\clearpage
+
+% plot of representative time series for simulation
+\centering\vspace*{\fill}
+<<sim_ex, fig.height = 6.5, fig.width = 7, cache = T, echo = F, eval = T, fig.cap = 'Representative examples of simulated \\ac{DO} time series created by varying each of five parameters: tidal category (e.g., Mixed), strength of tidal association with \\ac{DO} signal using $DO_{adv}$, amount of process uncertainty $\\epsilon_{pro}$, amount of observation observation uncertainty $\\epsilon_{obs}$, and strength of diel \\ac{DO} component $DO_{die}$.  Parameter values represent the extremes used in the simulation (i.e., minimum, maximum).  Black lines are observed \\ac{DO} from \\cref{do_obs_all} and red lines are biological \\ac{DO} from \\cref{do_bio}.'>>=
+load('eval_grd.RData')
+
+# find rows in eval_grd of parms to plot
+sel_vec <- !with(eval_grd,
+  bio_rng %in% 1|
+  tide_assoc %in% 1|
+  err_rng_pro %in% 1|
+  err_rng_obs %in% 1
+  )
+parms <- eval_grd[sel_vec,]
+parms$L1 <- as.numeric(row.names(parms))
+
+# create simulated time series of DO, tide, etc., representatives
+vec <- c('2014-05-01 00:00:00', '2014-05-31 00:00:00')
+vec <- as.POSIXct(vec, format = '%Y-%m-%d %H:%M:%S')
+vec <- seq(vec[1], vec[2], by = 60*30)
+to_plo <- alply(parms,
+  1,
+  .fun = function(x) {
+  ts_create(vec, 
+    do.amp = x$bio_rng, 
+    tide_cat = x$tide_cat, 
+    tide_assoc = x$tide_assoc, 
+    err_rng_obs = x$err_rng_obs, 
+    err_rng_pro = x$err_rng_pro, 
+    seeded = T)
+    }
+  )
+names(to_plo) <- rownames(parms)
+
+# prep for plotting
+to_plo <- melt(to_plo, id.var = names(to_plo[[1]]))
+to_plo <- merge(to_plo, parms, by = 'L1', all.x = T)
+
+# rename extremes for facet labs
+labs <- paste('Bio Amp', unique(to_plo$bio_rng))
+to_plo$bio_rng <- factor(to_plo$bio_rng, labels = labs)
+labs <- paste('Assoc', unique(to_plo$tide_assoc))
+to_plo$tide_assoc <- factor(to_plo$tide_assoc, labels = labs)
+labs <- paste('Noise pro', unique(to_plo$err_rng_pro))
+to_plo$err_rng_pro <- factor(to_plo$err_rng_pro, labels = labs)
+labs <- paste('Noise obs', unique(to_plo$err_rng_obs))
+to_plo$err_rng_obs <- factor(to_plo$err_rng_obs, labels = labs)
+
+# setup facet labels
+facet1_names <- list(
+  'Diurnal' = expression(Diurnal), 
+  'Semidiurnal' = expression(Semidi.), 
+  'Mixed Semidiurnal' = expression(Mixed)
+  )
+facet2_names <- list(
+  'Assoc 0' = expression(paste(italic(DO [adv]), ' 0')), 
+  'Assoc 2' = expression(paste(italic(DO [adv]), ' 2'))
+  )
+facet3_names <- list(
+  'Bio Amp 0' = expression(paste(italic(DO [die]), ' 0')), 
+  'Bio Amp 2' = expression(paste(italic(DO [die]), ' 2'))
+  )
+facet4_names <- list(
+  'Noise pro 0' = expression(paste(italic(epsilon [pro]), ' 0')), 
+  'Noise pro 2' = expression(paste(italic(epsilon [pro]), ' 2'))
+  )
+facet5_names <- list(
+  'Noise obs 0' = expression(paste(italic(epsilon [obs]), ' 0')), 
+  'Noise obs 2' = expression(paste(italic(epsilon [obs]), ' 2'))
+  )
+plot_labeller <- function(variable,value){
+  if (variable=='tide_cat')
+    return(facet1_names[value])
+  if (variable=='tide_assoc')
+    return(facet2_names[value])
+  if (variable=='bio_rng')
+    return(facet3_names[value])
+  if (variable=='err_rng_pro')
+    return(facet4_names[value])
+  if (variable=='err_rng_obs')
+    return(facet5_names[value])
+  }
+
+ggplot(to_plo, aes(x = Day, y = DO_obs, group = L1)) + 
+  geom_line() +
+  geom_line(aes(y = DO_bio, colour = 'DO_bio'), alpha = 0.8) +
+  theme_bw() + 
+  theme(legend.position = 'none', axis.text.x = element_text(size = 8)) + 
+  ylab(expression(paste('DO (mg ', L^-1, ')'))) +
+  facet_grid(bio_rng + err_rng_obs + err_rng_pro ~ tide_cat + tide_assoc, 
+    labeller = plot_labeller) 
+@
+\vfill
+\clearpage
+
+% example of error surfaces 
+\centering\vspace*{\fill}
+<<err_surf, fig.height = 6, fig.width = 6, cache = T, echo = F, eval = T, fig.cap = 'Examples of correlations (left) and errors (right) between detided and biological \\ac{DO} from weighted regression results.  Each tile represents a correlation or error value from results for a given combination of simulation parameters ($DO_{adv}$, $DO_{die}$, $\\epsilon_{pro}$, $\\epsilon_{obs}$) and selected window widths (two and ten days).  Results are for simulations using a diurnal tidal time series.'>>=
+
+# combination grid, used for systematic sims
+load('comb_grd.RData')
+
+# load predicted/normalized data
+load('prdnrm.RData')
+
+# get results from prdnrm corresponding to a given window value in which_wins
+# rownames in which_wins are used to iterate through prdnrm
+names(comb_grd)[names(comb_grd) %in% 'dec_time'] <- 'dec_win'
+
+sel_vec <- with(comb_grd,
+  tide_cat %in% 'Diurnal' &
+  dec_win %in% c(1, 5)
+  )
+
+comb_tmp <- comb_grd[sel_vec, ]
+prd_tmp <- prdnrm[sel_vec]
+
+rm('prdnrm')
+
+# get err comps for pred/obs and norm/bio
+errs_all <- NULL
+
+jitt <- rnorm(nrow(prd_tmp[[1]]), 0, 1e-10)
+for(i in 1:length(prd_tmp)){
+  
+  x <- prd_tmp[[i]]
+  
+  dtd_cor <- cor(x$DO_bio + jitt, x$DO_dtd + jitt)
+
+  dtd_err <- rmse(x$DO_bio + jitt, x$DO_dtd + jitt)
+  
+  errs_all <- rbind(errs_all, data.frame(dtd_cor, dtd_err))
+  
+  }
+
+# reassign factor labels for bio amp and tidal assoc
+to_plo <- data.frame(comb_tmp, errs_all)
+labs <- paste('Bio Amp',unique(to_plo$bio_rng))
+to_plo$bio_rng <- factor(to_plo$bio_rng, labels = labs)
+labs <- paste('Assoc',unique(to_plo$tide_assoc))
+to_plo$tide_assoc <- factor(to_plo$tide_assoc, labels = labs)
+labs <- paste('Window',unique(to_plo$dec_win))
+to_plo$dec_win <- factor(to_plo$dec_win, labels = labs)
+
+# setup facet labels
+facet1_names <- list(
+  'Assoc 0' = expression(paste(italic(DO [adv]), ' 0')), 
+  'Assoc 1' = expression(paste(italic(DO [adv]), ' 1')),
+  'Assoc 2' = expression(paste(italic(DO [adv]), ' 2'))
+  )
+facet2_names <- list(
+  'Window 1' = 'Window 2', 
+  'Window 5' = 'Window 10'
+  )
+facet3_names <- list(
+  'Bio Amp 0' = expression(paste(italic(DO [bio]), ' 0')), 
+  'Bio Amp 1' = expression(paste(italic(DO [bio]), ' 1')),
+  'Bio Amp 2' = expression(paste(italic(DO [bio]), ' 2'))
+  )
+plot_labeller <- function(variable,value){
+  if (variable=='tide_assoc')
+    return(facet1_names[value])
+  if (variable=='dec_win')
+    return(facet2_names[value])
+  if (variable=='bio_rng')
+    return(facet3_names[value])
+  }
+
+p1 <- ggplot(to_plo, aes(x = factor(err_rng_pro), y = factor(err_rng_obs), 
+    z = dtd_cor, fill = dtd_cor)) +
+  geom_tile() + 
+  facet_grid(dec_win + bio_rng ~ tide_assoc, scales = 'free', 
+    labeller = plot_labeller) +
+  scale_fill_gradientn(limits = c(0.7, 1), name = 'Correlation', 
+    colours = brewer.pal(11, 'Spectral')) +
+  scale_x_discrete(expand = c(0,0)) + 
+  scale_y_discrete(expand = c(0,0)) +
+  xlab(expression(italic(epsilon [pro]))) +
+  ylab(expression(italic(epsilon [obs]))) +
+  theme_bw() +
+  theme(legend.position = 'top')
+
+p2 <- ggplot(to_plo, aes(x = factor(err_rng_pro), y = factor(err_rng_obs), 
+    z = dtd_err, fill = dtd_err)) +
+  geom_tile() + 
+  facet_grid(dec_win + bio_rng ~ tide_assoc, scales = 'free', 
+    labeller = plot_labeller) +
+  scale_fill_gradientn(limits = c(0, 1.05), name = 'RMSE', 
+    colours = brewer.pal(11, 'Spectral')) +
+  scale_x_discrete(expand = c(0,0)) + 
+  scale_y_discrete(expand = c(0,0)) +
+  xlab(expression(italic(epsilon [pro]))) +
+  ylab(expression(italic(epsilon [obs]))) +
+  theme_bw() +
+  theme(legend.position = 'top')
+
+grid.arrange(p1, p2, ncol = 2)
+@
+\vfill
+\clearpage
+
+% example of extreme scenario
+\centering\vspace*{\fill}
+<<extreme, eval = T, echo = F, cache = T, fig.width = 7, fig.height = 6.5, fig.cap = 'An extreme example of results from the weighted regression with decreasing window widths.  Results are for a simulated time series with a diurnal tidal component, no effect of tidal advection ($DO_{adv} = 0$), and an observed \\ac{DO} signal dominated only by a diel component ($DO_{bio} = 2$, $\\epsilon_{obs} = 0$, $\\epsilon_{pro} = 0$).  Window widths varied form 2 to 40 days.  See \\cref{do_tid,do_mtd,do_dtd,do_obs} for notation.'>>=
+######
+# examples of how detiding works
+
+# combination grid, used for systematic sims
+load('comb_grd.RData')
+
+# load predicted/normalized data
+load('prdnrm.RData')
+
+# get results from prdnrm corresponding to a given window value in which_wins
+# rownames in which_wins are used to iterate through prdnrm
+names(comb_grd)[names(comb_grd) %in% 'dec_time'] <- 'dec_win'
+
+sel_vec <- with(comb_grd,
+  tide_cat %in% 'Diurnal' &
+  bio_rng %in% 2 &
+  tide_assoc %in% 0 &
+  err_rng_obs %in% 0 &
+  err_rng_pro %in% 0
+  )
+
+# sub of comb_grd 
+comb_tmp <- comb_grd[sel_vec, ]
+comb_tmp$L1 <- rownames(comb_tmp)
+# sub of prdnrm list, name list with rownames of comb_grd for merge
+prd_tmp <- prdnrm[sel_vec]
+names(prd_tmp) <- rownames(comb_tmp)
+
+# melt predictions and merge with comb_tmp
+prd_tmp <- melt(prd_tmp, id.var = names(prd_tmp[[1]]))
+prd_tmp <- merge(prd_tmp, comb_tmp, by = 'L1', all.x = T)
+
+# create residual vector
+prd_tmp$DO_res <- with(prd_tmp, DO_obs - DO_prd)
+# dobule windows since theyre halves
+prd_tmp$dec_win <- as.character(2 * prd_tmp$dec_win)
+
+levs <- c('DO_adv', 'DO_obs', 'DO_prd',
+  'DO_nrm', 'DO_dtd')
+to.plo <- melt(prd_tmp, id.var = c('Day', 'dec_win', 'tide_cat'),
+  measure.var = levs
+  )
+to.plo$variable <- factor(to.plo$variable, levels = levs)
+levs <- as.character(c(2, 10, 20, 30, 40))
+to.plo$dec_win <- factor(to.plo$dec_win, labels = levs, levels = levs)
+
+ylab<-expression(paste('DO (mg ',L^-1,')'))
+
+p1 <- ggplot(to.plo, aes(x = Day, y = value, 
+    group = dec_win, colour = dec_win)) +
+  geom_line(size = 1) +
+  facet_wrap(~ variable, scales = 'free_y', ncol = 1) + 
+  theme_bw() +
+  ylab(ylab) + 
+  scale_colour_manual('Window', values = brewer.pal(5, 'Spectral')) +
+  theme(legend.position = 'top')
+
+facet_wrap_labeller(p1, labels = c(
+  expression(italic(DO [adv])),
+  expression(italic(DO [obs])),
+  expression(italic(DO [tid])),
+  expression(italic(DO [mtd])),
+  expression(italic(DO [dtd]))
+  ))
+@
+\vfill
+\clearpage
+
+% maps of each case
+\centering\vspace*{\fill}
+<<case_map, cache = T, fig.height = 5, fig.width = 8, eval = T, echo = F, fig.cap = 'Locations of \\ac{NERRS} sites used as case studies to evaluate of weighted regression.  Individual stations at each reserve are PDBJE (Joe Leary Estuary at Padilla Bay), RKBMB (Middle Blackwater River at Rookery Bay), SAPDC (Dean Creek at Sapelo Island), and TJRBR (Boca Rio at Tijuana River).'>>=
+
+# low do/high tide, high do/low tide, low do/low tide, high do/low tide
+cases <- c('ELKVM', 'PDBBY', 'RKBMB', 'SAPDC')
+
+# zooms for each case, larger is more zoom
+zooms <- c(13, 13, 12, 15)
+
+require(ggmap)
+
+# breaks on map
+myBreaks <- function(x){
+    breaks <- round(quantile(x, probs = c(0.1, 0.5, 0.9)), 2)
+    names(breaks) <- attr(breaks,"labels")
+    breaks
+  }
+
+for(case in cases){
+  
+  case_meta <- get_map_meta(case)
+  
+  mapImageData<-get_map(
+    location=c(lon=mean(case_meta$Longitude),lat=mean(case_meta$Latitude)),
+    source='google',
+    maptype='satellite',
+    zoom = zooms[case == cases]
+    )
+  
+  reserve <- trim.trailing(unique(case_meta$Reserve.Name))
+  
+  p <- ggmap(mapImageData,
+    extent = "device", 
+    base_layer=ggplot(data=case_meta, aes(x =Longitude, 
+      y=Latitude, group='Station.Code'))
+      ) + 
+    geom_point(size = 3, colour = 'lightblue') +
+    geom_text(data=case_meta,aes(x=Longitude,y=Latitude,label=Station,
+      hjust=0.4,vjust=2),size=5, colour = 'lightblue') +
+    ggtitle(reserve) +
+    theme(axis.title = element_blank(), axis.text = element_text(size = 8)) +
+    scale_x_continuous(breaks = myBreaks) +
+    scale_y_continuous(breaks = myBreaks)
+  
+  assign(paste0('p', which(case == cases)), p)
+  
+  }
+
+
+# for us map
+meta <- get_map_meta(cases)
+meta <- meta[, c('Longitude', 'Latitude','Reserve.Name')]
+
+# create viewports
+# vp.1 <- viewport(height=unit(.32, "npc"), width=unit(0.5, "npc"), 
+#                            just=c("left","top"), 
+#                            y=0.67, x=0)
+# vp.2 <- viewport(height=unit(.32, "npc"), width=unit(0.5, "npc"), 
+#                            just=c("left","top"), 
+#                            y=0.67, x=0.5)
+# vp.3 <- viewport(height=unit(.32, "npc"), width=unit(0.5, "npc"), 
+#                            just=c("left","top"), 
+#                            y=0.33, x=0)
+# vp.4 <- viewport(height=unit(.32, "npc"), width=unit(0.5, "npc"), 
+#                            just=c("left","top"), 
+#                            y=0.33, x=0.5)
+# 
+# par(mfrow = c(3, 1), mar = numeric(4))
+# grob({
+  map('state', col = alpha('black', 0.4), ylim = c(23, 50))
+  points(meta[, c('Longitude', 'Latitude')], cex =2, pch = 16)
+  text(meta$Longitude, meta$Latitude, meta$Reserve.Name, pos = 4, cex = 1.5)
+  map.scale(x = -122, y = 26)
+#   })
+# print(p1, vp=vp.1)
+# print(p2, vp=vp.2)
+# print(p3, vp=vp.3)
+# print(p4, vp=vp.4)
+
+@
+\vfill
+\clearpage
+
+% example from SAPDC
+\centering\vspace*{\fill}
+<<case_ex1, cache = F, fig.height = 7.5, fig.width = 5.5, out.width = '0.8\\textwidth', eval = T, echo = F, fig.cap = 'Example of metabolism and \\ac{DO} time series before (observed) and after (detided) weighted regression. Results are for a ten day period in March for the Sapelo Island station.'>>=
+######
+# SAPDC example
+
+load('met_ls_inst.RData')
+load('met_ls.RData')
+
+# subsets by case and date range
+case <- 'SAPDC'
+dat.rng<-as.Date(c('2012-03-20','2012-03-29')) 
+
+met_subs <- met_ls[[paste(case, 'wtreg.RData', sep = '_')]]
+inst_subs <- met_ls_inst[[paste(case, 'wtreg.RData', sep = '_')]]
+
+# subset data
+met.rng <- met_subs$Date<=dat.rng[2] & met_subs$Date>=dat.rng[1]
+met_subs <- met_subs[met.rng,]
+
+inst_subs$Date <- as.Date(inst_subs$DateTimeStamp)
+inst.rng <- inst_subs$Date<=dat.rng[2] & inst_subs$Date>=dat.rng[1]
+inst_subs <- inst_subs[inst.rng,]
+
+##
+# custom theme, mod of theme_bw
+
+my_theme <- theme(
+  legend.title = element_blank(),legend.position = 'top',
+  axis.title.x = element_blank(),legend.box= 'horizontal',
+  plot.margin= unit(c(0, 1, 0, 1), "lines") # top right bottom left
+  )
+
+# function for setting range on y axis
+rng.fun<-function(vec.in){
+  rngs<-range(vec.in,na.rm=T)
+  buffs<-0.07*abs(diff(rngs))
+  c(rngs[1]-buffs,rngs[2]+buffs)
+  }
+
+##
+# metab plot
+to_plo1 <- melt(met_subs, id.var = c('Date'), 
+  measure.var = grep('Pg|Rt|NEM', names(met_subs), value = T)
+  )
+to_plo1$Input <- 'Observed'
+to_plo1$Input[grep('dtd', to_plo1$variable)] <- 'Detided'
+to_plo1$Input <- factor(to_plo1$Input, levels = c('Observed', 'Detided'))
+to_plo1$variable <- gsub('_dtd', '', to_plo1$variable)
+
+ylab<-expression(paste('DO (g ',m^-2, d^-1, ')'))
+p1 <- ggplot(to_plo1, aes(x = Date, y = 0.032 * value, group = variable,
+    colour = variable)) +
+  geom_line() +
+  theme_bw() +
+  geom_point(size = 2) +
+  facet_wrap(~Input, ncol = 1) +
+  scale_y_continuous(ylab)  +
+  my_theme
+
+##
+# DO plot
+to_plo2 <- met.day.fun(inst_subs, case)
+names(to_plo2)[names(to_plo2) %in% 'variable'] <- 'solar'
+ggpoly <- poly.fun(to_plo2$solar, to_plo2)
+
+ylab<-expression(paste('DO (mg ',L^-1,')'))
+p2 <- ggplot(to_plo2, aes(x = DateTimeStamp)) + 
+  ggpoly +
+  geom_line(aes(y = DO_obs, colour = 'Observed')) +
+  geom_line(aes(y = DO_dtd, colour = 'Detided')) +
+  coord_cartesian(ylim = c(0,9)) +
+  scale_fill_manual(values='orange',labels='Day') +
+  theme_bw() +
+  scale_y_continuous(ylab)  +
+  my_theme
+
+## 
+# tide plot
+to_plo3 <- met.day.fun(inst_subs, case)
+names(to_plo2)[names(to_plo2) %in% 'variable'] <- 'solar'
+ggpoly <- poly.fun(to_plo2$solar, to_plo2)
+
+ylab<-expression(paste('Height (m)'))
+p3 <- ggplot(to_plo3, aes(x = DateTimeStamp)) + 
+  ggpoly +
+  geom_line(aes(y = Tide, colour = TotPAR)) +
+  coord_cartesian(ylim = rng.fun(to_plo3$Tide)) +
+  scale_fill_manual(values='orange',labels='Day') +
+  theme_bw() +  
+  my_theme + 
+  scale_y_continuous(ylab) +
+  scale_colour_gradient(low='blue', high='yellow',
+    guide = guide_colorbar(direction = "horizontal",barheight= 0.3))
+
+# Get the widths
+pA <- ggplot_gtable(ggplot_build(p1))
+pB <- ggplot_gtable(ggplot_build(p2))
+pC <- ggplot_gtable(ggplot_build(p3))
+maxWidth = unit.pmax(pA$widths[2:3], pB$widths[2:3], 
+                     pC$widths[2:3])
+
+# Set the widths
+pA$widths[2:3] <- maxWidth
+pB$widths[2:3] <- maxWidth
+pC$widths[2:3] <- maxWidth
+
+grid.arrange(pA, pB, pC, ncol = 1, heights = c(1.7, 1, 1))
+
+@
+\vfill
+\clearpage
+
+% example from ELKVM
+\centering\vspace*{\fill}
+<<case_ex2, cache = F, fig.height = 7.5, fig.width = 5.5, out.width = '0.8\\textwidth', eval = T, echo = F, fig.cap = 'Example of metabolism and \\ac{DO} time series before (observed) and after (detided) weighted regression. Results are for a ten day period in March for the Elkhorn Slough station.'>>=
+######
+# ELKVM example
+
+load('met_ls_inst.RData')
+load('met_ls.RData')
+
+# subsets by case and date range
+case <- 'ELKVM'
+dat.rng<-as.Date(c('2012-07-10','2012-07-20')) 
+
+met_subs <- met_ls[[paste(case, 'wtreg.RData', sep = '_')]]
+inst_subs <- met_ls_inst[[paste(case, 'wtreg.RData', sep = '_')]]
+
+# subset data
+met.rng <- met_subs$Date<=dat.rng[2] & met_subs$Date>=dat.rng[1]
+met_subs <- met_subs[met.rng,]
+
+inst_subs$Date <- as.Date(inst_subs$DateTimeStamp)
+inst.rng <- inst_subs$Date<=dat.rng[2] & inst_subs$Date>=dat.rng[1]
+inst_subs <- inst_subs[inst.rng,]
+
+##
+# custom theme, mod of theme_bw
+
+my_theme <- theme(
+  legend.title = element_blank(),legend.position = 'top',
+  axis.title.x = element_blank(),legend.box= 'horizontal',
+  plot.margin= unit(c(0, 1, 0, 1), "lines") # top right bottom left
+  )
+
+# function for setting range on y axis
+rng.fun<-function(vec.in){
+  rngs<-range(vec.in,na.rm=T)
+  buffs<-0.07*abs(diff(rngs))
+  c(rngs[1]-buffs,rngs[2]+buffs)
+  }
+
+##
+# metab plot
+to_plo1 <- melt(met_subs, id.var = c('Date'), 
+  measure.var = grep('Pg|Rt|NEM', names(met_subs), value = T)
+  )
+to_plo1$Input <- 'Observed'
+to_plo1$Input[grep('dtd', to_plo1$variable)] <- 'Detided'
+to_plo1$Input <- factor(to_plo1$Input, levels = c('Observed', 'Detided'))
+to_plo1$variable <- gsub('_dtd', '', to_plo1$variable)
+
+ylab<-expression(paste('DO (g ',m^-2, d^-1, ')'))
+p1 <- ggplot(to_plo1, aes(x = Date, y = 0.032 * value, group = variable,
+    colour = variable)) +
+  geom_line() +
+  theme_bw() +
+  geom_point(size = 2) +
+  facet_wrap(~Input, ncol = 1) +
+  scale_y_continuous(ylab)  +
+  my_theme
+
+##
+# DO plot
+to_plo2 <- met.day.fun(inst_subs, case)
+names(to_plo2)[names(to_plo2) %in% 'variable'] <- 'solar'
+ggpoly <- poly.fun(to_plo2$solar, to_plo2)
+
+ylab<-expression(paste('DO (mg ',L^-1,')'))
+p2 <- ggplot(to_plo2, aes(x = DateTimeStamp)) + 
+  ggpoly +
+  geom_line(aes(y = DO_obs, colour = 'Observed')) +
+  geom_line(aes(y = DO_dtd, colour = 'Detided')) +
+  coord_cartesian(ylim = rng.fun(to_plo2$DO_obs)) +
+  scale_fill_manual(values='orange',labels='Day') +
+  theme_bw() +
+  scale_y_continuous(ylab)  +
+  my_theme
+
+## 
+# tide plot
+to_plo3 <- met.day.fun(inst_subs, case)
+names(to_plo2)[names(to_plo2) %in% 'variable'] <- 'solar'
+ggpoly <- poly.fun(to_plo2$solar, to_plo2)
+
+ylab<-expression(paste('Height (m)'))
+p3 <- ggplot(to_plo3, aes(x = DateTimeStamp)) + 
+  ggpoly +
+  geom_line(aes(y = Tide, colour = TotPAR)) +
+  coord_cartesian(ylim = rng.fun(to_plo3$Tide)) +
+  scale_fill_manual(values='orange',labels='Day') +
+  theme_bw() +  
+  my_theme + 
+  scale_y_continuous(ylab) +
+  scale_colour_gradient(low='blue', high='yellow',
+    guide = guide_colorbar(direction = "horizontal",barheight= 0.3))
+
+# Get the widths
+pA <- ggplot_gtable(ggplot_build(p1))
+pB <- ggplot_gtable(ggplot_build(p2))
+pC <- ggplot_gtable(ggplot_build(p3))
+maxWidth = unit.pmax(pA$widths[2:3], pB$widths[2:3], 
+                     pC$widths[2:3])
+
+# Set the widths
+pA$widths[2:3] <- maxWidth
+pB$widths[2:3] <- maxWidth
+pC$widths[2:3] <- maxWidth
+
+grid.arrange(pA, pB, pC, ncol = 1, heights = c(1.7, 1, 1))
+
+@
+\vfill
+\clearpage
+
+% example from pdbby
+\centering\vspace*{\fill}
+<<case_ex3, cache = F, fig.height = 7.5, fig.width = 5.5, out.width = '0.8\\textwidth', eval = T, echo = F, fig.cap = 'Example of metabolism and \\ac{DO} time series before (observed) and after (detided) weighted regression. Results are for a ten day period in March for the Padilla Bay station.'>>=
+######
+# PDBBY example
+
+load('met_ls_inst.RData')
+load('met_ls.RData')
+
+# subsets by case and date range
+case <- 'PDBBY'
+dat.rng<-as.Date(c('2012-07-10','2012-07-20')) 
+
+met_subs <- met_ls[[paste(case, 'wtreg.RData', sep = '_')]]
+inst_subs <- met_ls_inst[[paste(case, 'wtreg.RData', sep = '_')]]
+
+# subset data
+met.rng <- met_subs$Date<=dat.rng[2] & met_subs$Date>=dat.rng[1]
+met_subs <- met_subs[met.rng,]
+
+inst_subs$Date <- as.Date(inst_subs$DateTimeStamp)
+inst.rng <- inst_subs$Date<=dat.rng[2] & inst_subs$Date>=dat.rng[1]
+inst_subs <- inst_subs[inst.rng,]
+
+##
+# custom theme, mod of theme_bw
+
+my_theme <- theme(
+  legend.title = element_blank(),legend.position = 'top',
+  axis.title.x = element_blank(),legend.box= 'horizontal',
+  plot.margin= unit(c(0, 1, 0, 1), "lines") # top right bottom left
+  )
+
+# function for setting range on y axis
+rng.fun<-function(vec.in){
+  rngs<-range(vec.in,na.rm=T)
+  buffs<-0.07*abs(diff(rngs))
+  c(rngs[1]-buffs,rngs[2]+buffs)
+  }
+
+##
+# metab plot
+to_plo1 <- melt(met_subs, id.var = c('Date'), 
+  measure.var = grep('Pg|Rt|NEM', names(met_subs), value = T)
+  )
+to_plo1$Input <- 'Observed'
+to_plo1$Input[grep('dtd', to_plo1$variable)] <- 'Detided'
+to_plo1$Input <- factor(to_plo1$Input, levels = c('Observed', 'Detided'))
+to_plo1$variable <- gsub('_dtd', '', to_plo1$variable)
+
+ylab<-expression(paste('DO (g ',m^-2, d^-1, ')'))
+p1 <- ggplot(to_plo1, aes(x = Date, y = 0.032 * value, group = variable,
+    colour = variable)) +
+  geom_line() +
+  theme_bw() +
+  geom_point(size = 2) +
+  facet_wrap(~Input, ncol = 1) +
+  scale_y_continuous(ylab)  +
+  my_theme
+
+##
+# DO plot
+to_plo2 <- met.day.fun(inst_subs, case)
+names(to_plo2)[names(to_plo2) %in% 'variable'] <- 'solar'
+ggpoly <- poly.fun(to_plo2$solar, to_plo2)
+
+ylab<-expression(paste('DO (mg ',L^-1,')'))
+p2 <- ggplot(to_plo2, aes(x = DateTimeStamp)) + 
+  ggpoly +
+  geom_line(aes(y = DO_obs, colour = 'Observed')) +
+  geom_line(aes(y = DO_dtd, colour = 'Detided')) +
+  coord_cartesian(ylim = rng.fun(to_plo2$DO_obs)) +
+  scale_fill_manual(values='orange',labels='Day') +
+  theme_bw() +
+  scale_y_continuous(ylab)  +
+  my_theme
+
+## 
+# tide plot
+to_plo3 <- met.day.fun(inst_subs, case)
+names(to_plo2)[names(to_plo2) %in% 'variable'] <- 'solar'
+ggpoly <- poly.fun(to_plo2$solar, to_plo2)
+
+ylab<-expression(paste('Height (m)'))
+p3 <- ggplot(to_plo3, aes(x = DateTimeStamp)) + 
+  ggpoly +
+  geom_line(aes(y = Tide, colour = TotPAR)) +
+  coord_cartesian(ylim = rng.fun(to_plo3$Tide)) +
+  scale_fill_manual(values='orange',labels='Day') +
+  theme_bw() +  
+  my_theme + 
+  scale_y_continuous(ylab) +
+  scale_colour_gradient(low='blue', high='yellow',
+    guide = guide_colorbar(direction = "horizontal",barheight= 0.3))
+
+# Get the widths
+pA <- ggplot_gtable(ggplot_build(p1))
+pB <- ggplot_gtable(ggplot_build(p2))
+pC <- ggplot_gtable(ggplot_build(p3))
+maxWidth = unit.pmax(pA$widths[2:3], pB$widths[2:3], 
+                     pC$widths[2:3])
+
+# Set the widths
+pA$widths[2:3] <- maxWidth
+pB$widths[2:3] <- maxWidth
+pC$widths[2:3] <- maxWidth
+
+grid.arrange(pA, pB, pC, ncol = 1, heights = c(1.7, 1, 1))
+
+@
+\vfill
+\clearpage
+
+%%%%%%
+% tables
+
+% summary of simulation performance for detided and biological
+<<dtd_perf, cache = F, echo = F, eval = T, results = 'asis'>>=
+
+# uses 'mod_perf' from 'dep_data.rnw'
+load('mod_perf.RData')
+
+# calculate mean, se for dtd_cor and dtd_err
+dtd_perf <- llply(names(mod_perf)[1:6],
+  .fun = function(x) {
+    ddply(
+      mod_perf,
+      .variables = x,
+      .fun = function(y) {
+        c(
+          mean(y$dtd_cor),
+          sd(y$dtd_cor)/sqrt(length(y)),
+          mean(y$dtd_err),
+          sd(y$dtd_err)/sqrt(length(y))
+        )
+    })}
+  )
+# multiply windows by two since value is half window width
+dtd_perf[[6]]$dec_time <- 2*dtd_perf[[6]]$dec_time
+# rename first column for combining, create column for parameter,  then combine
+dtd_perf <- lapply(dtd_perf, 
+  function(x) { 
+    Parameter <- names(x)[1]
+    names(x)[1] <- 'Level'
+    x[,1] <- factor(x[,1])
+    Parameter <- rep(Parameter, nrow(x))
+    x <- data.frame(Parameter, x)
+    x
+    }
+  )
+dtd_perf <- do.call('rbind', dtd_perf)
+names(dtd_perf) <- c('Parameter', 'Level', 'Mean cor', 'Se cor', 'Mean err', 'Se err')
+
+# names for row categories in table
+Parms <- c('Tidal category', '$\\boldsymbol{DO_{die}}$', 
+  '$\\boldsymbol{DO_{adv}}$',  
+  '$\\boldsymbol{\\epsilon_{pro}}$', 
+  '$\\boldsymbol{\\epsilon_{obs}}$', 
+  'Window')
+tab <- form_fun(dtd_perf[, -c(1:2)])
+rows <- dtd_perf[, 2]
+cap.val<-'Mean correlations and error estimates between detided and biological \\ac{DO} time series for different simulation parameters (tidal category, $DO_{die}$, $DO_{adv}$, $\\epsilon_{pro}$, $\\epsilon_{obs}$) and window widths (days).  Each value represents a combination of results from multiple simulations with the parameter value held constant for each row (e.g., row one is a summary of all simulations for which the tidal category was diurnal).'
+
+# foot.val<-'\\footnotesize \\textit{Note:} test' 
+
+latex( 
+  tab,
+  file = '',
+  rowlabel = 'Parameter',
+#   insert.bottom = foot.val,
+  caption = cap.val,
+  caption.loc = 'top',
+  rgroup = Parms,
+  n.rgroup = c(rep(3, 5), 5),
+  cgroup = c('Correlation', 'RMSE'),
+  n.cgroup = c(2, 2),
+  rowname = rows,
+  colheads=rep(c('Mean','Std. Err.'),2),
+  label = 'tab:dtd_perf'
+  )
+
+@
+
+% descriptive table of case studies
+<<case_att, cache = F, echo = F, eval = T, results = 'asis'>>=
+
+# ######
+# # table of case study characteristics
+# # uses local files not in project....
+# 
+# cases <- c('ELKVM','PDBBY', 'RKBMB', 'SAPDC')
+# 
+# ##
+# # get amps (m) of dominant tidal constituents
+# 
+# files <- list.files('M:/wq_models/SWMP/raw/rproc/proc5/', 
+#   pattern = paste(cases, collapse = '|'), 
+#   full.names = T)
+# file_ls <- list()
+# for(file in files){
+#   load(file)
+#   nm <- gsub('.RData', '', basename(file))
+#   cat(nm, '\t')
+#   tmp <- get(nm)
+#   mod <- oce::tidem(tmp$Depth, tmp$DateTimeStamp, 
+#     constituents = c('P1', 'O1', 'M2', 'S2'))
+#   const <- attr(mod, 'data')$amplitude[-1]
+#   names(const) <- attr(mod, 'data')$name[-1]
+#     
+#   file_ls[[nm]] <- const
+#   }
+# tide_comps<- data.frame(do.call('rbind', file_ls))
+# tide_comps$site <- rownames(tide_comps)
+# 
+# ##
+# # get mean daily DO range
+# 
+# files <- list.files('M:/wq_models/SWMP/raw/rproc/proc5/', 
+#   pattern = paste(cases, collapse = '|'), 
+#   full.names = T)
+# file_ls <- list()
+# for(file in files){
+#   load(file)
+#   nm <- gsub('.RData', '', basename(file))
+#   cat(nm, '\t')
+#   tmp <- get(nm)
+#   file_ls[[nm]] <- tmp
+#   }
+# 
+# daily_do <- adply(
+#   file_ls, 1, 
+#   function(x) {
+#     x$jday <- format(x$DateTimeStamp, '%j')
+#     out <- ddply(x,
+#       .variable = 'jday',
+#       .fun = function(y){
+#         if(sum(is.na(y$DO_mgl)) == length(y$DO_mgl)) NA
+#         else {
+#           rng <- diff(c(min(y$DO_mgl, na.rm = T), 
+#             max(y$DO_mgl, na.rm = T)))
+#           avg <- mean(y$DO_mgl, na.rm = T)
+#           c(rng, avg)
+#           }
+#         }
+#       )
+#     colMeans(out[, -1], na.rm = T)
+#     }, 
+#   .progress = 'tk'
+#   )
+# names(daily_do) <- c('site', 'daily_rng', 'daily_avg')
+# 
+# ##
+# # get metab summaries
+# 
+# # metab data
+# load('met_ls.RData')
+# 
+# met_sum <- adply(matrix(cases, ncol = 1),
+#   1,
+#   .fun = function(x){
+#     
+#     met <- met_ls[[x]][, c('Pg', 'Rt', 'NEM')]
+#     colMeans(met, na.rm = T)
+#      
+#     }
+#   )
+# met_sum$X1 <- NULL
+# met_sum$site <- cases
+# 
+# ##
+# # combine data 
+# # tide_comps, daily_do, met_sum
+# 
+# to_tab <- cbind(tide_comps, daily_do, met_sum)
+# to_tab <- to_tab[, !names(to_tab) %in% 'site']
+# 
+# case_tab <- to_tab
+# save(case_tab, file = 'case_tab.RData')
+
+load('case_tab.RData')
+
+# convert metab data to g m^-2 d^-1
+#  1mmolO2 = 32 mg O2, 1000mg = 1g, multiply by 32/1000
+tab <- case_tab
+tab[, c('Pg', 'Rt', 'NEM')] <- 0.032 * tab[, c('Pg', 'Rt', 'NEM')]
+tab <- form_fun(tab)
+rows <- rownames(tab)
+
+cap.val<-'Summary statistics of tidal component amplitudes (m), \\ac{DO} (mg L$^{-1}$), and metabolism estimates (gross production, respiration, and net ecosystem metabolism as g m$^{-2}$ d$^{-1}$) for each case study.  Tidal components are principal lunar semidiurnal (O1, frequency 25.82 hours), solar diurnal (P1, 24.07 hours), lunar semidiurnal (M2, 12.42 hours), and solar semidiurnal (S2, 12 hours), estimated from harmonic regressions of tidal height (\\texttt{oce} package in R, \\citealt{Foreman89}, \\citetalias{RDCT14}).  \\ac{DO} range and mean are grand means of daily estimates for the entire period of record (30 minute observations) for each site.  Metabolism estimates are means of daily integrated values.'
+
+foot.val<-'\\footnotesize\\textsuperscript{\\textit{a}}Pg: gross production, Rt: respiration, NEM: net ecosystem metabolism'
+
+latex( 
+  tab,
+  file = '',
+  rowlabel = 'Site',
+  insert.bottom = foot.val,
+  caption = cap.val,
+  caption.loc = 'top',
+  cgroup = c('Tidal amplitude', 'DO', 'Metabolism\\textsuperscript{\\textit{a}}'),
+  n.cgroup = c(4, 2, 3),
+  rowname = rows,
+  colheads=c('O1', 'P1', 'M2', 'S2', 'Range', 'Mean', 'Pg', 'Rt', 'NEM'),
+  label = 'tab:case_att'
+  )
+
+@
+
+% correlations with tide before/after wtreg
+<<cor_res, cache = F, echo = F, eval = T, results = 'asis'>>=
+# ######
+# # table of DO/metab correlations before after, detiding
+# # note that tide in met_ls is daily average of hourly tidal change
+# 
+# # metab and inst flux data
+# load('met_ls.RData')
+# load('met_ls_inst.RData')
+# 
+# # go through each site for DO cors, use metab list for metab cors
+# case_regs <- list.files(getwd(), '_wtreg.RData')
+# cor_res <- adply(matrix(case_regs),
+#   1, 
+#   .fun = function(x){
+#   
+#     # load wtreg data
+#     load(x)
+#     nm <- gsub('.RData', '', x)
+#     dat_in <- get(nm)
+#       
+#     # DO obs v tide
+#     do_obs <- with(dat_in, 
+#       cor.test(DO_obs, Tide)
+#       )
+#     
+#     # DO dtd v tide
+#     do_dtd <- with(dat_in, 
+#       cor.test(DO_dtd, Tide)
+#       )
+#     
+#     # inst flux data
+#     flux_in <- met_ls_inst[[x]]
+#     
+#     # DOF with dtide
+#     flux_obs <- with(flux_in, 
+#       cor.test(DOF_obs, dTide)
+#       )
+#     
+#     # DOF_dtd with dtide
+#     flux_dtd <- with(flux_in, 
+#       cor.test(DOF_dtd, dTide)
+#       )
+#     
+#     # get metab data from list
+#     dat_in <- met_ls[[x]]
+#     
+#     # melt for quicker analysis
+#     dat_in <- melt(dat_in, 
+#       measure.var = c('Pg', 'Rt', 'NEM', 'Pg_dtd', 'Rt_dtd', 'NEM_dtd'), 
+#       id.var = c('Tide'))
+#     
+#     met_cor <- dlply(dat_in, 
+#       .(variable), 
+#       function(y) cor.test(y$value, y$Tide)
+#       )
+#     names(met_cor) <- c('Pg_obs', 'Rt_obs', 'NEM_obs', 'Pg_dtd', 'Rt_dtd', 
+#       'NEM_dtd')
+#     
+#     all_ls <- c(do_obs = list(do_obs), do_dtd = list(do_dtd),
+#       flux_obs = list(flux_obs), flux_dtd = list(flux_dtd), met_cor)
+#     
+#     res_sum <- ldply(all_ls, 
+#       function(x) with(x, c(estimate, p.value))
+#       )
+# 
+#     res_sum
+#     
+#   })
+# 
+# cor_res$site <- factor(cor_res$X1, 
+#   labels = gsub('_wtreg.RData', '', case_regs))
+# cor_res$X1 <- NULL
+# 
+# names(cor_res) <- c('var', 'corr', 'pval', 'site')
+# 
+# cor_res$sub_var <- gsub('[A-Z,a-z]*_', '', cor_res$var)
+# cor_res$var <- gsub('_obs|_dtd', '', cor_res$var)
+# 
+# save(cor_res, file = 'cor_res.RData')
+
+load('cor_res.RData')
+
+# subset all results for plotting
+to_tab <- cor_res
+
+to_tab <- dcast(cor_res, site + sub_var ~ var, value.var = 'corr')
+
+# reorder rows, columns for plot
+to_tab$sub_var <- factor(to_tab$sub_var, levels = c('obs', 'dtd'))
+to_tab <- to_tab[with(to_tab, order(site, sub_var)), ]
+to_tab <- to_tab[, c('site', 'sub_var', 'do', 'flux', 'Pg', 'Rt', 'NEM')]
+
+# p vals for each correlation
+pvals <- dcast(cor_res, site + sub_var ~ var, value.var = 'pval')
+
+# reorder rows, columns for plot
+pvals$sub_var <- factor(pvals$sub_var, levels = c('obs', 'dtd'))
+pvals <- pvals[with(pvals, order(site, sub_var)), ]
+pvals <- pvals[, c('site', 'sub_var', 'do', 'flux', 'Pg', 'Rt', 'NEM')]
+
+# combine both tables
+tab <- to_tab
+rows <- as.character(tab$site)
+tab <- form_fun(tab[, -c(1:2)])
+pvals <- pvals[, -c(1:2)]
+pdims <- dim(pvals)
+
+pvals <- star_fun(c(as.matrix(pvals)))
+tab <- c(as.matrix(tab))
+tab <- paste0(tab, pvals)
+tab <- matrix(tab, nrow = pdims[1], ncol = pdims[2])
+
+cap.val<-'Correlations of tidal changes at each site with continuous \\ac{DO} observations, instantaneous \\ac{DO} flux, and metabolism estimates (gross production, respiration, and net metabolism) before (observed) and after detiding with weighted regression.  \\ac{DO} values are correlated with predicated tidal height at each observation, \\ac{DO} flux values are correlated with tidal change between observations, and daily integrated metabolism estimates are correlated with daily tidal range.'
+
+foot.val<-'\\footnotesize *$p<0.05$; **$p<0.01$; ***$p<0.001$\\\\\\textsuperscript{\\textit{a}}Pg: gross production, Rt: respiration, NEM: net ecosystem metabolism' 
+
+latex( 
+  tab,
+  file = '',
+  rowlabel = 'Site',
+  rgroup = unique(rows), 
+  n.rgroup = rep(2, 4),
+  insert.bottom = foot.val,
+  caption = cap.val,
+  colheads = c('DO', 'DO flux', 'Pg\\textsuperscript{\\textit{a}}', 'Rt', 'NEM'),
+  caption.loc = 'top',
+  rowname = rep(c('Observed', 'Detided'), 4),
+  label = 'tab:cor_res'
+  )
+
+@
+
+% case study metabolism results, including perc anom
+<<case_res, cache = F, echo = F, eval = T, results = 'asis'>>=
+# metab and inst flux data
+# load('met_ls.RData')
+# 
+# met_comp <- ldply(met_ls, function(x){
+#   
+#   # detided
+#   anoms <- anoms.fun(x, pgvar = 'Pg_dtd', rtvar = 'Rt_dtd')
+#   anoms <- data.frame(variable = 'Anom', anoms)
+#   anoms <- melt(anoms, id.var = 'variable', variable.name = 'X1')[, c(2, 1, 3)]
+#   subs <- na.omit(x[, c('Pg_dtd', 'Rt_dtd', 'NEM_dtd')])  
+#   sums <- adply(t(subs),
+#     1, 
+#     function(y) data.frame(Avg = mean(y), se = sd(y)/sqrt(length(y)))
+#     )
+#   sums <- melt(sums, id.var = 'X1')
+#   dtd <- rbind(anoms, sums)
+#   dtd$X1 <- gsub('_dtd', '', dtd$X1)
+#   dtd$Input <- 'Detided'
+#   
+#   # observed
+#   anoms <- anoms.fun(x, pgvar = 'Pg', rtvar = 'Rt')
+#   anoms <- data.frame(variable = 'Anom', anoms)
+#   anoms <- melt(anoms, id.var = 'variable', variable.name = 'X1')[, c(2, 1, 3)]
+#   subs <- na.omit(x[, c('Pg', 'Rt', 'NEM')])  
+#   sums <- adply(t(subs),
+#     1, 
+#     function(y) data.frame(Avg = mean(y), se = sd(y)/sqrt(length(y)))
+#     )
+#   sums <- melt(sums, id.var = 'X1')
+#   obs <- rbind(anoms, sums)
+#   obs$Input <- 'Observed'  
+#   
+#   # output
+#   out <- rbind(dtd, obs)
+#   names(out) <- c('Metab', 'Metric', 'Value', 'Input')
+#   
+#   return(out)
+#   
+#   })
+# 
+# save(met_comp, file = 'met_comp.RData')
+
+load('met_comp.RData')
+
+to_tab <- met_comp
+names(to_tab)[1] <- 'Site'
+
+# convert metab data to g m^-2 d^-1
+#  1mmolO2 = 32 mg O2, 1000mg = 1g, multiply by 32/1000
+sel_vec <- !to_tab$Metric %in% 'Anom'
+to_tab$Value[sel_vec] <- 0.032 * to_tab$Value[sel_vec]
+
+# make columns as factors for correct row, column order w/ dcast
+to_tab$Input <- factor(to_tab$Input, levels = c('Observed', 'Detided'))
+to_tab$Metab <- factor(to_tab$Metab, levels = c('Pg', 'Rt', 'NEM'))
+to_tab$Metric <- factor(to_tab$Metric, levels = c('Avg', 'se', 'Anom'))
+
+# dcast long to wide
+to_tab <- dcast(to_tab, Site + Input ~ Metab + Metric, value.var = 'Value')
+
+# names for row categories in table
+
+tab <- form_fun(to_tab[, -c(1:2)])
+rows <- to_tab[, 2]
+cap.val<-'Metabolism estimates (gross production, respiration, and net metabolism) for case studies using \\ac{DO} time series before (observed) and after (detided) application of weighted regression.  Means and standard errors are based on daily integrated metabolism estimates.  Anomalous values are the proportion of metabolism estimates that were negative for gross production and positive for respiration.'
+
+foot.val<-'\\textsuperscript{\\textit{a}}Pg: gross production, Rt: respiration, NEM: net ecosystem metabolism' 
+latex( 
+  tab,
+  file = '',
+  rowlabel = 'Site',
+  insert.bottom = foot.val,
+  caption = cap.val,
+  caption.loc = 'top',
+  rgroup = gsub('_wtreg.RData', '', unique(to_tab$Site)),
+  n.rgroup = rep(2, 4),
+  cgroup = c('Pg\\textsuperscript{\\textit{a}}', 'Rt', 'NEM'),
+  n.cgroup = c(3, 3, 2),
+  rowname = rows,
+  colheads=c(rep(c('Mean','Std. Err.', 'Anom'),2), c('Mean', 'Std. Err.')),
+  label = 'tab:case_res'
+  )
+@
+
+\end{document}

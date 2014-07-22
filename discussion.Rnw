@@ -1,0 +1,29 @@
+\begin{comment}
+
+what did I find?
+
+- simulations work well
+- DO time series were detided for case studies, show comvincingly
+  - corrs w/ tide and moving correlation/beta plots?, DO and DOF are different
+- metab ests for case studies were generally unchanged
+  - related to the fact that metab is daily integrated that averages out
+  - but show PDB example, really a major issue when the stars align (tide always going out during the day etc. more of a problem for strong diurnal tides, method was useful for this example
+- method should not be broadly used to fix `anomalous' metab estimates, these are likely not caused by tides unless a case like PDB
+- method should be used to detide DO, useful in that regard
+
+
+
+Although Sapelo Island had the largest reduction in anomalous metabolism estimates compared to the other sites (\cref{tab:case_res}), the example in \cref{fig:case_ex1} shows little change metabolism between time series for period of observations.  This example provides a potential explanation why detiding the \ac{DO} time series had variable effect on removing anomalous estimates between case studies.  Specifically, metabolism estimates in the ten day period were similar between the observed and detided values.  Metabolism is a daily integrated average of \ac{DO} flux such that variation from changes in tidal height on a semidiurnal period may be cancelled out by averaging on a 24 hour period.  Regardless, the detided \ac{DO} time series represents an unbiased estimate that more clearly represents variation from biological processes.
+
+weighted regression approach is very useful because DO and tide are cyclical and the interaction varies depending on whether they are in or out of phase.  the approach is adaptive and does not require the user to identify the relationship a priori, a relationship that is comlicated by the additive combination of multiple sine waves. 
+
+make note that a non-moving window approach could work only if the relationship of time, tide, DO is constant throughout the time series.  For example, regression of do w/ tide before/after detiding using a non-weighted approach detided the whole series but had variable success by month,  where weighted approach detided each month completley.  Simulations did not test for this, although this was apparent with the case studies.
+
+why not just average, doesn't the noise get removed by aggregating reults over time?  Yes but make case that the method allows use of shorter time series to estimate metabolism - relate to nidzieko and pdbje 
+
+why not just fourier transform or hi/lo pass filters?  See Needobe et al. chapter and Batt and Carpenter 2012  for examples of this, need to the pros/cons of each technique, we assume that noise not related to tidal advection is DO from biology
+
+effects of proc unc v obs unc 
+
+air-sea gas exchange, how might this influence results
+\end{comment}
