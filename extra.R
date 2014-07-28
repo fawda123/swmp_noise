@@ -244,126 +244,147 @@ ggplot(to_plo, aes(x = DateTimeStamp, y = value, colour = wtreg)) +
   facet_grid(.id ~ variable)
 
 ######
+# table of DO/metab correlations before after, detiding
+# note that tide in met_ls is daily average of hourly tidal change
 
-load('met_ls_inst.RData')
+# metab and inst flux data
 load('met_ls.RData')
+load('met_ls_inst.RData')
+load('case_grds.RData')
 
-case <- 'PDBBY'
+# go through each site for DO cors, use metab list for metab cors
+case_regs <- list.files(getwd(), '_wtreg_[0-9]*.RData')
+cor_res <- alply(matrix(case_regs),
+  1, 
+  .fun = function(x){
+  
+    # load wtreg data
+    load(x)
+    nm <- gsub('.RData', '', x)
+    dat_in <- get(nm)
+      
+    # DO obs v tide
+    do_obs <- with(dat_in, 
+      cor.test(DO_obs, Tide)
+      )
+    
+    # DO dtd v tide
+    do_dtd <- with(dat_in, 
+      cor.test(DO_dtd, Tide)
+      )
+    
+    # inst flux data
+    flux_in <- met_ls_inst[[x]]
+    
+    # DOF with dtide
+    flux_obs <- with(flux_in, 
+      cor.test(DOF_obs, dTide)
+      )
+    
+    # DOF_dtd with dtide
+    flux_dtd <- with(flux_in, 
+      cor.test(DOF_dtd, dTide)
+      ) 
+    
+    # get tidal range for metabolic day/night periods from flux_in
+    # for correlation with daily integrated metab
+    tide_rngs <- ddply(flux_in, 
+      .variables = c('met.date'),
+      .fun = function(x){
+#         sunrise <- suppressWarnings(diff(range(x[x$variable %in% 'sunrise', 'Tide'])))
+#         sunset <- suppressWarnings(diff(range(x[x$variable %in% 'sunset', 'Tide'])))
+#         if(sunrise == 'Inf') sunrise <- NA
+#         if(sunset == 'Inf') sunset <- NA
+#         daytot <- diff(range(x$Tide))
+        sunrise <- mean(diff(x[x$variable %in% 'sunrise', 'Tide'], na.rm = T))
+        sunset <- mean(diff(x[x$variable %in% 'sunset', 'Tide'], na.rm = T))
+        if(sunrise == 'Inf') sunrise <- NA
+        if(sunset == 'Inf') sunset <- NA
+        daytot <- mean(diff(x$Tide, na.rm = T))
+        
+        c(daytot, sunrise, sunset)
+        }
+      )
+    names(tide_rngs) <- c('Date','daytot', 'sunrise', 'sunset')
+    
+    # get metab data from list
+    dat_in <- met_ls[[x]]
+    dat_in <- merge(dat_in, tide_rngs, by = 'Date', all.x = T)
+    
+    # as list for all metab correlations
+    # Pg values correlated with tidal range during sunlight hours
+    # Rt values correlated with tidal range during night hours
+    # NEM values correlated with metabolic daily tidal range
+    met_cor <- list(
+      
+      Pg_obs = with(dat_in, 
+        cor.test(Pg, sunrise)
+        ),
+    
+      Rt_obs = with(dat_in, 
+        cor.test(Rt, sunset)
+        ),
+    
+      NEM_obs = with(dat_in, 
+        cor.test(NEM, daytot)
+        ),
+    
+      Pg_dtd = with(dat_in, 
+        cor.test(Pg_dtd, sunrise)
+        ),
+    
+      Rt_dtd = with(dat_in, 
+        cor.test(Rt_dtd, sunset)
+        ),
+    
+      NEM_dtd = with(dat_in, 
+        cor.test(NEM_dtd, daytot)
+        )
+      
+      )
+    
+    # DO and metab corrs combined
+    all_ls <- c(do_obs = list(do_obs), do_dtd = list(do_dtd),
+      flux_obs = list(flux_obs), flux_dtd = list(flux_dtd), met_cor)
+    
+    # convert the stats for each wtreg to data frame
+    res_sum <- ldply(all_ls, 
+      function(x) with(x, c(estimate, p.value))
+      )
+    names(res_sum) <- c('var', 'cor', 'pval')
 
-##
-# all PAR
-to.plo <- met_ls_inst[[grep(case, names(met_ls_inst))]]
+    res_sum
+    
+  })
+names(cor_res) <- case_regs
 
-p <- ggplot(to.plo, aes(DateTimeStamp, Tide, colour=TotPAR)) + 
-  geom_line(size = 1) + 
-  scale_x_datetime(name = '',expand=c(0,0)) + 
-  scale_y_continuous('Depth (m)', expand=c(0,0), limits=c(0.5,4.5)) +
-  scale_colour_gradient(low='blue', high='yellow',
-    guide = guide_colorbar(direction = "horizontal",barheight= 0.3)) +
-  theme_bw() +
-  theme(legend.position = c(1,1), legend.justification = c(1,1),
-    legend.background = element_rect(colour='black')) 
-p
+# melt and make separate columns for site and window comb value
+cor_res <- melt(cor_res, id.var = names(cor_res[[1]]))  
+cor_res$site <- gsub('_wtreg_[0-9]*.RData', '', cor_res$L1)
+cor_res$wins <- as.numeric(gsub('^.*_wtreg_|.RData', '', cor_res$L1))
 
-##
-# subsets by case and date range
-# plot metab and tide
+# merge with case_grds
+case_grds$wins <- as.numeric(row.names(case_grds))
+cor_res <- merge(cor_res, case_grds, by = 'wins', all.x = T)
 
-dat.rng<-as.Date(c('2012-03-01','2012-03-27')) 
+# create columns for variable (DO, flux, etc.) and sub variable (obs, dtd)
+cor_res$sub_var <- gsub('^.*_', '', cor_res$var)
+cor_res$var <- gsub('_.*$', '', cor_res$var)
 
-met_subs <- met_ls[[grep(case, names(met_ls_inst))]]
-inst_subs <- met_ls_inst[[grep(case, names(met_ls_inst))]]
+save(cor_res, file = 'cor_res.RData')
 
-# subset data
-met.rng <- met_subs$Date<=dat.rng[2] & met_subs$Date>=dat.rng[1]
-met_subs <- met_subs[met.rng,]
-
-inst_subs$Date <- as.Date(inst_subs$DateTimeStamp)
-inst.rng <- inst_subs$Date<=dat.rng[2] & inst_subs$Date>=dat.rng[1]
-inst_subs <- inst_subs[inst.rng,]
-
-##
-# custom theme, mod of theme_bw
-
-my_theme <- theme(
-  legend.title = element_blank(),legend.position = 'top',
-  axis.title.x = element_blank(),legend.box= 'horizontal',
-  plot.margin= unit(c(0, 1, 0, 1), "lines") # top right bottom left
-  )
-
-# function for setting range on y axis
-rng.fun<-function(vec.in){
-  rngs<-range(vec.in,na.rm=T)
-  buffs<-0.07*abs(diff(rngs))
-  c(rngs[1]-buffs,rngs[2]+buffs)
-  }
-
-##
-# metab plot
-to_plo1 <- melt(met_subs, id.var = c('Date'), 
-  measure.var = grep('Pg|Rt|NEM', names(met_subs), value = T)
-  )
-to_plo1$Input <- 'Observed'
-to_plo1$Input[grep('dtd', to_plo1$variable)] <- 'Detided'
-to_plo1$Input <- factor(to_plo1$Input, levels = c('Observed', 'Detided'))
-to_plo1$variable <- gsub('_dtd', '', to_plo1$variable)
-
-ylab<-expression(paste('DO (g ',m^-2, d^-1, ')'))
-p1 <- ggplot(to_plo1, aes(x = Date, y = 0.032 * value, group = variable,
-    colour = variable)) +
-  geom_line() +
-  theme_bw() +
-  geom_point(size = 2) +
-  facet_wrap(~Input, ncol = 1) +
-  scale_y_continuous(ylab)  +
-  my_theme
-
-##
-# DO plot
-to_plo2 <- met.day.fun(inst_subs, case)
-names(to_plo2)[names(to_plo2) %in% 'variable'] <- 'solar'
-ggpoly <- poly.fun(to_plo2$solar, to_plo2)
-
-ylab<-expression(paste('DO (mg ',L^-1,')'))
-p2 <- ggplot(to_plo2, aes(x = DateTimeStamp)) + 
-  ggpoly +
-  geom_line(aes(y = DO_obs, colour = 'Observed')) +
-  geom_line(aes(y = DO_dtd, colour = 'Detided')) +
-  coord_cartesian(ylim = rng.fun(to_plo2$DO_obs)) +
-  scale_fill_manual(values='orange',labels='Day') +
-  theme_bw() +
-  scale_y_continuous(ylab)  +
-  my_theme
-
-## 
-# tide plot
-to_plo3 <- met.day.fun(inst_subs, case)
-names(to_plo2)[names(to_plo2) %in% 'variable'] <- 'solar'
-ggpoly <- poly.fun(to_plo2$solar, to_plo2)
-
-ylab<-expression(paste('Height (m)'))
-p3 <- ggplot(to_plo3, aes(x = DateTimeStamp)) + 
-  ggpoly +
-  geom_line(aes(y = Tide, colour = TotPAR), size = 1.2) +
-  coord_cartesian(ylim = rng.fun(to_plo3$Tide)) +
-  scale_fill_manual(values='orange',labels='Day') +
-  theme_bw() +  
-  my_theme + 
-  scale_y_continuous(ylab) +
-  scale_colour_gradient(low='blue', high='yellow',
-    guide = guide_colorbar(direction = "horizontal",barheight= 0.3))
-
-# Get the widths
-pA <- ggplot_gtable(ggplot_build(p1))
-pB <- ggplot_gtable(ggplot_build(p2))
-pC <- ggplot_gtable(ggplot_build(p3))
-maxWidth = unit.pmax(pA$widths[2:3], pB$widths[2:3], 
-                     pC$widths[2:3])
-
-# Set the widths
-pA$widths[2:3] <- maxWidth
-pB$widths[2:3] <- maxWidth
-pC$widths[2:3] <- maxWidth
-
-grid.arrange(pA, pB, pC, ncol = 1, heights = c(1.7, 1, 1))
-
+to_plo <- cor_res
+to_plo$group_var <- paste(to_plo$Tide, to_plo$sub_var)
+to_plo_obs <- to_plo[to_plo$sub_var %in% 'obs', ]
+p1 <- ggplot(to_plo[to_plo$sub_var %in% 'dtd',], 
+    aes(x = factor(Day), y = cor, colour = Tide, group = group_var)) +
+  geom_line() + 
+  geom_line(data = to_plo_obs, 
+    aes(x = factor(Day), y = cor, group = group_var), 
+    colour = 'black', size = 1) +
+  geom_point(aes(pch = sub_var)) +
+  facet_grid(var ~ site) +
+  ylim(c(-1, 1)) +
+  theme_bw() 
+  
+  

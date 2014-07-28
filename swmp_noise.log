@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.8.29)  21 JUL 2014 17:13
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.8.29)  28 JUL 2014 11:45
 entering extended mode
 **swmp_noise.tex
 (M:\docs\manuscripts\swmp_noise\swmp_noise.tex
@@ -696,23 +696,34 @@ Package acronym Info: Label `acro:DO' overridden on input line 177.
 Package acronym Info: Label `acro:WRTDS' newly defined as it shall be overridde
 n
 although it is yet undefined on input line 187.
- [7] [8] [9] [10] [11] [12] [13] [14]
+ [7] [8] [9]
+
+LaTeX Warning: Reference `fig:do_dtd' on page 1 undefined on input line 209.
+
+[10] [11] [12] [13] [14]
 Package acronym Info: Label `acro:RMSE' newly defined as it shall be overridden
 
 although it is yet undefined on input line 279.
- [15]
+
+
+LaTeX Warning: Reference `fig:do_dtd' on page 1 undefined on input line 281.
+
+
+LaTeX Warning: Reference `fig:do_dtd' on page 1 undefined on input line 281.
+
+[15]
 Package acronym Info: Label `acro:NERRS' newly defined as it shall be overridde
 n
 although it is yet undefined on input line 285.
 Package acronym Info: Label `acro:SWMP' newly defined as it shall be overridden
 
 although it is yet undefined on input line 285.
- [16] [17] [18] [19]
-(M:\docs\manuscripts\swmp_noise\swmp_noise.bbl [20] [21]) [22]
+ [16] [17] [18] [19] (M:\docs\manuscripts\swmp_noise\swmp_noise.bbl
+[20] [21]) [22]
 
 Package xcolor Warning: Incompatible color definition on input line 357.
 
-<figure/do_sim.pdf, id=356, 578.16pt x 505.89pt>
+<figure/do_sim.pdf, id=352, 578.16pt x 505.89pt>
 File: figure/do_sim.pdf Graphic file (type pdf)
  <use figure/do_sim.pdf>
 Package pdftex.def Info: figure/do_sim.pdf used on input line 360.
@@ -724,126 +735,280 @@ Package pdftex.def Info: figure/do_sim.pdf used on input line 360.
 
 Package xcolor Warning: Incompatible color definition on input line 375.
 
-<figure/do_dtd.pdf, id=368, 578.16pt x 361.35pt>
-File: figure/do_dtd.pdf Graphic file (type pdf)
- <use figure/do_dtd.pdf>
-Package pdftex.def Info: figure/do_dtd.pdf used on input line 378.
-(pdftex.def)             Requested size: 469.75502pt x 293.59616pt.
+LaTeX Font Info:    Font shape `OT1/pcr/bx/n' in size <12> not available
+(Font)              Font shape `OT1/pcr/b/n' tried instead on input line 378.
+
+Package xcolor Warning: Incompatible color definition on input line 378.
+
+
+Package xcolor Warning: Incompatible color definition on input line 380.
+
+
+Package xcolor Warning: Incompatible color definition on input line 382.
+
+
+Package xcolor Warning: Incompatible color definition on input line 384.
 
 [24
 
- <M:/docs/manuscripts/swmp_noise/figure/do_dtd.pdf>]
+]
 
-Package xcolor Warning: Incompatible color definition on input line 393.
+Package xcolor Warning: Incompatible color definition on input line 392.
 
-<figure/sim_ex.pdf, id=382, 505.89pt x 469.755pt>
+<figure/sim_ex.pdf, id=369, 505.89pt x 469.755pt>
 File: figure/sim_ex.pdf Graphic file (type pdf)
  <use figure/sim_ex.pdf>
-Package pdftex.def Info: figure/sim_ex.pdf used on input line 396.
+Package pdftex.def Info: figure/sim_ex.pdf used on input line 395.
 (pdftex.def)             Requested size: 469.75502pt x 436.20819pt.
 
 [25
 
  <M:/docs/manuscripts/swmp_noise/figure/sim_ex.pdf>]
 
-Package xcolor Warning: Incompatible color definition on input line 411.
+Package xcolor Warning: Incompatible color definition on input line 410.
 
-<figure/err_surf.pdf, id=402, 433.62pt x 433.62pt>
+<figure/err_surf.pdf, id=389, 433.62pt x 433.62pt>
 File: figure/err_surf.pdf Graphic file (type pdf)
  <use figure/err_surf.pdf>
-Package pdftex.def Info: figure/err_surf.pdf used on input line 414.
+Package pdftex.def Info: figure/err_surf.pdf used on input line 413.
 (pdftex.def)             Requested size: 433.61894pt x 433.63878pt.
 
 [26
 
  <M:/docs/manuscripts/swmp_noise/figure/err_surf.pdf>]
 
-Package xcolor Warning: Incompatible color definition on input line 429.
+Package xcolor Warning: Incompatible color definition on input line 428.
 
-<figure/extreme.pdf, id=417, 505.89pt x 469.755pt>
+<figure/extreme.pdf, id=404, 505.89pt x 469.755pt>
 File: figure/extreme.pdf Graphic file (type pdf)
  <use figure/extreme.pdf>
-Package pdftex.def Info: figure/extreme.pdf used on input line 432.
+Package pdftex.def Info: figure/extreme.pdf used on input line 431.
 (pdftex.def)             Requested size: 469.75502pt x 436.20819pt.
 
 [27
 
  <M:/docs/manuscripts/swmp_noise/figure/extreme.pdf>]
 
-Package xcolor Warning: Incompatible color definition on input line 447.
+Package xcolor Warning: Incompatible color definition on input line 446.
 
-<figure/case_map.pdf, id=434, 578.16pt x 361.35pt>
+<figure/case_map.pdf, id=421, 578.16pt x 361.35pt>
 File: figure/case_map.pdf Graphic file (type pdf)
  <use figure/case_map.pdf>
-Package pdftex.def Info: figure/case_map.pdf used on input line 450.
+Package pdftex.def Info: figure/case_map.pdf used on input line 449.
 (pdftex.def)             Requested size: 469.75502pt x 293.59616pt.
 
 [28
 
  <M:/docs/manuscripts/swmp_noise/figure/case_map.pdf>]
 
-Package xcolor Warning: Incompatible color definition on input line 465.
+Package xcolor Warning: Incompatible color definition on input line 464.
 
-<figure/case_ex1.pdf, id=447, 397.485pt x 542.025pt>
+
+Package xcolor Warning: Incompatible color definition on input line 467.
+
+LaTeX Font Info:    Try loading font information for TS1+pcr on input line 467.
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\ts1pcr.fd"
+File: ts1pcr.fd 2001/06/04 font definitions for TS1/pcr.
+)
+LaTeX Font Info:    Font shape `TS1/pcr/bx/n' in size <12> not available
+(Font)              Font shape `TS1/pcr/b/n' tried instead on input line 467.
+
+
+Package xcolor Warning: Incompatible color definition on input line 469.
+
+
+Package xcolor Warning: Incompatible color definition on input line 471.
+
+
+Package xcolor Warning: Incompatible color definition on input line 473.
+
+
+Package xcolor Warning: Incompatible color definition on input line 475.
+
+
+Package xcolor Warning: Incompatible color definition on input line 477.
+
+
+Package xcolor Warning: Incompatible color definition on input line 479.
+
+
+Package xcolor Warning: Incompatible color definition on input line 481.
+
+
+Package xcolor Warning: Incompatible color definition on input line 483.
+
+
+Package xcolor Warning: Incompatible color definition on input line 485.
+
+
+Package xcolor Warning: Incompatible color definition on input line 487.
+
+
+Package xcolor Warning: Incompatible color definition on input line 489.
+
+
+Package xcolor Warning: Incompatible color definition on input line 491.
+
+
+Package xcolor Warning: Incompatible color definition on input line 493.
+
+
+Package xcolor Warning: Incompatible color definition on input line 495.
+
+<figure/case_ex1.pdf, id=434, 397.485pt x 542.025pt>
 File: figure/case_ex1.pdf Graphic file (type pdf)
  <use figure/case_ex1.pdf>
-Package pdftex.def Info: figure/case_ex1.pdf used on input line 468.
+Package pdftex.def Info: figure/case_ex1.pdf used on input line 498.
 (pdftex.def)             Requested size: 375.80544pt x 512.48099pt.
 
 [29
 
- <M:/docs/manuscripts/swmp_noise/figure/case_ex1.pdf>]
+] [30 <M:/docs/manuscripts/swmp_noise/figure/case_ex1.pdf>]
 
-Package xcolor Warning: Incompatible color definition on input line 483.
+Package xcolor Warning: Incompatible color definition on input line 513.
 
-<figure/case_ex2.pdf, id=462, 397.485pt x 542.025pt>
+
+Package xcolor Warning: Incompatible color definition on input line 516.
+
+
+Package xcolor Warning: Incompatible color definition on input line 518.
+
+
+Package xcolor Warning: Incompatible color definition on input line 520.
+
+
+Package xcolor Warning: Incompatible color definition on input line 522.
+
+
+Package xcolor Warning: Incompatible color definition on input line 524.
+
+
+Package xcolor Warning: Incompatible color definition on input line 526.
+
+
+Package xcolor Warning: Incompatible color definition on input line 528.
+
+
+Package xcolor Warning: Incompatible color definition on input line 530.
+
+
+Package xcolor Warning: Incompatible color definition on input line 532.
+
+
+Package xcolor Warning: Incompatible color definition on input line 534.
+
+
+Package xcolor Warning: Incompatible color definition on input line 536.
+
+
+Package xcolor Warning: Incompatible color definition on input line 538.
+
+
+Package xcolor Warning: Incompatible color definition on input line 540.
+
+
+Package xcolor Warning: Incompatible color definition on input line 542.
+
+
+Package xcolor Warning: Incompatible color definition on input line 544.
+
+<figure/case_ex2.pdf, id=453, 397.485pt x 542.025pt>
 File: figure/case_ex2.pdf Graphic file (type pdf)
  <use figure/case_ex2.pdf>
-Package pdftex.def Info: figure/case_ex2.pdf used on input line 486.
-(pdftex.def)             Requested size: 375.80544pt x 512.48099pt.
-
-[30
-
- <M:/docs/manuscripts/swmp_noise/figure/case_ex2.pdf>]
-
-Package xcolor Warning: Incompatible color definition on input line 501.
-
-<figure/case_ex3.pdf, id=478, 397.485pt x 542.025pt>
-File: figure/case_ex3.pdf Graphic file (type pdf)
- <use figure/case_ex3.pdf>
-Package pdftex.def Info: figure/case_ex3.pdf used on input line 504.
+Package pdftex.def Info: figure/case_ex2.pdf used on input line 547.
 (pdftex.def)             Requested size: 375.80544pt x 512.48099pt.
 
 [31
 
- <M:/docs/manuscripts/swmp_noise/figure/case_ex3.pdf>]
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 577.
-LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <8> not available
-(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 577.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 588.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 658.
- [32] [33] [34]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 658.
+] [32 <M:/docs/manuscripts/swmp_noise/figure/case_ex2.pdf>]
 
-(M:\docs\manuscripts\swmp_noise\swmp_noise.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 658.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 658.
+Package xcolor Warning: Incompatible color definition on input line 562.
+
+
+Package xcolor Warning: Incompatible color definition on input line 565.
+
+
+Package xcolor Warning: Incompatible color definition on input line 567.
+
+
+Package xcolor Warning: Incompatible color definition on input line 569.
+
+
+Package xcolor Warning: Incompatible color definition on input line 571.
+
+
+Package xcolor Warning: Incompatible color definition on input line 573.
+
+
+Package xcolor Warning: Incompatible color definition on input line 575.
+
+
+Package xcolor Warning: Incompatible color definition on input line 577.
+
+
+Package xcolor Warning: Incompatible color definition on input line 579.
+
+
+Package xcolor Warning: Incompatible color definition on input line 581.
+
+
+Package xcolor Warning: Incompatible color definition on input line 583.
+
+
+Package xcolor Warning: Incompatible color definition on input line 585.
+
+
+Package xcolor Warning: Incompatible color definition on input line 587.
+
+
+Package xcolor Warning: Incompatible color definition on input line 589.
+
+
+Package xcolor Warning: Incompatible color definition on input line 591.
+
+
+Package xcolor Warning: Incompatible color definition on input line 593.
+
+<figure/case_ex3.pdf, id=474, 397.485pt x 542.025pt>
+File: figure/case_ex3.pdf Graphic file (type pdf)
+ <use figure/case_ex3.pdf>
+Package pdftex.def Info: figure/case_ex3.pdf used on input line 596.
+(pdftex.def)             Requested size: 375.80544pt x 512.48099pt.
+
+[33
+
+] [34 <M:/docs/manuscripts/swmp_noise/figure/case_ex3.pdf>]
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 669.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <8> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 669.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 680.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 750.
+ [35] [36]
+[37]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 750.
+ (M:\docs\manuscripts\swmp_noise\swmp_noise.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 750.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 750.
 Package rerunfilecheck Info: File `swmp_noise.out' has not changed.
 (rerunfilecheck)             Checksum: 039143CF7628EF5D1C82618FF273B234;928.
 
 
+LaTeX Warning: There were undefined references.
+
+
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 658.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 750.
  ) 
 Here is how much of TeX's memory you used:
- 11896 strings out of 493921
- 187879 string characters out of 3147282
+ 11916 strings out of 493921
+ 188119 string characters out of 3147282
  320711 words of memory out of 3000000
- 14869 multiletter control sequences out of 15000+200000
- 39848 words of font info for 85 fonts, out of 3000000 for 9000
+ 14882 multiletter control sequences out of 15000+200000
+ 40656 words of font info for 88 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
  44i,14n,49p,2032b,532s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/fontname/8r.enc}<C:/Program File
@@ -857,13 +1022,14 @@ msfonts/cm/cmmib10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts
 b><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Prog
 ram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program File
 s/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/MiKTeX 
-2.9/fonts/type1/urw/courier/ucrr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1
-/urw/times/utmb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmbi8
-a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Program
- Files/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb>
-Output written on swmp_noise.pdf (34 pages, 1142597 bytes).
+2.9/fonts/type1/urw/courier/ucrb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1
+/urw/courier/ucrr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmb
+8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmbi8a.pfb><C:/Progr
+am Files/MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Program Files/MiKTeX 2
+.9/fonts/type1/urw/times/utmri8a.pfb>
+Output written on swmp_noise.pdf (37 pages, 4412697 bytes).
 PDF statistics:
- 595 PDF objects out of 1000 (max. 8388607)
- 109 named destinations out of 1000 (max. 500000)
- 142 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 600 PDF objects out of 1000 (max. 8388607)
+ 111 named destinations out of 1000 (max. 500000)
+ 137 words of extra memory for PDF output out of 10000 (max. 10000000)
 
