@@ -611,340 +611,39 @@ meta <- meta[, c('Longitude', 'Latitude','Reserve.Name')]
 \vfill
 \clearpage
 
-% example from SAPDC
+% plots of summarized metabolism estimates, before/after detiding
 \centering\vspace*{\fill}
-<<case_ex1, cache = F, fig.height = 7.5, fig.width = 5.5, out.width = '0.8\\textwidth', eval = T, echo = F, fig.cap = 'Example of metabolism and \\ac{DO} time series before (observed) and after (detided) weighted regression. Results are for a ten day period in March for the Sapelo Island station.'>>=
-######
-# SAPDC example
+<<metab_sum, cache = T, eval = F, echo = F, fig.cap = 'Test'>>=
 
-load('met_ls_inst.RData')
+# load metabolism data
 load('met_ls.RData')
 
-# subsets by case and date range
-case <- 'SAPDC'
-dat.rng<-as.Date(c('2012-03-20','2012-03-29')) 
+# subset metab estimates by 30 day window and tide prop 1
+load('case_grds.RData')
+sel_vec <- with(case_grds, which(Day == 30 & Tide == 1))
 
-met_subs <- met_ls[[paste(case, 'wtreg.RData', sep = '_')]]
-inst_subs <- met_ls_inst[[paste(case, 'wtreg.RData', sep = '_')]]
+met_sub <- met_ls[grep(sel_vec, names(met_ls))]
 
-# subset data
-met.rng <- met_subs$Date<=dat.rng[2] & met_subs$Date>=dat.rng[1]
-met_subs <- met_subs[met.rng,]
+# creat weekly, monthly, seasonal categories
+met_sub <- llply(met_sub, 
+  .fun = function(x){
+    
+    # add week, month cols
+    x$week <- format(x$Date, '%W')
+    x$month <- format(x$Date, '%m')
+    
+    # seas col
+    x$seas <- car::recode(x$month, "c('01','02','03') = 'W'; 
+      c('04','05','06') = 'Sp'; 
+      c('07','08','09') = 'Su'; 
+      c('10','11','12') = 'F'")
+    
+    x
+    
+  })
 
-inst_subs$Date <- as.Date(inst_subs$DateTimeStamp)
-inst.rng <- inst_subs$Date<=dat.rng[2] & inst_subs$Date>=dat.rng[1]
-inst_subs <- inst_subs[inst.rng,]
+# aggregate by weekly, monthly, seasonal categories
 
-##
-# custom theme, mod of theme_bw
-
-my_theme <- theme(
-  legend.title = element_blank(),legend.position = 'top',
-  axis.title.x = element_blank(),legend.box= 'horizontal',
-  plot.margin= unit(c(0, 1, 0, 1), "lines") # top right bottom left
-  )
-
-# function for setting range on y axis
-rng.fun<-function(vec.in){
-  rngs<-range(vec.in,na.rm=T)
-  buffs<-0.07*abs(diff(rngs))
-  c(rngs[1]-buffs,rngs[2]+buffs)
-  }
-
-##
-# metab plot
-to_plo1 <- melt(met_subs, id.var = c('Date'), 
-  measure.var = grep('Pg|Rt|NEM', names(met_subs), value = T)
-  )
-to_plo1$Input <- 'Observed'
-to_plo1$Input[grep('dtd', to_plo1$variable)] <- 'Detided'
-to_plo1$Input <- factor(to_plo1$Input, levels = c('Observed', 'Detided'))
-to_plo1$variable <- gsub('_dtd', '', to_plo1$variable)
-
-ylab<-expression(paste('DO (g ',m^-2, d^-1, ')'))
-p1 <- ggplot(to_plo1, aes(x = Date, y = 0.032 * value, group = variable,
-    colour = variable)) +
-  geom_line() +
-  theme_bw() +
-  geom_point(size = 2) +
-  facet_wrap(~Input, ncol = 1) +
-  scale_y_continuous(ylab)  +
-  my_theme
-
-##
-# DO plot
-to_plo2 <- met.day.fun(inst_subs, case)
-names(to_plo2)[names(to_plo2) %in% 'variable'] <- 'solar'
-ggpoly <- poly.fun(to_plo2$solar, to_plo2)
-
-ylab<-expression(paste('DO (mg ',L^-1,')'))
-p2 <- ggplot(to_plo2, aes(x = DateTimeStamp)) + 
-  ggpoly +
-  geom_line(aes(y = DO_obs, colour = 'Observed')) +
-  geom_line(aes(y = DO_dtd, colour = 'Detided')) +
-  coord_cartesian(ylim = c(0,9)) +
-  scale_fill_manual(values='orange',labels='Day') +
-  theme_bw() +
-  scale_y_continuous(ylab)  +
-  my_theme
-
-## 
-# tide plot
-to_plo3 <- met.day.fun(inst_subs, case)
-names(to_plo2)[names(to_plo2) %in% 'variable'] <- 'solar'
-ggpoly <- poly.fun(to_plo2$solar, to_plo2)
-
-ylab<-expression(paste('Height (m)'))
-p3 <- ggplot(to_plo3, aes(x = DateTimeStamp)) + 
-  ggpoly +
-  geom_line(aes(y = Tide, colour = TotPAR)) +
-  coord_cartesian(ylim = rng.fun(to_plo3$Tide)) +
-  scale_fill_manual(values='orange',labels='Day') +
-  theme_bw() +  
-  my_theme + 
-  scale_y_continuous(ylab) +
-  scale_colour_gradient(low='blue', high='yellow',
-    guide = guide_colorbar(direction = "horizontal",barheight= 0.3))
-
-# Get the widths
-pA <- ggplot_gtable(ggplot_build(p1))
-pB <- ggplot_gtable(ggplot_build(p2))
-pC <- ggplot_gtable(ggplot_build(p3))
-maxWidth = unit.pmax(pA$widths[2:3], pB$widths[2:3], 
-                     pC$widths[2:3])
-
-# Set the widths
-pA$widths[2:3] <- maxWidth
-pB$widths[2:3] <- maxWidth
-pC$widths[2:3] <- maxWidth
-
-grid.arrange(pA, pB, pC, ncol = 1, heights = c(1.7, 1, 1))
-
-@
-\vfill
-\clearpage
-
-% example from ELKVM
-\centering\vspace*{\fill}
-<<case_ex2, cache = F, fig.height = 7.5, fig.width = 5.5, out.width = '0.8\\textwidth', eval = T, echo = F, fig.cap = 'Example of metabolism and \\ac{DO} time series before (observed) and after (detided) weighted regression. Results are for a ten day period in March for the Elkhorn Slough station.'>>=
-######
-# ELKVM example
-
-load('met_ls_inst.RData')
-load('met_ls.RData')
-
-# subsets by case and date range
-case <- 'ELKVM'
-dat.rng<-as.Date(c('2012-07-10','2012-07-20')) 
-
-met_subs <- met_ls[[paste(case, 'wtreg.RData', sep = '_')]]
-inst_subs <- met_ls_inst[[paste(case, 'wtreg.RData', sep = '_')]]
-
-# subset data
-met.rng <- met_subs$Date<=dat.rng[2] & met_subs$Date>=dat.rng[1]
-met_subs <- met_subs[met.rng,]
-
-inst_subs$Date <- as.Date(inst_subs$DateTimeStamp)
-inst.rng <- inst_subs$Date<=dat.rng[2] & inst_subs$Date>=dat.rng[1]
-inst_subs <- inst_subs[inst.rng,]
-
-##
-# custom theme, mod of theme_bw
-
-my_theme <- theme(
-  legend.title = element_blank(),legend.position = 'top',
-  axis.title.x = element_blank(),legend.box= 'horizontal',
-  plot.margin= unit(c(0, 1, 0, 1), "lines") # top right bottom left
-  )
-
-# function for setting range on y axis
-rng.fun<-function(vec.in){
-  rngs<-range(vec.in,na.rm=T)
-  buffs<-0.07*abs(diff(rngs))
-  c(rngs[1]-buffs,rngs[2]+buffs)
-  }
-
-##
-# metab plot
-to_plo1 <- melt(met_subs, id.var = c('Date'), 
-  measure.var = grep('Pg|Rt|NEM', names(met_subs), value = T)
-  )
-to_plo1$Input <- 'Observed'
-to_plo1$Input[grep('dtd', to_plo1$variable)] <- 'Detided'
-to_plo1$Input <- factor(to_plo1$Input, levels = c('Observed', 'Detided'))
-to_plo1$variable <- gsub('_dtd', '', to_plo1$variable)
-
-ylab<-expression(paste('DO (g ',m^-2, d^-1, ')'))
-p1 <- ggplot(to_plo1, aes(x = Date, y = 0.032 * value, group = variable,
-    colour = variable)) +
-  geom_line() +
-  theme_bw() +
-  geom_point(size = 2) +
-  facet_wrap(~Input, ncol = 1) +
-  scale_y_continuous(ylab)  +
-  my_theme
-
-##
-# DO plot
-to_plo2 <- met.day.fun(inst_subs, case)
-names(to_plo2)[names(to_plo2) %in% 'variable'] <- 'solar'
-ggpoly <- poly.fun(to_plo2$solar, to_plo2)
-
-ylab<-expression(paste('DO (mg ',L^-1,')'))
-p2 <- ggplot(to_plo2, aes(x = DateTimeStamp)) + 
-  ggpoly +
-  geom_line(aes(y = DO_obs, colour = 'Observed')) +
-  geom_line(aes(y = DO_dtd, colour = 'Detided')) +
-  coord_cartesian(ylim = rng.fun(to_plo2$DO_obs)) +
-  scale_fill_manual(values='orange',labels='Day') +
-  theme_bw() +
-  scale_y_continuous(ylab)  +
-  my_theme
-
-## 
-# tide plot
-to_plo3 <- met.day.fun(inst_subs, case)
-names(to_plo2)[names(to_plo2) %in% 'variable'] <- 'solar'
-ggpoly <- poly.fun(to_plo2$solar, to_plo2)
-
-ylab<-expression(paste('Height (m)'))
-p3 <- ggplot(to_plo3, aes(x = DateTimeStamp)) + 
-  ggpoly +
-  geom_line(aes(y = Tide, colour = TotPAR)) +
-  coord_cartesian(ylim = rng.fun(to_plo3$Tide)) +
-  scale_fill_manual(values='orange',labels='Day') +
-  theme_bw() +  
-  my_theme + 
-  scale_y_continuous(ylab) +
-  scale_colour_gradient(low='blue', high='yellow',
-    guide = guide_colorbar(direction = "horizontal",barheight= 0.3))
-
-# Get the widths
-pA <- ggplot_gtable(ggplot_build(p1))
-pB <- ggplot_gtable(ggplot_build(p2))
-pC <- ggplot_gtable(ggplot_build(p3))
-maxWidth = unit.pmax(pA$widths[2:3], pB$widths[2:3], 
-                     pC$widths[2:3])
-
-# Set the widths
-pA$widths[2:3] <- maxWidth
-pB$widths[2:3] <- maxWidth
-pC$widths[2:3] <- maxWidth
-
-grid.arrange(pA, pB, pC, ncol = 1, heights = c(1.7, 1, 1))
-
-@
-\vfill
-\clearpage
-
-% example from pdbby
-\centering\vspace*{\fill}
-<<case_ex3, cache = F, fig.height = 7.5, fig.width = 5.5, out.width = '0.8\\textwidth', eval = T, echo = F, fig.cap = 'Example of metabolism and \\ac{DO} time series before (observed) and after (detided) weighted regression. Results are for a ten day period in March for the Padilla Bay station.'>>=
-######
-# PDBBY example
-
-load('met_ls_inst.RData')
-load('met_ls.RData')
-
-# subsets by case and date range
-case <- 'PDBBY'
-dat.rng<-as.Date(c('2012-07-10','2012-07-20')) 
-
-met_subs <- met_ls[[paste(case, 'wtreg.RData', sep = '_')]]
-inst_subs <- met_ls_inst[[paste(case, 'wtreg.RData', sep = '_')]]
-
-# subset data
-met.rng <- met_subs$Date<=dat.rng[2] & met_subs$Date>=dat.rng[1]
-met_subs <- met_subs[met.rng,]
-
-inst_subs$Date <- as.Date(inst_subs$DateTimeStamp)
-inst.rng <- inst_subs$Date<=dat.rng[2] & inst_subs$Date>=dat.rng[1]
-inst_subs <- inst_subs[inst.rng,]
-
-##
-# custom theme, mod of theme_bw
-
-my_theme <- theme(
-  legend.title = element_blank(),legend.position = 'top',
-  axis.title.x = element_blank(),legend.box= 'horizontal',
-  plot.margin= unit(c(0, 1, 0, 1), "lines") # top right bottom left
-  )
-
-# function for setting range on y axis
-rng.fun<-function(vec.in){
-  rngs<-range(vec.in,na.rm=T)
-  buffs<-0.07*abs(diff(rngs))
-  c(rngs[1]-buffs,rngs[2]+buffs)
-  }
-
-##
-# metab plot
-to_plo1 <- melt(met_subs, id.var = c('Date'), 
-  measure.var = grep('Pg|Rt|NEM', names(met_subs), value = T)
-  )
-to_plo1$Input <- 'Observed'
-to_plo1$Input[grep('dtd', to_plo1$variable)] <- 'Detided'
-to_plo1$Input <- factor(to_plo1$Input, levels = c('Observed', 'Detided'))
-to_plo1$variable <- gsub('_dtd', '', to_plo1$variable)
-
-ylab<-expression(paste('DO (g ',m^-2, d^-1, ')'))
-p1 <- ggplot(to_plo1, aes(x = Date, y = 0.032 * value, group = variable,
-    colour = variable)) +
-  geom_line() +
-  theme_bw() +
-  geom_point(size = 2) +
-  facet_wrap(~Input, ncol = 1) +
-  scale_y_continuous(ylab)  +
-  my_theme
-
-##
-# DO plot
-to_plo2 <- met.day.fun(inst_subs, case)
-names(to_plo2)[names(to_plo2) %in% 'variable'] <- 'solar'
-ggpoly <- poly.fun(to_plo2$solar, to_plo2)
-
-ylab<-expression(paste('DO (mg ',L^-1,')'))
-p2 <- ggplot(to_plo2, aes(x = DateTimeStamp)) + 
-  ggpoly +
-  geom_line(aes(y = DO_obs, colour = 'Observed')) +
-  geom_line(aes(y = DO_dtd, colour = 'Detided')) +
-  coord_cartesian(ylim = rng.fun(to_plo2$DO_obs)) +
-  scale_fill_manual(values='orange',labels='Day') +
-  theme_bw() +
-  scale_y_continuous(ylab)  +
-  my_theme
-
-## 
-# tide plot
-to_plo3 <- met.day.fun(inst_subs, case)
-names(to_plo2)[names(to_plo2) %in% 'variable'] <- 'solar'
-ggpoly <- poly.fun(to_plo2$solar, to_plo2)
-
-ylab<-expression(paste('Height (m)'))
-p3 <- ggplot(to_plo3, aes(x = DateTimeStamp)) + 
-  ggpoly +
-  geom_line(aes(y = Tide, colour = TotPAR)) +
-  coord_cartesian(ylim = rng.fun(to_plo3$Tide)) +
-  scale_fill_manual(values='orange',labels='Day') +
-  theme_bw() +  
-  my_theme + 
-  scale_y_continuous(ylab) +
-  scale_colour_gradient(low='blue', high='yellow',
-    guide = guide_colorbar(direction = "horizontal",barheight= 0.3))
-
-# Get the widths
-pA <- ggplot_gtable(ggplot_build(p1))
-pB <- ggplot_gtable(ggplot_build(p2))
-pC <- ggplot_gtable(ggplot_build(p3))
-maxWidth = unit.pmax(pA$widths[2:3], pB$widths[2:3], 
-                     pC$widths[2:3])
-
-# Set the widths
-pA$widths[2:3] <- maxWidth
-pB$widths[2:3] <- maxWidth
-pC$widths[2:3] <- maxWidth
-
-grid.arrange(pA, pB, pC, ncol = 1, heights = c(1.7, 1, 1))
 
 @
 \vfill
@@ -1154,10 +853,11 @@ latex(
 # # metab and inst flux data
 # load('met_ls.RData')
 # load('met_ls_inst.RData')
+# load('case_grds.RData')
 # 
 # # go through each site for DO cors, use metab list for metab cors
-# case_regs <- list.files(getwd(), '_wtreg.RData')
-# cor_res <- adply(matrix(case_regs),
+# case_regs <- list.files(getwd(), '_wtreg_[0-9]*.RData')
+# cor_res <- alply(matrix(case_regs),
 #   1, 
 #   .fun = function(x){
 #   
@@ -1187,51 +887,116 @@ latex(
 #     # DOF_dtd with dtide
 #     flux_dtd <- with(flux_in, 
 #       cor.test(DOF_dtd, dTide)
+#       ) 
+#     
+#     # get tidal range for metabolic day/night periods from flux_in
+#     # for correlation with daily integrated metab
+#     tide_rngs <- ddply(flux_in, 
+#       .variables = c('met.date'),
+#       .fun = function(x){
+# #         sunrise <- suppressWarnings(diff(range(x[x$variable %in% 'sunrise', 'Tide'])))
+# #         sunset <- suppressWarnings(diff(range(x[x$variable %in% 'sunset', 'Tide'])))
+# #         if(sunrise == 'Inf') sunrise <- NA
+# #         if(sunset == 'Inf') sunset <- NA
+# #         daytot <- diff(range(x$Tide))
+#         sunrise <- mean(diff(x[x$variable %in% 'sunrise', 'Tide'], na.rm = T))
+#         sunset <- mean(diff(x[x$variable %in% 'sunset', 'Tide'], na.rm = T))
+#         if(sunrise == 'Inf') sunrise <- NA
+#         if(sunset == 'Inf') sunset <- NA
+#         daytot <- mean(diff(x$Tide, na.rm = T))
+#         
+#         c(daytot, sunrise, sunset)
+#         }
 #       )
+#     names(tide_rngs) <- c('Date','daytot', 'sunrise', 'sunset')
 #     
 #     # get metab data from list
 #     dat_in <- met_ls[[x]]
+#     dat_in <- merge(dat_in, tide_rngs, by = 'Date', all.x = T)
 #     
-#     # melt for quicker analysis
-#     dat_in <- melt(dat_in, 
-#       measure.var = c('Pg', 'Rt', 'NEM', 'Pg_dtd', 'Rt_dtd', 'NEM_dtd'), 
-#       id.var = c('Tide'))
+#     # as list for all metab correlations
+#     # Pg values correlated with tidal range during sunlight hours
+#     # Rt values correlated with tidal range during night hours
+#     # NEM values correlated with metabolic daily tidal range
+#     met_cor <- list(
+#       
+#       Pg_obs = with(dat_in, 
+#         cor.test(Pg, sunrise)
+#         ),
 #     
-#     met_cor <- dlply(dat_in, 
-#       .(variable), 
-#       function(y) cor.test(y$value, y$Tide)
+#       Rt_obs = with(dat_in, 
+#         cor.test(Rt, sunset)
+#         ),
+#     
+#       NEM_obs = with(dat_in, 
+#         cor.test(NEM, daytot)
+#         ),
+#     
+#       Pg_dtd = with(dat_in, 
+#         cor.test(Pg_dtd, sunrise)
+#         ),
+#     
+#       Rt_dtd = with(dat_in, 
+#         cor.test(Rt_dtd, sunset)
+#         ),
+#     
+#       NEM_dtd = with(dat_in, 
+#         cor.test(NEM_dtd, daytot)
+#         )
+#       
 #       )
-#     names(met_cor) <- c('Pg_obs', 'Rt_obs', 'NEM_obs', 'Pg_dtd', 'Rt_dtd', 
-#       'NEM_dtd')
 #     
+#     # DO and metab corrs combined
 #     all_ls <- c(do_obs = list(do_obs), do_dtd = list(do_dtd),
 #       flux_obs = list(flux_obs), flux_dtd = list(flux_dtd), met_cor)
 #     
+#     # convert the stats for each wtreg to data frame
 #     res_sum <- ldply(all_ls, 
 #       function(x) with(x, c(estimate, p.value))
 #       )
+#     names(res_sum) <- c('var', 'cor', 'pval')
 # 
 #     res_sum
 #     
 #   })
+# names(cor_res) <- case_regs
 # 
-# cor_res$site <- factor(cor_res$X1, 
-#   labels = gsub('_wtreg.RData', '', case_regs))
-# cor_res$X1 <- NULL
+# # melt and make separate columns for site and window comb value
+# cor_res <- melt(cor_res, id.var = names(cor_res[[1]]))  
+# cor_res$site <- gsub('_wtreg_[0-9]*.RData', '', cor_res$L1)
+# cor_res$wins <- as.numeric(gsub('^.*_wtreg_|.RData', '', cor_res$L1))
 # 
-# names(cor_res) <- c('var', 'corr', 'pval', 'site')
+# # merge with case_grds
+# case_grds$wins <- as.numeric(row.names(case_grds))
+# cor_res <- merge(cor_res, case_grds, by = 'wins', all.x = T)
 # 
-# cor_res$sub_var <- gsub('[A-Z,a-z]*_', '', cor_res$var)
-# cor_res$var <- gsub('_obs|_dtd', '', cor_res$var)
+# # create columns for variable (DO, flux, etc.) and sub variable (obs, dtd)
+# cor_res$sub_var <- gsub('^.*_', '', cor_res$var)
+# cor_res$var <- gsub('_.*$', '', cor_res$var)
 # 
 # save(cor_res, file = 'cor_res.RData')
+# 
+# to_plo <- cor_res
+# to_plo$group_var <- paste(to_plo$Tide, to_plo$sub_var)
+# to_plo_obs <- to_plo[to_plo$sub_var %in% 'obs', ]
+# p1 <- ggplot(to_plo[to_plo$sub_var %in% 'dtd',], 
+#     aes(x = factor(Day), y = cor, colour = Tide, group = group_var)) +
+#   geom_line() + 
+#   geom_line(data = to_plo_obs, 
+#     aes(x = factor(Day), y = cor, group = group_var), 
+#     colour = 'black', size = 1) +
+#   geom_point(aes(pch = sub_var)) +
+#   facet_grid(var ~ site) +
+#   ylim(c(-1, 1)) +
+#   theme_bw() 
 
 load('cor_res.RData')
 
-# subset all results for plotting
-to_tab <- cor_res
+# subset cor_res for window of 30 days, tidal prop 1
+cor_res <- cor_res[with(cor_res, Tide == 1 & Day == 30), ]
 
-to_tab <- dcast(cor_res, site + sub_var ~ var, value.var = 'corr')
+# make wide form
+to_tab <- dcast(cor_res, site + sub_var ~ var, value.var = 'cor')
 
 # reorder rows, columns for plot
 to_tab$sub_var <- factor(to_tab$sub_var, levels = c('obs', 'dtd'))
@@ -1258,7 +1023,7 @@ tab <- c(as.matrix(tab))
 tab <- paste0(tab, pvals)
 tab <- matrix(tab, nrow = pdims[1], ncol = pdims[2])
 
-cap.val<-'Correlations of tidal changes at each site with continuous \\ac{DO} observations, instantaneous \\ac{DO} flux, and metabolism estimates (gross production, respiration, and net metabolism) before (observed) and after detiding with weighted regression.  \\ac{DO} values are correlated with predicated tidal height at each observation, \\ac{DO} flux values are correlated with tidal change between observations, and daily integrated metabolism estimates are correlated with daily tidal range.'
+cap.val<-'Correlations of tidal changes at each site with continuous \\ac{DO} observations, instantaneous \\ac{DO} flux, and metabolism estimates (gross production, respiration, and net metabolism) before (observed) and after detiding with weighted regression.  \\ac{DO} values are correlated with predicted tidal height at each observation, \\ac{DO} flux values are correlated with tidal change between observations, and metabolism estimates are correlated with mean tidal change between observations during day, night, or total, day periods for production, respiration, and net metabolism respectively.  Total day periods were defined as the approximate 24 hours between sunrises for two calendar days, where day was the time from sunrise to sunset and night was the following time from sunset to sunrise.  Results are for weighted regressions using a window of thirty days and tidal height proportion of one.'
 
 foot.val<-'\\footnotesize *$p<0.05$; **$p<0.01$; ***$p<0.001$\\\\\\textsuperscript{\\textit{a}}Pg: gross production, Rt: respiration, NEM: net ecosystem metabolism' 
 
@@ -1280,10 +1045,16 @@ latex(
 
 % case study metabolism results, including perc anom
 <<case_res, cache = F, echo = F, eval = T, results = 'asis'>>=
-# metab and inst flux data
+# # metab estimates for each wtreg
 # load('met_ls.RData')
 # 
-# met_comp <- ldply(met_ls, function(x){
+# # subset metab estimates by 30 day window and tide prop 1
+# load('case_grds.RData')
+# sel_vec <- with(case_grds, which(Day == 30 & Tide == 1))
+# 
+# met_sub <- met_ls[grep(sel_vec, names(met_ls))]
+# 
+# met_comp <- ldply(met_sub, function(x){
 #   
 #   # detided
 #   anoms <- anoms.fun(x, pgvar = 'Pg_dtd', rtvar = 'Rt_dtd')
@@ -1340,11 +1111,14 @@ to_tab$Metric <- factor(to_tab$Metric, levels = c('Avg', 'se', 'Anom'))
 # dcast long to wide
 to_tab <- dcast(to_tab, Site + Input ~ Metab + Metric, value.var = 'Value')
 
+# remove extra text on site variable
+to_tab$Site <- gsub('_wtreg_[0-9]*.RData$', '', to_tab$Site)
+
 # names for row categories in table
 
 tab <- form_fun(to_tab[, -c(1:2)])
 rows <- to_tab[, 2]
-cap.val<-'Metabolism estimates (gross production, respiration, and net metabolism) for case studies using \\ac{DO} time series before (observed) and after (detided) application of weighted regression.  Means and standard errors are based on daily integrated metabolism estimates.  Anomalous values are the proportion of metabolism estimates that were negative for gross production and positive for respiration.'
+cap.val<-'Summary of metabolism estimates (gross production, respiration, and net metabolism) for case studies using \\ac{DO} time series before (observed) and after (detided) application of weighted regression.  Means and standard errors are based on daily integrated metabolism estimates.  Anomalous values are the proportion of metabolism estimates that were negative for gross production and positive for respiration.  Results are for weighted regressions with a window of thirty days and tidal height proportion of one.'
 
 foot.val<-'\\textsuperscript{\\textit{a}}Pg: gross production, Rt: respiration, NEM: net ecosystem metabolism' 
 latex( 
@@ -1354,7 +1128,7 @@ latex(
   insert.bottom = foot.val,
   caption = cap.val,
   caption.loc = 'top',
-  rgroup = gsub('_wtreg.RData', '', unique(to_tab$Site)),
+  rgroup = unique(to_tab$Site),
   n.rgroup = rep(2, 4),
   cgroup = c('Pg\\textsuperscript{\\textit{a}}', 'Rt', 'NEM'),
   n.cgroup = c(3, 3, 2),

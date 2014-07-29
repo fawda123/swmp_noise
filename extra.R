@@ -386,5 +386,5 @@ p1 <- ggplot(to_plo[to_plo$sub_var %in% 'dtd',],
   facet_grid(var ~ site) +
   ylim(c(-1, 1)) +
   theme_bw() 
-  
+
   
