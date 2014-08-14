@@ -23,3 +23,5 @@ library(gtable)
 
 # functions to use
 source('funcs.r')
+
+theme_set(theme_bw())

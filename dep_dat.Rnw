@@ -15,62 +15,29 @@ names(eval_grd) <- c('tide_cat', 'bio_rng', 'tide_assoc', 'err_rng_pro',
   'err_rng_obs')
 save(eval_grd, file = 'eval_grd.RData')
 
-######
-# window widths to eval for each sim condition
-wins <- c(1, seq(5, 20, by = 5))
+# grid of regression windows to evaluate
+dy_wins <- c(1, 3, 8)
+hr_wins <- c(6, 12, 24)
+td_wins <- c(0.25, 0.5, 1)
+wins_grd <- expand.grid(dy_wins, hr_wins, td_wins)
+names(wins_grd) <- c('dec_time', 'hour', 'Tide')
+save(wins_grd, file = 'wins_grd.RData')
 
-wins_grd <- expand.grid(wins)
-names(wins_grd) <- c('dec_time')
-
-######
-# combined grid for each condition/window comb
+# grid of both eval and window combinations
 comb_grd <- expand.grid(tide_cat, bio_rng, tide_assoc, err_rng_pro, err_rng_obs,
-  wins)
+  dy_wins,  hr_wins, td_wins)
 names(comb_grd) <- c(names(eval_grd), names(wins_grd))
 save(comb_grd, file = 'comb_grd.RData')
 
-# ######
-# # simulation results
-# 
-# load('prdnrm.RData')
-# load('comb_grd.RData')
-# 
-# # summarize results from prdnrm
-# jitt <- rnorm(nrow(prdnrm[[1]]), 0, 1e-10)
-# perf <- ldply(
-#   prdnrm, 
-#   .progress = 'tk', 
-#   .fun = function(x){
-#     
-#     with(x,{
-#       
-#       dtd_cor <<- cor(DO_dtd + jitt, DO_bio + jitt)
-#       dtd_err <<- rmse(DO_dtd + jitt, DO_bio + jitt)
-#       
-#       })
-#     
-#     out <- c(dtd_cor, dtd_err)
-#     
-#     out
-#     
-#     }
-#   )
-# 
-# # combine, make appropriate column names
-# perf <- cbind(comb_grd, perf)
-# perf_nms <- c('dtd_cor', 'dtd_err')
-# names(perf)[grep('V', names(perf))] <- perf_nms
-# perf$uni_comb <- row.names(perf)
-# 
-# # save
-# mod_perf <- perf
-# save(mod_perf, file = 'mod_perf.RData')
+######
+# simulation results
 
 # 'mod_perf' is all results for each simulation/window combination 
+# created in detiding_sims.RProj source_me.r
 load('mod_perf.RData')
 
 # used in beginning of assessment
-perf_means <- colMeans(mod_perf[, grepl('dtd|prd', names(mod_perf))])
-perf_rngs <- apply(mod_perf[, grepl('dtd|prd', names(mod_perf))], 2, range)
+perf_means <- colMeans(mod_perf[, c('cor', 'err')])
+perf_rngs <- apply(mod_perf[, c('cor', 'err')], 2, range)
 
 @

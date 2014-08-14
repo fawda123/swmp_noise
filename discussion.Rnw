@@ -11,7 +11,7 @@ what did I find?
 - method should not be broadly used to fix `anomalous' metab estimates, these are likely not caused by tides unless a case like PDB
 - method should be used to detide DO, useful in that regard
 
-
+ Assumptions of relationships between variables are not necessary using this adaptive weighting scheme given that the method has the ability to interpret statistical relationships without prior knowledge.
 
 Although Sapelo Island had the largest reduction in anomalous metabolism estimates compared to the other sites (\cref{tab:case_res}), the example in \cref{fig:case_ex1} shows little change metabolism between time series for period of observations.  This example provides a potential explanation why detiding the \ac{DO} time series had variable effect on removing anomalous estimates between case studies.  Specifically, metabolism estimates in the ten day period were similar between the observed and detided values.  Metabolism is a daily integrated average of \ac{DO} flux such that variation from changes in tidal height on a semidiurnal period may be cancelled out by averaging on a 24 hour period.  Regardless, the detided \ac{DO} time series represents an unbiased estimate that more clearly represents variation from biological processes.
 
