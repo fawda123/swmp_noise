@@ -40,4 +40,14 @@ load('mod_perf.RData')
 perf_means <- colMeans(mod_perf[, c('cor', 'err')])
 perf_rngs <- apply(mod_perf[, c('cor', 'err')], 2, range)
 
+######
+# anomalous data, from 'case_res' code chunk in 'swmp_noise.Rnw'
+load('met_comp.RData')
+
+anom_obs <- met_comp[met_comp$Metric %in% 'Anom' & met_comp$Input %in% 'Observed', ]
+anom_obs$.id <- gsub('_wtreg_[0-9]*.RData$', '', anom_obs$.id)
+anom_obs$.id <- factor(anom_obs$.id, levels = c('ELKVM', 'PDBBY', 'RKBMB', 'SAPDC'), labels = c('Elkhorn Slough', 'Padilla Bay', 'Rookery Bay', 'Sapelo Island'))
+anom_dtd <- met_comp[met_comp$Metric %in% 'Anom' & met_comp$Input %in% 'Detided', ]
+anom_dtd$.id <- gsub('_wtreg_[0-9]*.RData$', '', anom_dtd$.id)
+anom_dtd$.id <- factor(anom_dtd$.id, labels = c('Elkhorn Slough', 'Padilla Bay', 'Rookery Bay', 'Sapelo Island'))
 @
