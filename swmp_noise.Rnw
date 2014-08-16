@@ -587,7 +587,7 @@ meta <- meta[, c('Longitude', 'Latitude','Reserve.Name')]
 
 % example from RKBMB
 \centering\vspace*{\fill}
-<<case_ex1, cache = T, fig.height = 7.5, fig.width = 5.5, out.width = '0.8\\textwidth', eval = T, echo = F, fig.cap = 'Example of metabolism (top) and \\ac{DO} time series (middle) before (observed) and after (detided) detiding with weighted regression. Tidal height colored by total photosynthetically active radiation (mmol m$^{-2}) is on the bottom plot. Results are for the Rookery Bay station in July, 2012 using a weighted regression with a window of eight days, six hours within each day, and tidal height proportion of one.'>>=
+<<case_ex1, cache = T, fig.height = 6.5, fig.width = 5.5, out.width = '0.8\\textwidth', eval = T, echo = F, fig.cap = 'Example of daily mean metabolism (top) and continuous \\ac{DO} time series (middle) before (observed) and after (detided) detiding with weighted regression. Tidal height colored by total photosynthetically active radiation (mmol m$^{-2}$) is on the bottom plot. Results are for the Rookery Bay station for twenty days in July, 2012 using a weighted regression with window of eight days, six hours within each day, and tidal height proportion of one.'>>=
 ######
 # RKBMB example
 
@@ -596,7 +596,7 @@ load('case_grds.RData')
 
 # subsets by case. date range, window comb
 case <- 'RKBMB'
-dat.rng<-as.Date(c('2012-07-01','2012-07-31')) 
+dat.rng<-as.Date(c('2012-08-01','2012-08-20')) 
 sel_vec <- with(case_grds, which(dec_time == 8 & hour == 6 & Tide == 1))
 sel_vec <- paste0(case, '_wtreg_', sel_vec, '.RData')
 
@@ -639,7 +639,7 @@ to_plo1$Input[grep('dtd', to_plo1$variable)] <- 'Detided'
 to_plo1$Input <- factor(to_plo1$Input, levels = c('Observed', 'Detided'))
 to_plo1$variable <- gsub('_dtd', '', to_plo1$variable)
 
-ylab<-expression(paste('DO (g ',m^-2, d^-1, ')'))
+ylab<-expression(paste('g ',O [2], ' ', m^-2, d^-1))
 p1 <- ggplot(to_plo1, aes(x = Date, y = 0.032 * value, group = variable,
     colour = variable)) +
   geom_line() +
@@ -660,7 +660,7 @@ p2 <- ggplot(to_plo2, aes(x = DateTimeStamp)) +
   ggpoly +
   geom_line(aes(y = DO_obs, colour = 'Observed')) +
   geom_line(aes(y = DO_nrm, colour = 'Detided')) +
-  coord_cartesian(ylim = c(0,9)) +
+  coord_cartesian(ylim = c(0,7)) +
   scale_fill_manual(values='orange',labels='Day') +
   theme_bw() +
   scale_y_continuous(ylab)  +
@@ -702,16 +702,18 @@ grid.arrange(pA, pB, pC, ncol = 1, heights = c(1.7, 1, 1))
 \vfill
 \clearpage
 
-% plots of metab for all cases, period of obs
+% example from SAPDC
 \centering\vspace*{\fill}
-<<case_ex2, cache = T, fig.height = 7.5, fig.width = 5.5, out.width = '0.8\\textwidth', eval = T, echo = F, fig.cap = ''>>=
+<<case_ex2, cache = T, fig.height = 6.5, fig.width = 5.5, out.width = '0.8\\textwidth', eval = T, echo = F, fig.cap = 'Example of daily mean metabolism (top) and continuous \\ac{DO} time series (middle) before (observed) and after (detided) detiding with weighted regression. Tidal height colored by total photosynthetically active radiation (mmol m$^{-2}$) is on the bottom plot. Results are for the Sapelo Island station for a twenty day period in February, 2012 using weighted regression with a window of eight days, six hours within each day, and tidal height proportion of one.'>>=
 ######
-# metab before/after, all case studies
+# SAPDC example
 
 load('met_ls.RData')
 load('case_grds.RData')
 
 # subsets by case. date range, window comb
+case <- 'SAPDC'
+dat.rng<-as.Date(c('2012-02-01','2012-02-20')) 
 sel_vec <- with(case_grds, which(dec_time == 8 & hour == 6 & Tide == 1))
 sel_vec <- paste0(case, '_wtreg_', sel_vec, '.RData')
 
@@ -754,7 +756,7 @@ to_plo1$Input[grep('dtd', to_plo1$variable)] <- 'Detided'
 to_plo1$Input <- factor(to_plo1$Input, levels = c('Observed', 'Detided'))
 to_plo1$variable <- gsub('_dtd', '', to_plo1$variable)
 
-ylab<-expression(paste('DO (g ',m^-2, d^-1, ')'))
+ylab<-expression(paste('g ',O [2], ' ', m^-2, d^-1))
 p1 <- ggplot(to_plo1, aes(x = Date, y = 0.032 * value, group = variable,
     colour = variable)) +
   geom_line() +
@@ -775,7 +777,7 @@ p2 <- ggplot(to_plo2, aes(x = DateTimeStamp)) +
   ggpoly +
   geom_line(aes(y = DO_obs, colour = 'Observed')) +
   geom_line(aes(y = DO_nrm, colour = 'Detided')) +
-  coord_cartesian(ylim = c(0,9)) +
+  coord_cartesian(ylim = c(1,10)) +
   scale_fill_manual(values='orange',labels='Day') +
   theme_bw() +
   scale_y_continuous(ylab)  +
@@ -814,20 +816,18 @@ pC$widths[2:3] <- maxWidth
 grid.arrange(pA, pB, pC, ncol = 1, heights = c(1.7, 1, 1))
 
 @
-\vfill
-\clearpage
-
 
 % plots of summarized metabolism estimates, before/after detiding
+% ELKVM, PDBBY
 \centering\vspace*{\fill}
-<<metab_sum, cache = T, eval = F, echo = F, fig.cap = 'Test'>>=
+<<metab_sum1, cache = T, eval = T, echo = F, fig.height = 5.5, fig.width = 7, fig.cap = 'Means and standard errors of daily metabolism estimates (gross production, total respiration, net ecosystem metabolism) aggregated by month and season.  Aggregated estimates are for Elkhorn Slough and Padilla Bay from observed and detided \\ac{DO} time series.'>>=
 
 # load metabolism data
 load('met_ls.RData')
 
 # subset metab estimates by 30 day window and tide prop 1
 load('case_grds.RData')
-sel_vec <- with(case_grds, which(Day == 15 & Tide == 1))
+sel_vec <- with(case_grds, which(dec_time == 8 & hour == 6 & Tide == 1))
 
 met_sub <- met_ls[grep(sel_vec, names(met_ls))]
 
@@ -836,11 +836,11 @@ met_sub <- llply(met_sub,
   .fun = function(x){
     
     # add week, month cols
-    x$week <- format(x$Date, '%W')
-    x$month <- format(x$Date, '%m')
+    x$Week <- format(x$Date, '%W')
+    x$Month <- format(x$Date, '%m')
     
     # seas col
-    x$seas <- car::recode(x$month, "c('01','02','03') = 'W'; 
+    x$Season <- car::recode(x$Month, "c('01','02','03') = 'W'; 
       c('04','05','06') = 'Sp'; 
       c('07','08','09') = 'Su'; 
       c('10','11','12') = 'F'")
@@ -858,7 +858,8 @@ agg_sum <- llply(met_sub,
     met_cols <- c('Pg', 'Rt', 'NEM', 'Pg_dtd', 'Rt_dtd', 'NEM_dtd')
     
     # melt by weekly, monthly, seasonal cats
-    x <- melt(x, measure.var = c('week', 'month', 'seas'), 
+    # change here for cats to includes
+    x <- melt(x, measure.var = c('Month', 'Season'),
       id.var = c('Date', met_cols)
       )
     
@@ -899,13 +900,226 @@ agg_sum <- llply(met_sub,
     
   })
 
-to_plo <- agg_sum[[1]]
+to_plo <- melt(agg_sum, id.var = names(agg_sum[[1]]))
 
-p <- ggplot(to_plo, aes(x = factor(value), y = mean, group = sub_var,
-    colour = sub_var)) +
-  geom_line() + 
-  facet_wrap(cats ~ var, scales = 'free') +
-  theme_bw()
+# reassign factor labels
+to_plo$value <- factor(to_plo$value, levels = c('01', '02', '03', '04',
+  '05', '06', '07', '08', '09', '10', '11', '12', 'F', 'Sp', 'Su', 'W'), 
+  labels = c('1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11',' 12',
+    'F', 'Sp', 'Su', 'W')
+  )
+to_plo$var <- factor(to_plo$var, levels = c('Pg', 'Rt', 'NEM'), 
+  labels = c('Pg', 'Rt', 'NEM'))
+to_plo$sub_var <- factor(to_plo$sub_var, levels = c('dtd', 'obs'), 
+  labels = c('Detided', 'Observed'))
+to_plo$L1 <- gsub('_wtreg_[0-9]*.RData$', '', to_plo$L1)
+to_plo$L1 <- factor(to_plo$L1, 
+  levels = c('ELKVM', 'PDBBY', 'RKBMB', 'SAPDC'),
+  labels = c('Elkhorn Slough', 'Padilla Bay', 'Rookery Bay', 
+    'Sapelo Island')
+  )
+
+# convert metab data to g m^-2 d^-1
+#  1mmolO2 = 32 mg O2, 1000mg = 1g, multiply by 32/1000
+to_plo[, c('mean', 'sd', 'se', 'ci')] <- 0.032 * to_plo[, c('mean', 'sd', 'se', 'ci')]
+
+ylab <- expression(paste('g ', O [2], ' ', m^-2, d^-1))
+for(site in 1:2){
+
+  sub_plo <- to_plo[to_plo$L1 %in% levels(to_plo$L1)[site], ]
+  
+  p <- ggplot(sub_plo, aes(x = factor(value), y = mean, group = sub_var,
+      colour = sub_var)) +
+    geom_line() +
+    geom_point() + 
+    geom_errorbar(aes(ymin = mean - se, ymax = mean + se), 
+      width=.3) +
+    facet_wrap(cats ~ var, scales = 'free') +
+    theme_bw() +
+    scale_y_continuous(ylab) + 
+    scale_x_discrete(name = element_blank()) +
+    theme(
+      legend.position = 'top',
+      legend.title = element_blank(),
+      plot.margin= unit(rep(0, 4), "lines"),
+      axis.text = element_text(size = 8)
+      ) +
+    ggtitle(levels(to_plo$L1)[site])
+
+  assign(paste0('p', site), p)
+  
+  }
+
+# get common legend, remove from p1
+mylegend <- g_legend(p1)
+p1 <- p1 + theme(legend.position = 'none')
+p2 <- p2 + theme(legend.position = 'none')
+
+# final plot
+grid.arrange(
+  mylegend,   
+  arrangeGrob(p1, p2, ncol = 1),
+  ncol = 1, heights = c(1,10)
+  )
+
+@
+\vfill
+\clearpage
+
+% RKBMB, SAPDC
+% plots of summarized metabolism estimates, before/after detiding
+\centering\vspace*{\fill}
+<<metab_sum2, cache = T, eval = T, echo = F, fig.height =5.5, fig.width = 7, fig.cap = 'Means and standard errors of daily metabolism estimates (gross production, total respiration, net ecosystem metabolism) aggregated by month and season.  Aggregated estimates are for Rookery Bay and Sapelo Island from observed and detided \\ac{DO} time series.  May was removed from Rookery Bay because of incomplete data.'>>=
+
+# load metabolism data
+load('met_ls.RData')
+
+# subset metab estimates by 30 day window and tide prop 1
+load('case_grds.RData')
+sel_vec <- with(case_grds, which(dec_time == 8 & hour == 6 & Tide == 1))
+
+met_sub <- met_ls[grep(sel_vec, names(met_ls))]
+
+# creat weekly, monthly, seasonal categories
+met_sub <- llply(met_sub, 
+  .fun = function(x){
+    
+    # add week, month cols
+    x$Week <- format(x$Date, '%W')
+    x$Month <- format(x$Date, '%m')
+    
+    # seas col
+    x$Season <- car::recode(x$Month, "c('01','02','03') = 'W'; 
+      c('04','05','06') = 'Sp'; 
+      c('07','08','09') = 'Su'; 
+      c('10','11','12') = 'F'")
+    
+    x
+    
+  })
+
+# aggregate by weekly, monthly, seasonal categories
+# for each case...
+agg_sum <- llply(met_sub, 
+  .fun = function(x){
+    
+    # metabolism column names
+    met_cols <- c('Pg', 'Rt', 'NEM', 'Pg_dtd', 'Rt_dtd', 'NEM_dtd')
+    
+    # melt by weekly, monthly, seasonal cats
+    # change here for cats to includes
+    x <- melt(x, measure.var = c('Month', 'Season'),
+      id.var = c('Date', met_cols)
+      )
+    
+    agg_res <- dlply(x,
+      .var = c('variable'), 
+      .fun = function(y){
+        
+        out <- vector('list', length = length(met_cols))
+        names(out) <- met_cols
+        for(met in met_cols){
+          
+          tmp <- summarySE(y, measurevar = met, groupvars = 'value',
+            narm = T) 
+          names(tmp)[names(tmp) %in% met] <- 'mean'
+          out[[met]] <- tmp
+           
+        }
+        
+        # combine metabolism categories 
+        out <- melt(out, id.var = names(out[[1]]))
+        names(out)[names(out) %in% 'L1'] <- 'var'
+        out
+        
+      })
+    
+    # combine time categories
+    agg_res <- melt(agg_res, id.var = names(agg_res[[1]]))
+    names(agg_res)[names(agg_res) %in% 'L1'] <- 'cats'
+    
+    # separate var column into metabolis, obs/dtd
+    agg_res$var[!grepl('dtd',agg_res$var)] <- paste0(
+      agg_res$var[!grepl('dtd',agg_res$var)], '_obs')
+      
+    agg_res$sub_var <- gsub('^[A-Z,a-z]*_', '', agg_res$var)
+    agg_res$var <- gsub('_[a-z]*$', '', agg_res$var)
+    
+    agg_res
+    
+  })
+
+to_plo <- melt(agg_sum, id.var = names(agg_sum[[1]]))
+
+# reassign factor labels
+to_plo$value <- factor(to_plo$value, levels = c('01', '02', '03', '04',
+  '05', '06', '07', '08', '09', '10', '11', '12', 'F', 'Sp', 'Su', 'W'), 
+  labels = c('1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11',' 12',
+    'F', 'Sp', 'Su', 'W')
+  )
+to_plo$var <- factor(to_plo$var, levels = c('Pg', 'Rt', 'NEM'), 
+  labels = c('Pg', 'Rt', 'NEM'))
+to_plo$sub_var <- factor(to_plo$sub_var, levels = c('dtd', 'obs'), 
+  labels = c('Detided', 'Observed'))
+to_plo$L1 <- gsub('_wtreg_[0-9]*.RData$', '', to_plo$L1)
+to_plo$L1 <- factor(to_plo$L1, 
+  levels = c('ELKVM', 'PDBBY', 'RKBMB', 'SAPDC'),
+  labels = c('Elkhorn Slough', 'Padilla Bay', 'Rookery Bay', 
+    'Sapelo Island')
+  )
+
+# convert metab data to g m^-2 d^-1
+#  1mmolO2 = 32 mg O2, 1000mg = 1g, multiply by 32/1000
+to_plo[, c('mean', 'sd', 'se', 'ci')] <- 0.032 * to_plo[, c('mean', 'sd', 'se', 'ci')]
+
+# remove may from Rookery Bay, lots of missing data
+to_plo[to_plo$L1 %in% 'Rookery Bay'  & to_plo$value %in% '5', c('mean', 'sd', 'se', 'ci')] <- NA
+
+ylab <- expression(paste('g ', O [2], ' ', m^-2, d^-1))
+for(site in 3:4){
+
+  sub_plo <- to_plo[to_plo$L1 %in% levels(to_plo$L1)[site], ]
+  
+  p <- ggplot(sub_plo, aes(x = factor(value), y = mean, group = sub_var,
+      colour = sub_var)) +
+    geom_line() +
+    geom_point() + 
+    geom_errorbar(aes(ymin = mean - se, ymax = mean + se), 
+      width=.3) +
+    facet_wrap(cats ~ var, scales = 'free') +
+    theme_bw() +
+    scale_y_continuous(ylab) + 
+    scale_x_discrete(name = element_blank()) +
+    theme(
+      legend.position = 'top',
+      legend.title = element_blank(), 
+      plot.margin= unit(rep(0, 4), "lines"),
+      axis.text = element_text(size = 8)
+      ) +
+    ggtitle(levels(to_plo$L1)[site])
+
+  assign(paste0('p', site), p)
+  
+  }
+
+g_legend<-function(a.gplot){
+  tmp <- ggplot_gtable(ggplot_build(a.gplot))
+  leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
+  legend <- tmp$grobs[[leg]]
+  return(legend)}
+ 
+# get common legend, remove from p1
+mylegend <- g_legend(p3)
+p3 <- p3 + theme(legend.position = 'none')
+p4 <- p4 + theme(legend.position = 'none')
+
+# final plot
+grid.arrange(
+  mylegend,   
+  arrangeGrob(p3, p4, ncol = 1),
+  ncol = 1, heights = c(1,10)
+  )
+
 @
 \vfill
 \clearpage

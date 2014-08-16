@@ -291,7 +291,15 @@ Detiding had significant effects on the correlations between tidal height change
 
 The percent of daily integrated metabolism estimates that were anomalous (negative production, positive respiration) were significantly reduced for all sites after detiding (\cref{tab:case_res}).  Before detiding, anomalous values ranged from 0.09 (Rookery Bay) to 0.22 (Padilla Bay) for production and 0.08 (Rookery Bay) to 0.21 (Elkhorn Slough) for respiration as proportions of the mean annual values. Anomalous values were reduced to zero for Rookery Bay and Sapelo Island, close to zero for Padilla Bay (0.05 for production, 0.06 for respiration), and reduced to approximately half the original proportions for Elkhorn Slough (0.11 for production, 0.12 for respiration).  Metabolism estimates using detided \ac{DO} time series also had decreased mean production and respiration for Elkhorn Slough, increased mean production and respiration for Padilla Bay, and generally unchanged mean production and respiration for Rookery Bay and Sapelo Island (\cref{tab:case_res}).  Mean net ecosystem metabolism was unchanged for all sites.  Decreases in the standard erorr for all metabolism estimates (production, respiration, and net) were observed for all case studies after detiding.  
 
-An example from Sapelo Island further highlights the effects of weighted regression on metabolism estimates (\cref{fig:case_ex1}).  Tidal predictions for Sapelo Island indicated that the site is strongly semidiurnal with approximately two tidal peaks per 24 hour period.  Tidal ffects on the observed \ac{DO} time series were apparent such that semidiurnal variation is closely correlated to tidal height variation.  Weighted regression was successful in removing the variation in the observed \ac{DO} time series from changes in tidal height.  The detided \ac{DO} time series exhibited more consistent diel variation with photoperiod (i.e., one peak per 24 hours) as compared to the observed time series (i.e., two peaks per 24 hours).  However, metabolism before and after detiding for the period of observation was similar, suggesting that detiding the \ac{DO} signal does not have a large effect on mean daily integerated metabolism estimates.
+Two examples from Rookery Bay and Sapelo Island illustrate the effects of weighted regression on metabolism estimates (\cref{fig:case_ex1,fig:case_ex2}).  Tidal predictions from each site indicate that both are macrotidal, whereas Rookery Bay has more mixed semidiurnal tidal frequencies compared to more strongly semidiurnal frequencies at Sapelo Island. The effects of tidal height changes are apparent at both sites such that the observed \ac{DO} time series in the middle plots closely resemble the tidal height predictions on the lower plots.  Metabolism estimates based on the observed \ac{DO} time series were also largely influenced by tidal variation with anomalous esimates observed from August 11--15 at Rookery Bay (\cref{fig:case_ex1}) and February 4--7, 16, and 19 at Sapelo Island (\cref{fig:case_ex2}). These anomalous values occur when tidal height changes are out of phase with solar periods such that water masses with different spatial origins and metabolic histories are moving past the sensor during these periods.  Increasing tide during the night causes an influx of oxygen rich water from the ocean when a decrease in \ac{DO} from respiration is expected, whereas decreasing tide during the day causes an influx of anoxic water from landward areas when an increase in \ac{DO} from production is expected.  Similarly, a positive bias in production and negative bias in respiration would be expected when the tidal changes are in phase with solar periods.  Metabolism estimates from the detided \ac{DO} time series did not exhibit any apparent variation from the tide, which is further supported by more obvious diel variation with solar periods in the detided \ac{DO} time series.  Similar trends in metabolism estimates were observed for all sites across the period of observation. 
+
+\section{Effects of aggregation and importance of detiding}
+
+A final point of concern is the period of observation within which observed \ac{DO} is affected by tidal height changes and the extent to which this affects the interpretation of ecosystem metabolism.  From a management or ecological perspective, daily estimates may not be a primary concern given that seasonal or annual rates may be more relevant for evaluating ecosystem dynamics with continuous monitoring data.  For example, \cref{tab:case_res} indicated that mean annual estimates of production and respiration were relatively unchanged for Rookery Bay and Sapelo Island, whereas \cref{fig:case_ex1,fig:case_ex2} indicates that substantial variation can occur on a daily basis for these sites.  Additionally, mean annual estimates for production and respiration were significantly different after detiding for Elkhorn Slough and Padilla Bay. Therefore, an evaluation of the effects of tidal variation on ecosystem metabolism for different lengths of observation is critical for understanding practical applications of weighted regression.  For example, what is the shortest period of observation for which mean metabolism estimates can be evaluated without inducing bias from tidal variation?  
+
+The observed and detided daily estimates were averaged by month and season (Fall,  Spring, Summer, and Winter) categories for each case study to evaluate the effects of different averaging periods on evaluating metabolism (\cref{fig:meta_sum1,fig:metab_sum2}).  Interestingly, estimates of net metabolism were generally similar regardless of aggregation categories for each case study.  This result suggests that averaged net metabolism estimates based on observed \ac{DO} time series will produce unbiased results at periods of observation as short as one month, although note that substantial within-month variability  may be observed compared to using a detided \ac{DO} time series.  However, significant variation in aggregated production and respiration estimates for month and season was observed for each case study.  Detided production and respiration estimates exhibited seasonal and monthly variation that was more characteristic of expected trends with increases in metabolism during warmer months.  For example, production estimates based on observed \ac{DO} were substantially muted for both Padilla Bay (\cref{fig:metab_sum1}) and Rookery Bay (\cref{fig:metab_sum2}) during summer months, whereas values were significantly higher based on the detided data. Results for Elkhorn Slough were an exception such that seasonal variation in production and respiration were significantly reduced after detiding.  Regardless of trends, these results suggest that the effects of tidal variation on daily metabolism estimates can affect interpretations of metabolic trends that are aggregated on longer time scales, particularly those as short as one month.      
+
+ 
 
 %%%%%%
 % discussion
@@ -329,6 +337,7 @@ air-sea gas exchange, how might this influence results
 % comment about performance of simulations, window width is a more critical issue
 An examination of unique scenarios can provide insight into factors that affect the ability of weighted regression to resolve variation in observed \ac{DO} from tidal effects ($DO_{tid}$, \cref{fig:do_dtd}) and the mean response of \ac{DO} given constant tidal height ($DO_{nrm}$, \cref{fig:do_dtd}).  These unique sources of variation are represented by $DO_{bio}$ and $DO_{adv}$ as additive components of $DO_{obs}$ (\cref{do_obs}).  Although comparison of \cref{fig:err_surf1} and \cref{fig:err_surf2}) suggested that characteristics of the \ac{DO} time series had a larger influence on  model performance than window widths, examples where model fit was either very good or very poor were time series with extreme characteristics.  For example, poor performance was observed when the observation uncertainty ($\epsilon_{obs}$) was high and both process uncertainty ($\epsilon_{pro}) and tidal advection ($DO_{adv}$) were low.  These examples represent time series with excessive random variation, no auto-correlation, and no tidal influence.  Poor model performance is expected because the weighted regression attempts to isolate variation from a non-existent tidal signal in a very noisy \ac{DO} time series.  From a practical perspective, the weighted regression should not be applied to such a time series. Most of the simulations evaluated provided a reasonable reprsentation    
 
+Most bias may be expected during the summer...
 \end{comment}
 
 %%%%%%
@@ -456,7 +465,7 @@ An examination of unique scenarios can provide insight into factors that affect 
 \vfill
 \clearpage
 
-% example from SAPDC
+% example from RKBMB
 \centering\vspace*{\fill}
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[!ht]
@@ -466,7 +475,7 @@ An examination of unique scenarios can provide insight into factors that affect 
 
 }
 
-\caption[Example of metabolism and \ac{DO} time series before (observed) and after (detided) weighted regression]{Example of metabolism and \ac{DO} time series before (observed) and after (detided) weighted regression. Results are for a ten day period in March for the Sapelo Island station using a weighted regression with a window of eight days, six hours within each day, and tidal height proportion of one.\label{fig:case_ex1}}
+\caption[Example of daily mean metabolism (top) and continuous \ac{DO} time series (middle) before (observed) and after (detided) detiding with weighted regression]{Example of daily mean metabolism (top) and continuous \ac{DO} time series (middle) before (observed) and after (detided) detiding with weighted regression. Tidal height colored by total photosynthetically active radiation (mmol m$^{-2}$) is on the bottom plot. Results are for the Rookery Bay station for twenty days in July, 2012 using a weighted regression with window of eight days, six hours within each day, and tidal height proportion of one.\label{fig:case_ex1}}
 \end{figure}
 
 
@@ -474,9 +483,57 @@ An examination of unique scenarios can provide insight into factors that affect 
 \vfill
 \clearpage
 
+% example from SAPDC
+\centering\vspace*{\fill}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[!ht]
+
+
+{\centering \includegraphics[width=0.8\textwidth]{figure/case_ex2} 
+
+}
+
+\caption[Example of daily mean metabolism (top) and continuous \ac{DO} time series (middle) before (observed) and after (detided) detiding with weighted regression]{Example of daily mean metabolism (top) and continuous \ac{DO} time series (middle) before (observed) and after (detided) detiding with weighted regression. Tidal height colored by total photosynthetically active radiation (mmol m$^{-2}$) is on the bottom plot. Results are for the Sapelo Island station for a twenty day period in February, 2012 using weighted regression with a window of eight days, six hours within each day, and tidal height proportion of one.\label{fig:case_ex2}}
+\end{figure}
+
+
+\end{knitrout}
+
+% plots of summarized metabolism estimates, before/after detiding
+% ELKVM, PDBBY
+\centering\vspace*{\fill}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[!ht]
+
+
+{\centering \includegraphics[width=\maxwidth]{figure/metab_sum1} 
+
+}
+
+\caption[Means and standard errors of daily metabolism estimates (gross production, total respiration, net ecosystem metabolism) aggregated by month and season]{Means and standard errors of daily metabolism estimates (gross production, total respiration, net ecosystem metabolism) aggregated by month and season.  Aggregated estimates are for Elkhorn Slough and Padilla Bay from observed and detided \ac{DO} time series.\label{fig:metab_sum1}}
+\end{figure}
+
+
+\end{knitrout}
+\vfill
+\clearpage
+
+% RKBMB, SAPDC
 % plots of summarized metabolism estimates, before/after detiding
 \centering\vspace*{\fill}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[!ht]
 
+
+{\centering \includegraphics[width=\maxwidth]{figure/metab_sum2} 
+
+}
+
+\caption[Means and standard errors of daily metabolism estimates (gross production, total respiration, net ecosystem metabolism) aggregated by month and season]{Means and standard errors of daily metabolism estimates (gross production, total respiration, net ecosystem metabolism) aggregated by month and season.  Aggregated estimates are for Rookery Bay and Sapelo Island from observed and detided \ac{DO} time series.  May was removed from Rookery Bay because of incomplete data.\label{fig:metab_sum2}}
+\end{figure}
+
+
+\end{knitrout}
 \vfill
 \clearpage
 
