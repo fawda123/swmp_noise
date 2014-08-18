@@ -43,6 +43,7 @@
 \renewcommand{\figurename}{Fig.}
 
 % aliased citations
+\defcitealias{BeckIR}{Beck and Hagy, In review}
 \defcitealias{CDMO14}{CDMO 2014}
 \defcitealias{RDCT14}{RDCT 2014}
 
@@ -143,6 +144,8 @@ options(replace.assign=TRUE,width=90,digits=1)
 %%%%%%
 % comments and recs
 \section{Comments and recommendations}
+<<comments, child = 'comments.Rnw'>>=
+@
 
 %%%%%%
 % refs
