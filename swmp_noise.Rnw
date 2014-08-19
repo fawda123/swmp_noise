@@ -590,7 +590,7 @@ meta <- meta[, c('Longitude', 'Latitude','Reserve.Name')]
 
 % example from RKBMB
 \centering\vspace*{\fill}
-<<case_ex1, cache = T, fig.height = 6.5, fig.width = 5.5, out.width = '0.8\\textwidth', eval = T, echo = F, fig.cap = 'Example of daily mean metabolism (top) and continuous \\ac{DO} time series (middle) before (observed) and after (detided) detiding with weighted regression. Tidal height colored by total photosynthetically active radiation (mmol m$^{-2}$) is on the bottom plot. Results are for the Rookery Bay station for twenty days in July, 2012 using a weighted regression with window of eight days, six hours within each day, and tidal height proportion of one.'>>=
+<<case_ex1, cache = T, fig.height = 6.5, fig.width = 5.5, out.width = '0.8\\textwidth', eval = T, echo = F, fig.cap = 'Example of daily mean metabolism (top) and continuous \\ac{DO} time series (middle) before (observed) and after (detided) detiding with weighted regression. Tidal height colored by total photosynthetically active radiation (mmol m$^{-2}$) is on the bottom plot. Results are for the Rookery Bay station for twenty days in August, 2012 using a weighted regression with window of eight days, six hours within each day, and tidal height proportion of one.'>>=
 ######
 # RKBMB example
 
@@ -907,9 +907,9 @@ to_plo <- melt(agg_sum, id.var = names(agg_sum[[1]]))
 
 # reassign factor labels
 to_plo$value <- factor(to_plo$value, levels = c('01', '02', '03', '04',
-  '05', '06', '07', '08', '09', '10', '11', '12', 'F', 'Sp', 'Su', 'W'), 
+  '05', '06', '07', '08', '09', '10', '11', '12', 'W', 'Sp', 'Su', 'F'), 
   labels = c('1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11',' 12',
-    'F', 'Sp', 'Su', 'W')
+    'W', 'Sp', 'Su', 'F')
   )
 to_plo$var <- factor(to_plo$var, levels = c('Pg', 'Rt', 'NEM'), 
   labels = c('Pg', 'Rt', 'NEM'))
@@ -1056,9 +1056,9 @@ to_plo <- melt(agg_sum, id.var = names(agg_sum[[1]]))
 
 # reassign factor labels
 to_plo$value <- factor(to_plo$value, levels = c('01', '02', '03', '04',
-  '05', '06', '07', '08', '09', '10', '11', '12', 'F', 'Sp', 'Su', 'W'), 
+  '05', '06', '07', '08', '09', '10', '11', '12', 'W', 'Sp', 'Su', 'F'), 
   labels = c('1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11',' 12',
-    'F', 'Sp', 'Su', 'W')
+    'W', 'Sp', 'Su', 'F')
   )
 to_plo$var <- factor(to_plo$var, levels = c('Pg', 'Rt', 'NEM'), 
   labels = c('Pg', 'Rt', 'NEM'))
@@ -1668,7 +1668,7 @@ to_tab$Site <- gsub('_wtreg_[0-9]*.RData$', '', to_tab$Site)
 
 tab <- form_fun(to_tab[, -c(1:2)])
 rows <- to_tab[, 2]
-cap.val<-'Summary of metabolism estimates (gross production, respiration, and net metabolism) for case studies using \\ac{DO} time series before (observed) and after (detided) application of weighted regression.  Means and standard errors are based on daily integrated metabolism estimates.  Anomalous values are the proportion of metabolism estimates that were negative for gross production and positive for respiration.  Results are for weighted regressions with a window of thirty days and tidal height proportion of one.'
+cap.val<-'Summary of metabolism estimates (gross production, respiration, and net metabolism) for case studies using \\ac{DO} time series before (observed) and after (detided) application of weighted regression.  Means and standard errors are based on daily integrated metabolism estimates.  Anomalous values are the proportion of metabolism estimates that were negative for gross production and positive for respiration.  Results are for weighted regression with window of eight days, six hours within each day, and tidal height proportion of one.'
 
 foot.val<-'\\textsuperscript{\\textit{a}}Pg: gross production, Rt: respiration, NEM: net ecosystem metabolism' 
 latex( 

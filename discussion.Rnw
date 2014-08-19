@@ -2,48 +2,6 @@ The primary objective for development and application of the weighted regression
 
 Comparisons between detided and biological \ac{DO} time series from the simulations indicated that adequate results can be obtained from the weighted regression for a range of characteristics of \ac{DO} time series, as well as half window widths used in the regression.  An examination of scenarios that produced abnormal results can provide additional insight into factors that affect the performance of weighted regression.  For example, poor performance was observed when the observation uncertainty ($\epsilon_{obs}$) was high and both process uncertainty ($\epsilon_{pro}$) and tidal advection ($DO_{adv}$) were low.  These examples represent time series with excessive random variation, no auto-correlation, and no tidal influence.  Poor performance is expected because the weighted regression models a non-existent tidal signal in a very noisy \ac{DO} time series.  These results were observed even for time series with a large diel component of the biological \ac{DO} signal, suggesting that the model will produce unreliable results in microtidal systems with high noise and no serial correlation.  From a practical perspective, weighted regression should not be applied to noisy time series if there is not sufficient evidence to suggest the variation is related to tidal changes.  Similarly, results with perfect or near-perfect correlations between detided and biological \ac{DO} time series were observed when observation uncertainy and tidal advection effects were not in the simulated time series.  Although there is no logical basis for applying weighted regression to such a time series, the results will not be misleading, as was the case for low tidal advection, high observation uncertainty, and low process uncertainty.  
 
-The performance metrics used to evaluate weighted regression with the case studies indicated that detiding improved estimates of ecosystem metabolism.  Correlations of metabolism estimates with tidal height changes suggested that detiding produced less biased estimates, although trends were not particularly clear as correlations were reduced in some cases (Sapelo Island) or reversed in others (Padilla Bay).  However, correlations of net metabolism estimates were reduced in all cases.  Tidal height changes directly affect the measured rate of change of oxygen, which is an integrated measure of both production and respiration (\cref{metrate}).  An evaluation of tidal height change with production or respiration may be misleading since each represents a unique portion of the diel \aC{DO} signal that is directly affected by tidal variation.  Regardless, the proportion of anomalous metabolism estimates was reduced by detiding for all case studies, although this measure may also be an incomplete indication of the combined effects of tidal variation.  Negative production and positive respiration estimates suggest assumptions of the open-water method are violated \citep{Needoba12}.  However, `normal' estimates (positive production and negative respiration) may still include a significant source of bias from physical advection by providing over-estimates of true values.  \citet{Nidzieko14} observed that net metabolism at Elkhorn Slough was more often heterotrophic during maximum spring tides that occurred at nighttime, as a substantially larger area of salt marsh was inundated leading to higher respiration estimates.  Although this result supports our general conclusions, a broader discusion regarding whether or not this represents a bias in metabolism from physical advection may be needed. 
+The performance metrics used to evaluate weighted regression with the case studies indicated that detiding improved estimates of ecosystem metabolism.  Correlations of metabolism estimates with tidal height changes suggested that detiding produced less biased estimates, although trends were not particularly clear as correlations were reduced in some cases (Sapelo Island) or reversed in others (Padilla Bay).  However, correlations of net metabolism estimates were reduced in all cases.  Tidal height changes directly affect the measured rate of change of oxygen, which is an integrated measure of both production and respiration (\cref{metrate}).  An evaluation of tidal height change with production or respiration may be misleading since each represents a unique portion of the diel \ac{DO} signal that is directly affected by tidal variation.  Regardless, the proportion of anomalous metabolism estimates was reduced by detiding for all case studies, although this measure may also be an incomplete indication of the combined effects of tidal variation.  Negative production and positive respiration estimates suggest assumptions of the open-water method are violated \citep{Needoba12}, whereas `normal' estimates (positive production and negative respiration) may still include a significant source of bias from physical advection by providing over-estimates of true values.  For example, \citet{Nidzieko14} observed that net metabolism at Elkhorn Slough was more often heterotrophic during maximum spring tides that occurred at nighttime, as a substantially larger area of salt marsh was inundated leading to higher respiration estimates.  Although this result supports our general conclusions, a broader discusion regarding whether or not this represents a bias in metabolism from physical advection may be needed. 
 
-A strength of the weighted regression approach is the lack of assumptions that are required for relationships between \ac{DO} and tidal variation over time. 
-
-% emphasis on improvement over other methods
-
-% new insights, reinterpretation of existing data
-
-\begin{comment}
-
-- degree to which method meets need defined in introduction
-  -sims
-  -case studies
-
-- potential for new insight
-- whether existing data should be reinterpreted
-  -potentially
-
-what did I find?
-
-- simulations work well
-- DO time series were detided for case studies, show comvincingly
-  - corrs w/ tide and moving correlation/beta plots?, DO and DOF are different
-- metab ests for case studies were generally unchanged
-  - related to the fact that metab is daily integrated that averages out
-  - but show PDB example, really a major issue when the stars align (tide always going out during the day etc. more of a problem for strong diurnal tides, method was useful for this example
-- method should not be broadly used to fix `anomalous' metab estimates, these are likely not caused by tides unless a case like PDB
-- method should be used to detide DO, useful in that regard
-
- Assumptions of relationships between variables are not necessary using this adaptive weighting scheme given that the method has the ability to interpret statistical relationships without prior knowledge.
-
-
-weighted regression approach is very useful because DO and tide are cyclical and the interaction varies depending on whether they are in or out of phase.  the approach is adaptive and does not require the user to identify the relationship a priori, a relationship that is comlicated by the additive combination of multiple sine waves. 
-
-make note that a non-moving window approach could work only if the relationship of time, tide, DO is constant throughout the time series.  For example, regression of do w/ tide before/after detiding using a non-weighted approach detided the whole series but had variable success by month,  where weighted approach detided each month completley.  Simulations did not test for this, although this was apparent with the case studies.
-
-
-why not just fourier transform or hi/lo pass filters?  See Needobe et al. chapter and Batt and Carpenter 2012  for examples of this, need to the pros/cons of each technique, we assume that noise not related to tidal advection is DO from biology
-
-air-sea gas exchange, how might this influence results
-
-
-
-Most bias may be expected during the summer...
-\end{comment}
+A strength of the weighted regression approach is the lack of assumptions for describing the relationships between \ac{DO} and tidal variation over time.  Although the functional form of the model is a simple linear regression with two explanatory variables (\cref{funform}), the moving window approach combined with the adaptive weighting scheme allows for quantification of complex tidal effects that may not be possible using alternative approaches.  For example, \citet{Batt12} described the use of a moving window or Kalman filter to improve estimates of ecosystem metabolism in lakes.  The approach minimizes the influences of process and observation uncertainty on observed \ac{DO} time series, which the authors assume is the product of spatial variation not related to metabolism.  Such an approach may be useful for estuaries if process and observation uncertainty are the primary sources of variation, whereas the weighted regression approach would be more appropriate if tidal advection is considered an additional confounding factor of the diel \ac{DO} component.  Additionally, results from the case studies illustrate the ability of the weighted regression approach to model changes in the relationships between tidal change and \ac{DO} over time.  Results for Padilla Bay and Rookery Bay suggested that detiding had the largest effect during the summer, whereas the results for cooler months were not significantly different from the observed.  The weighted regression method produced detided time series that accommodated seasonal variation in \ac{DO} conditional on tidal height change, whereas moving window filters would likely not have characterized these dynamic relationships.
