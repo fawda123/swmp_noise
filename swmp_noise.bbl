@@ -35,6 +35,13 @@ Caffrey JM, Murrell MC, Amacker KS, Harper J, Phipps S, Woodrey M. 2013.
 \newblock {National Estuarine Research Reserve System}.
 \newblock \url{http://cdmo.baruch.sc.edu/}. (Accessed January, 2014).
 
+\bibitem[Cloern, 1996]{Cloern96}
+Cloern JE. 1996.
+\newblock Phytoplankton bloom dynamics in coastal ecosystems: {A} review with
+  some general lessons from sustained investigation of {S}an {F}rancisco {B}ay,
+  {C}alifornia.
+\newblock Review of Geophysics, 34(2):127--168.
+
 \bibitem[Collins et~al., 2013]{Collins13}
 Collins JR, Raymond PA, Bohlen WF, Howard-Strobel MM. 2013.
 \newblock Estimates of new and total productivity in {C}entral {L}ong {I}sland
@@ -62,8 +69,8 @@ Foreman MGG, Henry RF. 1989.
 \newblock The harmonic analysis of tidal model time series.
 \newblock Advances in Water Resources, 12(3):109--120.
 
-\bibitem[Hilboron and Mangel, 1997]{Hilborn97}
-Hilboron R, Mangel M. 1997.
+\bibitem[Hilborn and Mangel, 1997]{Hilborn97}
+Hilborn R, Mangel M. 1997.
 \newblock The Ecological Detective: Confronting Models with Data.
 \newblock Princeton University Press, Princeton, New Jersey.
 
@@ -99,6 +106,12 @@ Kemp WM, Testa JM, Conley DJ, Gilbert D, Hagy JD. 2009.
   physical controls.
 \newblock Biogeosciences, 6(12):2985--3008.
 
+\bibitem[Monbet, 1992]{Monbet92}
+Monbet Y. 1992.
+\newblock Control of phytoplankton biomass in estuaries: A comparative analysis
+  of microtidal and macrotidal estuaries.
+\newblock Estuaries, 15(4):563--571.
+
 \bibitem[Needoba et~al., 2012]{Needoba12}
 Needoba JA, Peterson TD, Johnson KS. 2012.
 \newblock Method for the quantification of aquatic primary production and net
@@ -123,11 +136,23 @@ Pamatmat MM. 1997.
   uptake in the dark: A theory of oxygen dynamics in plankton communities.
 \newblock Marine Biology, 129(4):735--746.
 
+\bibitem[Rabalais et~al., 2002]{Rabalais02}
+Rabalais NN, Turner RE, Scavia D. 2002.
+\newblock Beyond science into policy: {G}ulf of {M}exico hypoxia and the
+  {M}ississippi river.
+\newblock BioScience, 52(2):129--142.
+
 \bibitem[{RDCT (R Development Core Team)}, 2014]{RDCT14}
 {RDCT (R Development Core Team)}. 2014.
 \newblock {R: A language and environment for statistical computing, v3.1.0. R
   Foundation for Statistical Computing, Vienna, Austria}.
 \newblock \url{http://www.R-project.org}.
+
+\bibitem[Russell and Montagna, 2007]{Russell07}
+Russell MJ, Montagna PA. 2007.
+\newblock Spatial and tepmoral variability and drivers of net ecosystem
+  metabolism in western {G}ulf of {M}exico estuaries.
+\newblock Estuaries and Coasts, 30(1):137--153.
 
 \bibitem[Sanger et~al., 2002]{Sanger02}
 Sanger DM, Arendt MD, Chen Y, Wenner EL, Holland AF, Edwards D, Caffrey J.
@@ -137,6 +162,11 @@ Sanger DM, Arendt MD, Chen Y, Wenner EL, Holland AF, Edwards D, Caffrey J.
 \newblock Technical report, National Estuarine Research Reserve Technical
   Report Series 2002:3. South Carolina Department of Natural Resources, Marine
   Resources Division Contribution No. 500, Charleston, South Carolina.
+
+\bibitem[Short and Wyllie-Echeverria, 1996]{Short96}
+Short FT, Wyllie-Echeverria S. 1996.
+\newblock Natural and human-induced disturbance of seagrasses.
+\newblock Environmental Conservation, 23(1):17--27.
 
 \bibitem[Staehr et~al., 2010]{Staehr10}
 Staehr PA, Bade D, de~Bogert MCV, Koch GR, Williamson C, Hanson P, Cole JJ,

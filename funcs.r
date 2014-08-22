@@ -265,9 +265,9 @@ summarySE <- function(data=NULL, measurevar, groupvars=NULL, narm=FALSE,
 # 'flag.in' is vector indicating binomial variable for polys
 # 'flag.in' can be factor or numeric (w/ two values)
 # 'dat' is data.frame with 'flag.in'
-# 'fill.val' is fill colour of polygons
+# 'for_leg' is used to manually change color for polygons, will add legend
 # output is geom object
-poly.fun<-function(flag.in,dat, fill.val='yellow1'){
+poly.fun<-function(flag.in,dat, for_leg = F){
 
   require(reshape2)
   require(ggplot2)
@@ -333,7 +333,14 @@ poly.fun<-function(flag.in,dat, fill.val='yellow1'){
 
     }
   
-  out<-geom_polygon(data=polys,aes(x.vals,y.vals,group=grp,fill='grp'),alpha=0.6)
+  if(for_leg){
+    out<-geom_polygon(data=polys,aes(x.vals,y.vals,group=grp, fill = 'grp'), 
+      alpha=0.6)
+  } else {
+   out<-geom_polygon(data=polys,aes(x.vals,y.vals,group=grp), fill = 'orange',
+      alpha=0.6)
+  }
+    
   
   return(out)
   
@@ -968,4 +975,10 @@ g_legend<-function(a.gplot){
   leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
   legend <- tmp$grobs[[leg]]
   return(legend)}
- 
+
+######
+# returns default ggplot colors
+ggplotColours <- function(n=6, h=c(0, 360) +15){
+  if ((diff(h)%%360) < 1) h[2] <- h[2] - 360/n
+  hcl(h = (seq(h[1], h[2], length = n)), c = 100, l = 65)
+}

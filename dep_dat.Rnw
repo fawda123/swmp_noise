@@ -1,34 +1,4 @@
 <<>>=
-
-######
-# sim conditions to eval
-tide_cat <- c('Diurnal', 'Semidiurnal', 'Mixed Semidiurnal')
-tide_cat <- factor(tide_cat, levels = tide_cat)
-bio_rng <- round(seq(0, 2, length = 3),2)
-tide_assoc <- round(seq(0, 2, length = 3), 2)
-err_rng_pro <- round(seq(0, 2, length = 3), 2)
-err_rng_obs <- round(seq(0, 2, length = 3), 2)
-
-eval_grd <- expand.grid(tide_cat, bio_rng, tide_assoc, err_rng_pro, 
-  err_rng_obs)
-names(eval_grd) <- c('tide_cat', 'bio_rng', 'tide_assoc', 'err_rng_pro', 
-  'err_rng_obs')
-save(eval_grd, file = 'eval_grd.RData')
-
-# grid of regression windows to evaluate
-dy_wins <- c(1, 3, 8)
-hr_wins <- c(6, 12, 24)
-td_wins <- c(0.25, 0.5, 1)
-wins_grd <- expand.grid(dy_wins, hr_wins, td_wins)
-names(wins_grd) <- c('dec_time', 'hour', 'Tide')
-save(wins_grd, file = 'wins_grd.RData')
-
-# grid of both eval and window combinations
-comb_grd <- expand.grid(tide_cat, bio_rng, tide_assoc, err_rng_pro, err_rng_obs,
-  dy_wins,  hr_wins, td_wins)
-names(comb_grd) <- c(names(eval_grd), names(wins_grd))
-save(comb_grd, file = 'comb_grd.RData')
-
 ######
 # simulation results
 
@@ -50,4 +20,8 @@ anom_obs$.id <- factor(anom_obs$.id, levels = c('ELKVM', 'PDBBY', 'RKBMB', 'SAPD
 anom_dtd <- met_comp[met_comp$Metric %in% 'Anom' & met_comp$Input %in% 'Detided', ]
 anom_dtd$.id <- gsub('_wtreg_[0-9]*.RData$', '', anom_dtd$.id)
 anom_dtd$.id <- factor(anom_dtd$.id, labels = c('Elkhorn Slough', 'Padilla Bay', 'Rookery Bay', 'Sapelo Island'))
+
+######
+# objects for selecting window widht combinations for case studies
+casewins <- list(6, 1, 0.5)
 @
