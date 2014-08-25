@@ -69,6 +69,11 @@ Foreman MGG, Henry RF. 1989.
 \newblock The harmonic analysis of tidal model time series.
 \newblock Advances in Water Resources, 12(3):109--120.
 
+\bibitem[Harvey, 1989]{Harvey89}
+Harvey AC. 1989.
+\newblock Forecasting, Structural Time Series Models and the Kalmann Filter.
+\newblock Cambridge University Press, Cambridge, United Kingdom.
+
 \bibitem[Hilborn and Mangel, 1997]{Hilborn97}
 Hilborn R, Mangel M. 1997.
 \newblock The Ecological Detective: Confronting Models with Data.
@@ -179,6 +184,11 @@ Th\'{e}bault J, Schraga TS, Cloern JE, Dunlavey EG. 2008.
 \newblock Primary production and carrying capacity of former salt ponds after
   reconnection to {S}an {F}rancisco {B}ay.
 \newblock Wetlands, 28(3):841--851.
+
+\bibitem[Tukey, 1977]{Tukey77}
+Tukey JW. 1977.
+\newblock Exploratory Data Analysis.
+\newblock Addison-Wesley, Reading, Massachusetts.
 
 \bibitem[Wenner et~al., 2004]{Wenner04}
 Wenner E, Sanger D, Arendt M, Holland AF, Chen Y. 2004.
