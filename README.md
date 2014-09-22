@@ -1,11 +1,10 @@
+## Folders
 
-### folders
-
-wtreg folder contains '*_wtreg_*.RData' files that are results for each case study and window combination, includes original wq data and detided DO information created in 'source_me.r' of 'detiding_cases.RProj'
+wtreg folder contains '_wtreg_.RData' files that are results for each case study and window combination, includes original wq data and detided DO information created in 'source_me.r' of 'detiding_cases.RProj'
 
 pdrnrm folder contains 'prdnrm_*.RData' that are results for simulations, created using 'source_me.r' in 'detiding_sim.RProj'
 
-### data
+## Data
 
 'met_ls.RData' is list of metabolism estimates for each case/window combination before/after detiding, these were created using 'source_me.r' in 'detiding_cases.RProj'
 
@@ -20,3 +19,9 @@ pdrnrm folder contains 'prdnrm_*.RData' that are results for simulations, create
 'met_comp.RData' is summary of mean/anom metabolism data before/after detiding of case studies, created in 'case_res' chunk in 'swmp_noise.Rnw'
 
 'case_tab.RData' is data frame of summary informaiton for case studies, created in 'case_att' chunk in 'swmp_noise.Rnw'
+
+## Revision points
+
+* Use of 'detiding' - a more appropriate descriptor?
+* Relevance of indepth description of simulated data - not a primary focus
+* Add to discussion relevant literature of people who have done similar things - Kahlman filter

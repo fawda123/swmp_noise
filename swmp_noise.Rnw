@@ -49,6 +49,7 @@
 
 % acronyms
 \acrodef{DO}[DO]{dissolved oxygen}
+\acrodef{EPA}[EPA]{Environmental Protection Agency}
 \acrodef{NERRS}[NERRS]{National Estuarine Research Reserve System}
 \acrodef{RMSE}[RMSE]{root mean square error}
 \acrodef{SWMP}[SWMP]{System Wide Monitoring Program}
@@ -104,16 +105,13 @@ options(replace.assign=TRUE,width=90,digits=1)
 % acknowledgments
 \section{Acknowledgments}
 
-Will add something here...
+We acknowledge the significant efforts of research staff and field crews from the \acl{SWMP} of the \acl{NERRS} for providing access to high quality data sets.  We thank Dr. Jane Caffrey for stimulating discussion and previous work on applications of the open-water method to estuarine monitoring data. This study was funded by the US \acl{EPA}, but the contents are solely the views of the authors.  Use of trade names does not constitute endorsement by the US government.
 
 %%%%%%
 % abstract
-\centerline{{\bf Abstract}}
-\begin{singlespace} \small
-\noindent 
+\newpage
+\section{Abstract}
 \input{abstract.tex}
-\normalsize
-\end{singlespace}
 
 \acresetall
 \clearpage
@@ -405,7 +403,7 @@ p1 <- ggplot(to_plo, aes(x = factor(err_rng_pro), y = factor(err_rng_obs), z = c
   facet_grid(bio_rng ~ tide_assoc,
     labeller = plot_labeller) +
   scale_fill_gradientn(name = 'Correlation', 
-    colours = brewer.pal(11, 'Spectral'), limits = c(0, 1)
+    colours = brewer.pal(11, 'Spectral')#, limits = c(0, 1)
     ) +
   scale_x_discrete(expand = c(0,0)) + 
   scale_y_discrete(expand = c(0,0)) +
@@ -419,7 +417,7 @@ p2 <- ggplot(to_plo, aes(x = factor(err_rng_pro), y = factor(err_rng_obs), z = e
   facet_grid(bio_rng ~ tide_assoc,
     labeller = plot_labeller) +
   scale_fill_gradientn(name = 'RMSE', 
-    colours = rev(brewer.pal(11, 'Spectral')), limits = c(0, 2.5)
+    colours = rev(brewer.pal(11, 'Spectral')), limits = c(0.6, 1.8)
     ) +
   scale_x_discrete(expand = c(0,0)) + 
   scale_y_discrete(expand = c(0,0)) +
@@ -480,7 +478,7 @@ p2 <- ggplot(to_plo, aes(x = factor(dec_time), y = factor(hour), z = err, fill =
   geom_tile() +
   facet_grid(~ Tide) +
   scale_fill_gradientn(name = 'RMSE', 
-    colours = rev(brewer.pal(11, 'Spectral'))#, limits = c(1, 1.5), 
+    colours = rev(brewer.pal(11, 'Spectral')), limits = c(0.6, 1.8) 
 #     labels = format(seq(1, 1.5, by = 0.1), nsmall = 1)
     ) +
   scale_x_discrete(expand = c(0,0)) + 

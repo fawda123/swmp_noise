@@ -6,12 +6,6 @@ Batt RD, Carpenter SR. 2012.
   {K}alman filter.
 \newblock Limnology and Oceanography: Methods, 10:20--30.
 
-\bibitem[Beck and {Hagy III}, view]{BeckIR}
-Beck MW, {Hagy III} JD. In review.
-\newblock Adaptation of a weighted regressoin approach to evaluate water
-  quality trends in an estuary.
-\newblock Environmental Modeling and Assessment.
-
 \bibitem[Caffrey, 2003]{Caffrey03}
 Caffrey JM. 2003.
 \newblock Production, respiration and net ecosystem metabolism in {U.S.}
@@ -59,8 +53,8 @@ Cryer JD, Chan KS. 2008.
 \newblock Time Series Analysis with Applications in R.
 \newblock Springer, New York, New York, second edition.
 
-\bibitem[Diaz, 2008]{Diaz08}
-Diaz RJ. 2008.
+\bibitem[Diaz and Rosenberg, 2008]{Diaz08}
+Diaz RJ, Rosenberg R. 2008.
 \newblock Spreading dead zones and consequences for marine ecosystems.
 \newblock Science, 321:926--929.
 
@@ -110,12 +104,6 @@ Kemp WM, Testa JM, Conley DJ, Gilbert D, Hagy JD. 2009.
 \newblock Temporal responses of coastal hypoxia to nutrient loading and
   physical controls.
 \newblock Biogeosciences, 6(12):2985--3008.
-
-\bibitem[Monbet, 1992]{Monbet92}
-Monbet Y. 1992.
-\newblock Control of phytoplankton biomass in estuaries: A comparative analysis
-  of microtidal and macrotidal estuaries.
-\newblock Estuaries, 15(4):563--571.
 
 \bibitem[Needoba et~al., 2012]{Needoba12}
 Needoba JA, Peterson TD, Johnson KS. 2012.
