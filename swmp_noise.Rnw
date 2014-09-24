@@ -24,7 +24,7 @@
 \usepackage{array}
 \usepackage{pdflscape}
 \usepackage{bm}
-% \usepackage{showlabels}
+\usepackage{showlabels}
 \bibpunct{(}{)}{,}{a}{}{,}
 
 % page margins and section title formatting
@@ -149,8 +149,8 @@ We acknowledge the significant efforts of research staff and field crews from th
 %%%%%%
 % refs
 \begin{singlespace}
-\bibliographystyle{M:/docs/bibtex_bst/apalike_mine}
-\bibliography{M:/docs/ref_diss}
+\bibliographystyle{apalike_mine}
+\bibliography{ref_diss}
 \end{singlespace}
 \clearpage
 
@@ -1180,12 +1180,12 @@ dtd_perf <- llply(names(mod_perf)[2:8], # note indexing
         c(
           min(y$cor),
           quantile(y$cor, 0.25),
-          mean(y$cor),
+          median(y$cor),
           quantile(y$cor, 0.75),
           max(y$cor),
           min(y$err),
           quantile(y$err, 0.25),
-          mean(y$err),
+          median(y$err),
           quantile(y$err, 0.75),
           max(y$err)
         )
@@ -1204,7 +1204,7 @@ dtd_perf <- lapply(dtd_perf,
     }
   )
 dtd_perf <- do.call('rbind', dtd_perf)
-names(dtd_perf) <- c('Parameter', 'Level', 'Min cor', 'Low cor', 'Mean cor', 'High cor', 'Max cor', 'Min err', 'Low err', 'Mean err', 'High err', 'Max err')
+names(dtd_perf) <- c('Parameter', 'Level', 'Min cor', 'Low cor', 'Median cor', 'High cor', 'Max cor', 'Min err', 'Low err', 'Median err', 'High err', 'Max err')
 
 # subset by DO time series conditions
 to_tab <-dtd_perf[!dtd_perf$Parameter %in% c('dec_time', 'hour', 'Tide'), ]
@@ -1217,7 +1217,7 @@ Parms <- c('$\\boldsymbol{DO_{die}}$',
   )
 tab <- form_fun(to_tab[, -c(1:2)])
 rows <- to_tab[, 2]
-cap.val<-'Summary (range, mean, percentiles) of correlations and error estimates comparing detided and biological \\ac{DO} time series for different simulation parameters ($DO_{die}$, $DO_{adv}$, $\\epsilon_{pro}$, $\\epsilon_{obs}$).  Values represent averages from multiple simulations with common parameters (e.g., row one is a summary of all simulations for which diel \\ac{DO} component was zero).'
+cap.val<-'Summary (range, median, percentiles) of correlations and error estimates comparing detided and biological \\ac{DO} time series for different simulation parameters ($DO_{die}$, $DO_{adv}$, $\\epsilon_{pro}$, $\\epsilon_{obs}$).  Values represent averages from multiple simulations with common parameters (e.g., row one is a summary of all simulations for which diel \\ac{DO} component was zero).'
 
 # foot.val<-'\\footnotesize \\textit{Note:} test' 
 
@@ -1234,7 +1234,7 @@ latex(
   cgroup = c('Correlation', 'RMSE'),
   n.cgroup = c(5, 5),
   rowname = rows,
-  colheads=rep(c('Min', '25\\textsuperscript{th}', 'Mean', '75\\textsuperscript{th}', 'Max'),2),
+  colheads=rep(c('Min', '25\\textsuperscript{th}', 'Median', '75\\textsuperscript{th}', 'Max'),2),
   label = 'tab:dtd_perf1'
   )
 @
@@ -1245,7 +1245,7 @@ latex(
 # uses 'mod_perf' from 'dep_data.rnw'
 load('mod_perf.RData')
 
-# calculate mean, se for dtd_cor and dtd_err
+# calculate median, se for dtd_cor and dtd_err
 dtd_perf <- llply(names(mod_perf)[1:8],
   .fun = function(x) {
     ddply(
@@ -1255,12 +1255,12 @@ dtd_perf <- llply(names(mod_perf)[1:8],
         c(
           min(y$cor),
           quantile(y$cor, 0.25),
-          mean(y$cor),
+          median(y$cor),
           quantile(y$cor, 0.75),
           max(y$cor),
           min(y$err),
           quantile(y$err, 0.25),
-          mean(y$err),
+          median(y$err),
           quantile(y$err, 0.75),
           max(y$err)
         )
@@ -1279,7 +1279,7 @@ dtd_perf <- lapply(dtd_perf,
     }
   )
 dtd_perf <- do.call('rbind', dtd_perf)
-names(dtd_perf) <- c('Parameter', 'Level', 'Min cor', 'Low cor', 'Mean cor', 'High cor', 'Max cor', 'Min err', 'Low err', 'Mean err', 'High err', 'Max err')
+names(dtd_perf) <- c('Parameter', 'Level', 'Min cor', 'Low cor', 'Median cor', 'High cor', 'Max cor', 'Min err', 'Low err', 'Median err', 'High err', 'Max err')
 
 # subset by windows
 to_tab <-dtd_perf[dtd_perf$Parameter %in% c('dec_time', 'hour', 'Tide'), ]
@@ -1289,7 +1289,7 @@ Parms <- c('Days', 'Hours', 'Tide')
 
 tab <- form_fun(to_tab[, -c(1:2)])
 rows <- to_tab[, 2]
-cap.val<-'Summary (range, mean, percentiles) of correlations and error estimates comparing detided and biological \\ac{DO} time series for simulations using different half window widths in the weighted regressions (days, hours, and proportion of tidal range).  Values represent averages from multiple simulations with common window values (e.g., row one is a summary of all simulations for which the half window width was one day).'
+cap.val<-'Summary (range, median, percentiles) of correlations and error estimates comparing detided and biological \\ac{DO} time series for simulations using different half window widths in the weighted regressions (days, hours, and proportion of tidal range).  Values represent averages from multiple simulations with common window values (e.g., row one is a summary of all simulations for which the half window width was one day).'
 
 # foot.val<-'\\footnotesize \\textit{Note:} test' 
 
@@ -1305,7 +1305,7 @@ latex(
   cgroup = c('Correlation', 'RMSE'),
   n.cgroup = c(5, 5),
   rowname = rows,
-  colheads=rep(c('Min', '25\\textsuperscript{th}',  'Mean', '75\\textsuperscript{th}', 'Max'),2),
+  colheads=rep(c('Min', '25\\textsuperscript{th}',  'Median', '75\\textsuperscript{th}', 'Max'),2),
   label = 'tab:dtd_perf2'
   )
 @

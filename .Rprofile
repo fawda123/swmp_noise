@@ -20,6 +20,7 @@ library(ggmap)
 library(maps)
 library(oce)
 library(gtable)
+library(miscTools)
 
 # functions to use
 source('funcs.r')

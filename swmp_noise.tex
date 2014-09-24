@@ -73,7 +73,7 @@
 \usepackage{array}
 \usepackage{pdflscape}
 \usepackage{bm}
-% \usepackage{showlabels}
+\usepackage{showlabels}
 \bibpunct{(}{)}{,}{a}{}{,}
 
 % page margins and section title formatting
@@ -210,7 +210,7 @@ such that the normalized time series represents \ac{DO} variation related to bio
 
 \subsection{Simulation of \ac{DO} time series}
 
-To test the ability of the weighted regression to filter the \ac{DO} signal for apparent tide effects, multiple time series with known characteristics were simulated and filtered.  Observed \ac{DO} time series were simulated as the sum of variation from biological processes and physical effects related to tidal advection:  
+To test the ability of the weighted regression to filter the \ac{DO} signal for apparent tide effects, multiple time series with known characteristics were simulated and filtered.  A simulation approach was used prior to application with real data given that the true biological signal can be created as a known component for comparison with the filtered results from weighted regression. The following describes the theoretical basis for developing the simulated time series.  Observed \ac{DO} time series were simulated as the sum of variation from biological processes and physical effects related to tidal advection:  
 \begin{equation} \label{do_obs}
 DO_{obs} = DO_{bio} + DO_{adv}
 \end{equation}
@@ -221,22 +221,22 @@ DO_{bio} = DO_{die} + DO_{unc}
 \begin{equation} \label{do_unc}
 DO_{unc} = \epsilon_{obs} + \epsilon_{proc}
 \end{equation}
-where the biological \ac{DO} signal is the sum of diel variation plus uncertainty or noise.  Total uncertainty in the biological \ac{DO} signal is described as variation from observation and process uncertainty \citep{Hilborn97}.  Multiple time series at 30 minute time steps over 30 days were created by varying the relative magnitudes of each of the four components of observed \ac{DO} in \cref{do_obs,do_bio,do_unc} to test the effectiveness of weighted regression under different scenarios.  Accordingly, observed \ac{DO} was generalized as the additive combination of four time series (\cref{fig:do_sim}):
+where the biological \ac{DO} signal is the sum of diel variation plus uncertainty or noise.  Total uncertainty in the biological \ac{DO} signal is described as variation from observation and process uncertainty \citep{Hilborn97}.  Multiple time series at 30 minute time steps over 30 days were created by varying the relative magnitudes of each of the components of observed \ac{DO} in \cref{do_obs,do_bio,do_unc} to test the effectiveness of weighted regression under different scenarios.  Accordingly, observed \ac{DO} was generalized as the additive combination of four separate time series (\cref{fig:do_sim}):
 \begin{equation} \label{do_obs_all}
 DO_{obs} = DO_{adv} + DO_{die} + \epsilon_{obs} + \epsilon_{pro}
 \end{equation} 
 
-Each component of the simulated time series was created as follows.  First, the diel component, $DO_{die}$, was estimated using a sine/cosine function \citep{Cryer08}:
+Each component of the simulated time series was created as follows.  First, the diel component, $DO_{die}$, was estimated \citep{Cryer08}:
 \begin{equation} \label{do_sin}
 DO_{die} = \alpha + \beta\cos\left(2\pi ft + \Phi\right)
 \end{equation}
-such that the mean DO $\alpha$ was 8, amplitude $\beta$ was 1, $f$ was 1/48 to repeat on a 24 hour period every 30 minutes, $t$ was the time series vector and $\Phi$ was the x-axis origin set for an arbitrary sunrise at 630am.  The diel signal was increasing during the day and decreasing during the night for each 24 hour period and ranged from 7 to 9 mg L$^{-1}$.  Noise or uncertainty was added to the diel \ac{DO} signal to simulate natural variation in \ac{DO} throughout the time series (\cref{fig:do_sim}).  Total uncertainty was the sum of observation and process uncertainty for $n = 1440$ (30 minutes by 30 days) observations \citep{Hilborn97}, such that:
+such that the mean DO ($\alpha$) was 8, amplitude ($\beta$) was 1, $f$ was 1/48 to represent 30 minute intervals, $t$ was the time series vector and $\Phi$ was the x-axis origin set for an arbitrary sunrise at 630.  The diel signal was increasing during the day and decreasing during the night for each 24 hour period and ranged from 7 to 9 mg L$^{-1}$.  Uncertainty was added to the diel \ac{DO} signal as the sum of observation and process uncertainty:
 \begin{equation} \label{do_unc_n}
 DO_{unc, n} = \epsilon_{obs, n} + \int_{t = 1}^{n} \epsilon_{pro, t}
 \end{equation}
-where observation and process uncertainty ($\epsilon_{obs}$, $\epsilon_{pro}$) were simulated as normally distributed random variables with mean zero and standard deviation varying from zero to an upper limit, described below.  To induce auto-correlation, process uncertainty was estimated as the cumulative sum of $n$ observations where the noise at time $t+1$ was equal to the noise at time $t$ plus additional variation drawn from the normal distribution.  The noise vector for process uncertainty was rescaled to constrain the variation within the bounds for standard deviation defined by the random variable. The total uncertainty, $DO_{unc}$, was added to the diel \ac{DO} time series to create the biological \ac{DO} time series (\cref{do_bio,fig:do_sim}).
+where observation and process uncertainty ($\epsilon_{obs}$, $\epsilon_{pro}$) were simulated as normally distributed random variables with mean zero and standard deviation varying from zero to an upper limit, described below.  Process uncertainty was estimated as the cumulative sum of $n$ observations where the value at time $t+1$ was equal to the value at time $t$ plus random variation.  The total uncertainty, $DO_{unc}$, was added to the diel \ac{DO} time series to create the biological \ac{DO} time series (\cref{do_bio,fig:do_sim}).
 
-A semidiurnal tidal series was simulated as a sine wave with a period of 12.5 hours to represent the principal lunar component \citep{Foreman89}.  The amplitude was set to 1 meter and centered  at 4 meters.  Initial assessments indicated that tide type (i.e., diurnal, semidiurnal, mixed) did not signifcantly affect the outcome of the results and a semidiurnal time series was used to reduce the total number of simulations.  The tidal time series was added to the biological \ac{DO} series to simulate \ac{DO} changes with advection, $DO_{adv}$ (\cref{do_obs_all,fig:do_sim}). Conceptually, this vector represents the rate of change in \ac{DO} as a function of horizontal water movement from tidal advection such that:
+A semidiurnal tidal series was simulated with a period of 12.5 hours to represent the principal lunar component \citep{Foreman89}.  The amplitude was set to 1 meter and centered  at 4 meters.  The tidal time series was added to the biological \ac{DO} series to simulate \ac{DO} changes with advection, $DO_{adv}$ (\cref{do_obs_all,fig:do_sim}). Conceptually, this vector represents the rate of change in \ac{DO} as a function of horizontal water movement from tidal advection such that:
 \begin{equation} \label{deltdo}
 \frac{\delta DO_{adv}}{\delta t} = \frac{\delta DO}{\delta x} \cdot \frac{\delta x}{\delta t}
 \end{equation}
@@ -254,9 +254,9 @@ where $a$ is analogous to $k$ in \cref{deltx} and is chosen as the transformatio
 
 \subsection{Evaluation of weighted regression with simulated \ac{DO} time series}
 
-Multiple time series were simulated by varying the conditions in \cref{do_obs,do_bio,do_unc,do_obs_all,do_sin,do_unc_n,deltdo,deltx,do_advp,do_adv}. Specifically, the simulated data varied in the relative amount of noise in the measurement ($e_{pro}$, $e_{obs}$), relative amplitude of the diel \ac{DO} component ($DO_{die}$), and degree of association of the tide with the \ac{DO} signal ($DO_{adv}$).  Three levels were evaluated for each variable: relative noise as 0, 1, and 2 standard deviations for both process and observation uncertainty, amplitude of diel biological \ac{DO} as 0, 1, and 2 mg L$^{-1}$, and \ac{DO} change from tidal advection as 0, 1, and 2 mg L$^{-1}$. A total of 81 time series were created based on the unique combinations of parameters (\cref{fig:sim_ex}).  Three half window widths for each variable (day, hour of day, and tide height) were evaluated for each simulation: decimal time as 1, 3, and 6 days, time of day as 1, 3, and 6 hours, and tidal height as 0.25, 0.5, and 1 as a proportion of the total range given the height at the center of the window.  The window widths were chosen based on preliminary assessments that suggested variation in model performance was adequately captured by these values.  In total, 27 window width combinations were evaluated for each of 81 simulated time series, producing results for 2187 weighted regressions.
+Multiple time series were simulated by varying the conditions in \cref{do_obs,do_bio,do_unc,do_obs_all,do_sin,do_unc_n,deltdo,deltx,do_advp,do_adv}. Specifically, the simulated data varied in the relative amount of noise in the measurement ($e_{pro}$, $e_{obs}$), relative amplitude of the diel \ac{DO} component ($DO_{die}$), and degree of association of the tide with the \ac{DO} signal ($DO_{adv}$).  Three levels were evaluated for each variable: relative noise as 0, 1, and 2 standard deviations for both process and observation uncertainty, amplitude of diel biological \ac{DO} as 0, 1, and 2 mg L$^{-1}$, and \ac{DO} change from tidal advection as 0, 1, and 2 mg L$^{-1}$. A total of 81 time series were created based on the unique combinations of parameters (\cref{fig:sim_ex}).  Half-window widhts (day, hour of day, and tide height) were evaluated for each simulation: decimal time as 1, 3, and 6 days, time of day as 1, 3, and 6 hours, and tidal height as 0.25, 0.5, and 1 as a proportion of the total range given the height at the center of the window.  The window widths were chosen based on preliminary assessments that suggested a large range in model performance was described by these values.  In total, 27 window width combinations were evaluated for each of 81 simulated time series, producing results for 2187 weighted regressions.
 
-The detided or normalized values for each regression were compared to the simulated data to evaluate the ability of weighted regression to reproduce the biological \ac{DO} signals. Results were summarized using Pearson correlation coefficients and the \ac{RMSE} between the detided time series and the biological \ac{DO} time series as a known component of the observed.  Overall, the weighted regressions provided accurate results for the detided time series compared to the `true' biological time series regardless of the simulation parameters (\cref{tab:dtd_perf1}) or window widths (\cref{tab:dtd_perf2},   results for each simulation can be viewed using the link in the \hyperref[multi]{multimedia} section).  Mean correlation for all time series and window widths between the detided and biological values was 0.60, with values ranging from -0.78 to 1.00.  Mean error was 1.21, with values ranging from 0 to 2.40.  Simulations with very poor performance (e.g., negative correlations) were those that had minimum widths for day windows and maximum widths for hour windows, or were those with the \ac{DO} signal composed entirely of noise from observation uncertainty. Conversely, simulations with detided time series that were identical to the true time series (e.g., correlation of one, \ac{RMSE} of zero) were those for which there was no biological or tidal influence.  Although these examples do not represent real-world scenarios, they were included in the simulations to provide verification that the weighted regression provided reasonable results given extremes.  
+The filtered \ac{DO} time series were compared to the simulated data to evaluate the ability of weighted regression to characterize the biological \ac{DO} time series in \cref{do_obs}. Results were summarized using Pearson correlation coefficients and the \ac{RMSE} between the filtered time series and the biological \ac{DO} time series as a known component of the observed.  Overall, the weighted regressions produced filtered time series that were similar to the `true' biological time series regardless of the simulation parameters (\cref{tab:dtd_perf1}) or window widths (\cref{tab:dtd_perf2}, results for each simulation can be viewed using the link in the \hyperref[multi]{multimedia} section).  The median correlation for all time series and window widths between the filtered and biological values was 0.59, with values ranging from -0.78 to 1.00.  Mean error was 1.10, with values ranging from 0 to 2.40.  Simulations with very poor performance (e.g., negative correlations) were those that had minimum widths for day windows and maximum widths for hour windows, or were those with the \ac{DO} signal composed entirely of noise from observation uncertainty. As expected, simulations with no biological or tidal influence had filtered time series that were identical to the true time series (e.g., correlation of one, \ac{RMSE} of zero).  
 
 Characteristics of \ac{DO} time series that contributed to improved model performance were increasing amplitude of the diel \ac{DO} component ($DO_{die}$) and increasing process uncertainty ($e_{pro}$), whereas increasing observation uncertainty contributed to decreased performance (\cref{tab:dtd_perf1,fig:err_surf1}).  Model performance was minimally influenced by magnitude of the tidal advection component ($DO_{adv}$), although performance decreased slightly with increasing tidal effects.  Increasing widths for day and tidal proportion windows contributed to increasing model performance, whereas the opposite was true for increasing hour windows (\cref{tab:dtd_perf2,fig:err_surf2}).  Graphical summaries of model performance by simulation parameters (\cref{fig:err_surf1}) and half window widths (\cref{fig:err_surf2}) support the general trends described by \cref{tab:dtd_perf1,tab:dtd_perf2}.
 
@@ -313,8 +313,8 @@ Although the above analyses suggest the approach has merit, the case studies emp
 %%%%%%
 % refs
 \begin{singlespace}
-\bibliographystyle{M:/docs/bibtex_bst/apalike_mine}
-\bibliography{M:/docs/ref_diss}
+\bibliographystyle{apalike_mine}
+\bibliography{ref_diss}
 \end{singlespace}
 \clearpage
 
@@ -527,79 +527,74 @@ Although the above analyses suggest the approach has merit, the case studies emp
 \section{Tables}
 
 % summary of simulation performance for detided and biological, sim parameters
-% latex.default(tab, file = "", where = "h", rowlabel = "Parameter",      caption = cap.val, caption.loc = "top", rgroup = Parms, n.rgroup = rep(3,          4), cgroup = c("Correlation", "RMSE"), n.cgroup = c(5,          5), rowname = rows, colheads = rep(c("Min", "25\\textsuperscript{th}",          "Mean", "75\\textsuperscript{th}", "Max"), 2), label = "tab:dtd_perf1") 
-%
+%latex.default(tab, file = "", where = "h", rowlabel = "Parameter",     caption = cap.val, caption.loc = "top", rgroup = Parms, n.rgroup = rep(3,         4), cgroup = c("Correlation", "RMSE"), n.cgroup = c(5,         5), rowname = rows, colheads = rep(c("Min", "25\\textsuperscript{th}",         "Median", "75\\textsuperscript{th}", "Max"), 2), label = "tab:dtd_perf1")%
 \begin{table}[h]
-\caption{Summary (range, mean, percentiles) of correlations and error estimates comparing detided and biological \ac{DO} time series for different simulation parameters ($DO_{die}$, $DO_{adv}$, $\epsilon_{pro}$, $\epsilon_{obs}$).  Values represent averages from multiple simulations with common parameters (e.g., row one is a summary of all simulations for which diel \ac{DO} component was zero).\label{tab:dtd_perf1}} 
+\caption{Summary (range, median, percentiles) of correlations and error estimates comparing detided and biological \ac{DO} time series for different simulation parameters ($DO_{die}$, $DO_{adv}$, $\epsilon_{pro}$, $\epsilon_{obs}$).  Values represent averages from multiple simulations with common parameters (e.g., row one is a summary of all simulations for which diel \ac{DO} component was zero).\label{tab:dtd_perf1}} 
 \begin{center}
 \begin{tabular}{llllllclllll}
 \hline\hline
 \multicolumn{1}{l}{\bfseries Parameter}&\multicolumn{5}{c}{\bfseries Correlation}&\multicolumn{1}{c}{\bfseries }&\multicolumn{5}{c}{\bfseries RMSE}\tabularnewline
 \cline{2-6} \cline{8-12}
-\multicolumn{1}{l}{}&\multicolumn{1}{c}{Min}&\multicolumn{1}{c}{25\textsuperscript{th}}&\multicolumn{1}{c}{Mean}&\multicolumn{1}{c}{75\textsuperscript{th}}&\multicolumn{1}{c}{Max}&\multicolumn{1}{c}{}&\multicolumn{1}{c}{Min}&\multicolumn{1}{c}{25\textsuperscript{th}}&\multicolumn{1}{c}{Mean}&\multicolumn{1}{c}{75\textsuperscript{th}}&\multicolumn{1}{c}{Max}\tabularnewline
+\multicolumn{1}{l}{}&\multicolumn{1}{c}{Min}&\multicolumn{1}{c}{25\textsuperscript{th}}&\multicolumn{1}{c}{Median}&\multicolumn{1}{c}{75\textsuperscript{th}}&\multicolumn{1}{c}{Max}&\multicolumn{1}{c}{}&\multicolumn{1}{c}{Min}&\multicolumn{1}{c}{25\textsuperscript{th}}&\multicolumn{1}{c}{Median}&\multicolumn{1}{c}{75\textsuperscript{th}}&\multicolumn{1}{c}{Max}\tabularnewline
 \hline
 {\bfseries $\boldsymbol{DO_{die}}$}&&&&&&&&&&&\tabularnewline
-~~0&-0.78&0.30&0.53&0.82&1.00&&0.00&0.68&1.22&1.97&2.39\tabularnewline
-~~1&-0.28&0.38&0.61&0.88&1.00&&0.00&0.59&1.20&1.96&2.40\tabularnewline
-~~2&-0.39&0.46&0.65&0.90&1.00&&0.00&0.62&1.22&1.97&2.40\tabularnewline
+~~0&-0.78&0.30&0.51&0.82&1.00&&0.00&0.68&1.10&1.97&2.39\tabularnewline
+~~1&-0.28&0.38&0.59&0.88&1.00&&0.00&0.59&1.07&1.96&2.40\tabularnewline
+~~2&-0.39&0.46&0.63&0.90&1.00&&0.00&0.62&1.10&1.97&2.40\tabularnewline
 \hline
 {\bfseries $\boldsymbol{DO_{adv}}$}&&&&&&&&&&&\tabularnewline
-~~0& 0.00&0.27&0.57&0.93&1.00&&0.00&0.34&1.07&1.96&2.12\tabularnewline
-~~1&-0.78&0.37&0.59&0.83&1.00&&0.00&0.63&1.18&1.98&2.12\tabularnewline
-~~2&-0.78&0.47&0.63&0.82&1.00&&0.00&0.98&1.38&1.99&2.40\tabularnewline
+~~0& 0.00&0.27&0.58&0.93&1.00&&0.00&0.34&1.00&1.96&2.12\tabularnewline
+~~1&-0.78&0.37&0.58&0.83&1.00&&0.00&0.63&1.09&1.98&2.12\tabularnewline
+~~2&-0.78&0.47&0.61&0.82&1.00&&0.00&0.98&1.34&1.99&2.40\tabularnewline
 \hline
 {\bfseries $\boldsymbol{\epsilon_{pro}}$}&&&&&&&&&&&\tabularnewline
-~~0&-0.78&0.34&0.58&0.86&1.00&&0.00&0.63&1.19&1.96&2.40\tabularnewline
-~~1&-0.78&0.37&0.59&0.85&1.00&&0.00&0.63&1.21&1.97&2.40\tabularnewline
-~~2&-0.78&0.41&0.61&0.85&1.00&&0.00&0.63&1.24&1.98&2.40\tabularnewline
+~~0&-0.78&0.34&0.57&0.86&1.00&&0.00&0.63&1.06&1.96&2.40\tabularnewline
+~~1&-0.78&0.37&0.59&0.85&1.00&&0.00&0.63&1.06&1.97&2.40\tabularnewline
+~~2&-0.78&0.41&0.61&0.85&1.00&&0.00&0.63&1.11&1.98&2.40\tabularnewline
 \hline
 {\bfseries $\boldsymbol{\epsilon_{obs}}$}&&&&&&&&&&&\tabularnewline
-~~0&-0.78&0.31&0.65&0.98&1.00&&0.00&0.29&0.92&1.50&2.40\tabularnewline
-~~1& 0.05&0.37&0.57&0.81&0.99&&0.07&0.98&1.18&1.49&2.39\tabularnewline
-~~2& 0.05&0.40&0.57&0.70&0.99&&0.15&1.06&1.54&2.01&2.40\tabularnewline
+~~0&-0.78&0.31&0.82&0.98&1.00&&0.00&0.29&0.76&1.50&2.40\tabularnewline
+~~1& 0.05&0.37&0.58&0.81&0.99&&0.07&0.98&1.05&1.49&2.39\tabularnewline
+~~2& 0.05&0.40&0.58&0.70&0.99&&0.15&1.06&1.96&2.01&2.40\tabularnewline
 \hline
-\end{tabular}
-\end{center}
+\end{tabular}\end{center}
+
 \end{table}
 
 
-
 % summary of simulation performance for detided and biological, window widths
-% latex.default(tab, file = "", rowlabel = "Window", caption = cap.val,      caption.loc = "top", rgroup = Parms, n.rgroup = rep(3, 3),      cgroup = c("Correlation", "RMSE"), n.cgroup = c(5, 5), rowname = rows,      colheads = rep(c("Min", "25\\textsuperscript{th}", "Mean",          "75\\textsuperscript{th}", "Max"), 2), label = "tab:dtd_perf2") 
-%
+%latex.default(tab, file = "", rowlabel = "Window", caption = cap.val,     caption.loc = "top", rgroup = Parms, n.rgroup = rep(3, 3),     cgroup = c("Correlation", "RMSE"), n.cgroup = c(5, 5), rowname = rows,     colheads = rep(c("Min", "25\\textsuperscript{th}", "Median",         "75\\textsuperscript{th}", "Max"), 2), label = "tab:dtd_perf2")%
 \begin{table}[!tbp]
-\caption{Summary (range, mean, percentiles) of correlations and error estimates comparing detided and biological \ac{DO} time series for simulations using different half window widths in the weighted regressions (days, hours, and proportion of tidal range).  Values represent averages from multiple simulations with common window values (e.g., row one is a summary of all simulations for which the half window width was one day).\label{tab:dtd_perf2}} 
+\caption{Summary (range, median, percentiles) of correlations and error estimates comparing detided and biological \ac{DO} time series for simulations using different half window widths in the weighted regressions (days, hours, and proportion of tidal range).  Values represent averages from multiple simulations with common window values (e.g., row one is a summary of all simulations for which the half window width was one day).\label{tab:dtd_perf2}} 
 \begin{center}
 \begin{tabular}{llllllclllll}
 \hline\hline
 \multicolumn{1}{l}{\bfseries Window}&\multicolumn{5}{c}{\bfseries Correlation}&\multicolumn{1}{c}{\bfseries }&\multicolumn{5}{c}{\bfseries RMSE}\tabularnewline
 \cline{2-6} \cline{8-12}
-\multicolumn{1}{l}{}&\multicolumn{1}{c}{Min}&\multicolumn{1}{c}{25\textsuperscript{th}}&\multicolumn{1}{c}{Mean}&\multicolumn{1}{c}{75\textsuperscript{th}}&\multicolumn{1}{c}{Max}&\multicolumn{1}{c}{}&\multicolumn{1}{c}{Min}&\multicolumn{1}{c}{25\textsuperscript{th}}&\multicolumn{1}{c}{Mean}&\multicolumn{1}{c}{75\textsuperscript{th}}&\multicolumn{1}{c}{Max}\tabularnewline
+\multicolumn{1}{l}{}&\multicolumn{1}{c}{Min}&\multicolumn{1}{c}{25\textsuperscript{th}}&\multicolumn{1}{c}{Median}&\multicolumn{1}{c}{75\textsuperscript{th}}&\multicolumn{1}{c}{Max}&\multicolumn{1}{c}{}&\multicolumn{1}{c}{Min}&\multicolumn{1}{c}{25\textsuperscript{th}}&\multicolumn{1}{c}{Median}&\multicolumn{1}{c}{75\textsuperscript{th}}&\multicolumn{1}{c}{Max}\tabularnewline
 \hline
 {\bfseries Days}&&&&&&&&&&&\tabularnewline
-~~1&-0.78&0.63&0.78&0.97&1.00&&0.00&0.28&0.74&1.04&2.12\tabularnewline
-~~3&-0.07&0.40&0.56&0.75&1.00&&0.00&0.99&1.15&1.28&2.08\tabularnewline
-~~6& 0.00&0.26&0.45&0.58&1.00&&0.00&1.95&1.75&2.05&2.40\tabularnewline
+~~1&-0.78&0.63&0.89&0.97&1.00&&0.00&0.28&0.59&1.04&2.12\tabularnewline
+~~3&-0.07&0.40&0.59&0.75&1.00&&0.00&0.99&1.08&1.28&2.08\tabularnewline
+~~6& 0.00&0.26&0.40&0.58&1.00&&0.00&1.95&1.98&2.05&2.40\tabularnewline
 \hline
 {\bfseries Hours}&&&&&&&&&&&\tabularnewline
-~~1&-0.78&0.36&0.57&0.82&1.00&&0.00&0.63&1.22&1.96&2.40\tabularnewline
-~~3& 0.00&0.40&0.61&0.87&1.00&&0.00&0.58&1.20&1.97&2.36\tabularnewline
-~~6& 0.03&0.37&0.61&0.85&1.00&&0.00&0.64&1.22&1.98&2.40\tabularnewline
+~~1&-0.78&0.36&0.58&0.82&1.00&&0.00&0.63&1.11&1.96&2.40\tabularnewline
+~~3& 0.00&0.40&0.60&0.87&1.00&&0.00&0.58&1.07&1.97&2.36\tabularnewline
+~~6& 0.03&0.37&0.59&0.85&1.00&&0.00&0.64&1.10&1.98&2.40\tabularnewline
 \hline
 {\bfseries Tide}&&&&&&&&&&&\tabularnewline
-~~0.25& 0.00&0.42&0.64&0.91&1.00&&0.00&0.51&1.14&1.97&2.21\tabularnewline
-~~0.5& 0.06&0.43&0.63&0.88&1.00&&0.00&0.61&1.20&1.97&2.27\tabularnewline
-~~1&-0.78&0.30&0.52&0.79&1.00&&0.00&0.73&1.30&1.97&2.40\tabularnewline
+~~0.25& 0.00&0.42&0.63&0.91&1.00&&0.00&0.51&1.04&1.97&2.21\tabularnewline
+~~0.5& 0.06&0.43&0.62&0.88&1.00&&0.00&0.61&1.09&1.97&2.27\tabularnewline
+~~1&-0.78&0.30&0.51&0.79&1.00&&0.00&0.73&1.20&1.97&2.40\tabularnewline
 \hline
-\end{tabular}
-\end{center}
+\end{tabular}\end{center}
+
 \end{table}
 
 
-
 % descriptive table of case studies
-% latex.default(tab, file = "", rowlabel = "Site", insert.bottom = foot.val,      caption = cap.val, caption.loc = "top", cgroup = c("Tidal amplitude",          "Water quality", "Metabolism\\textsuperscript{\\textit{a}}"),      n.cgroup = c(4, 4, 3), rowname = rows, colheads = c("O1",          "P1", "M2", "S2", "DO", "Chl", "Sal", "Temp", "Pg", "Rt",          "NEM"), label = "tab:case_att") 
-%
+%latex.default(tab, file = "", rowlabel = "Site", insert.bottom = foot.val,     caption = cap.val, caption.loc = "top", cgroup = c("Tidal amplitude",         "Water quality", "Metabolism\\textsuperscript{\\textit{a}}"),     n.cgroup = c(4, 4, 3), rowname = rows, colheads = c("O1",         "P1", "M2", "S2", "DO", "Chl", "Sal", "Temp", "Pg", "Rt",         "NEM"), label = "tab:case_att")%
 \begin{table}[!tbp]
 \caption{Summary statistics of tidal component amplitudes (m), selected water quality parameters (\ac{DO} mg L$^{-1}$, chlorophyll-a $\mu$g L$^{-1}$, salinity psu, water temperature $^{\circ}$C)  and metabolism estimates (gross production, respiration, and net ecosystem metabolism as g m$^{-2}$ d$^{-1}$) for each case study.  Tidal components are principal lunar semidiurnal (O1, frequency 25.82 hours), solar diurnal (P1, 24.07 hours), lunar semidiurnal (M2, 12.42 hours), and solar semidiurnal (S2, 12 hours) estimated from harmonic regressions of tidal height (\texttt{oce} package in R, \citealt{Foreman89}, \citetalias{RDCT14}).  Water quality data are averages for the entire period of record (30 minute observations) for each site.  Metabolism estimates are means of daily integrated values.\label{tab:case_att}} 
 \begin{center}
@@ -614,15 +609,13 @@ PDBBY&0.46&0.23&0.63&0.15&&8.97&2.24&29.17&10.44&&5.95&-5.90& 0.05\tabularnewlin
 RKBMB&0.13&0.04&0.36&0.10&&4.48&4.50&30.53&25.85&&3.02&-3.62&-0.60\tabularnewline
 SAPDC&0.10&0.02&0.54&0.07&&4.96&5.98&27.30&21.77&&4.89&-6.04&-1.16\tabularnewline
 \hline
-\end{tabular}
-\end{center}
+\end{tabular}\end{center}
+
 \footnotesize\textsuperscript{\textit{a}}Pg: gross production, Rt: respiration, NEM: net ecosystem metabolism\end{table}
 
 
-
 % correlations with tide before/after wtreg
-% latex.default(tab, file = "", rowlabel = "Site", rgroup = unique(rows),      n.rgroup = rep(2, 4), insert.bottom = foot.val, caption = cap.val,      colheads = c("DO", "Pg\\textsuperscript{\\textit{a}}", "Rt",          "NEM"), caption.loc = "top", rowname = rep(c("Observed",          "Detided"), 4), label = "tab:cor_res") 
-%
+%latex.default(tab, file = "", rowlabel = "Site", rgroup = unique(rows),     n.rgroup = rep(2, 4), insert.bottom = foot.val, caption = cap.val,     colheads = c("DO", "Pg\\textsuperscript{\\textit{a}}", "Rt",         "NEM"), caption.loc = "top", rowname = rep(c("Observed",         "Detided"), 4), label = "tab:cor_res")%
 \begin{table}[!tbp]
 \caption{Correlations of tidal changes at each site with continuous \ac{DO} observations and metabolism estimates (gross production, respiration, and net metabolism) before (observed) and after (detided) detiding with weighted regression.  \ac{DO} values are correlated with predicted tidal height at each observation, whereas metabolism estimates are correlated with mean tidal height change between observations during day, night, or total day periods for production, respiration, and net metabolism, respectively.\label{tab:cor_res}} 
 \begin{center}
@@ -646,15 +639,13 @@ SAPDC&0.10&0.02&0.54&0.07&&4.96&5.98&27.30&21.77&&4.89&-6.04&-1.16\tabularnewlin
 ~~Observed& 0.48***& 0.54***& 0.71***& 0.41***\tabularnewline
 ~~Detided&-0.03***& 0.16**& 0.18***&-0.05 \tabularnewline
 \hline
-\end{tabular}
-\end{center}
+\end{tabular}\end{center}
+
 \footnotesize *$p<0.05$; **$p<0.01$; ***$p<0.001$\\\textsuperscript{\textit{a}}Pg: gross production, Rt: respiration, NEM: net ecosystem metabolism\end{table}
 
 
-
 % case study metabolism results, including perc anom
-% latex.default(tab, file = "", rowlabel = "Site", insert.bottom = foot.val,      caption = cap.val, caption.loc = "top", rgroup = unique(to_tab$Site),      n.rgroup = rep(2, 4), cgroup = c("Pg\\textsuperscript{\\textit{a}}",          "Rt", "NEM"), n.cgroup = c(3, 3, 2), rowname = rows,      colheads = c(rep(c("Mean", "Std. Err.", "Anom"), 2), c("Mean",          "Std. Err.")), label = "tab:case_res") 
-%
+%latex.default(tab, file = "", rowlabel = "Site", insert.bottom = foot.val,     caption = cap.val, caption.loc = "top", rgroup = unique(to_tab$Site),     n.rgroup = rep(2, 4), cgroup = c("Pg\\textsuperscript{\\textit{a}}",         "Rt", "NEM"), n.cgroup = c(3, 3, 2), rowname = rows,     colheads = c(rep(c("Mean", "Std. Err.", "Anom"), 2), c("Mean",         "Std. Err.")), label = "tab:case_res")%
 \begin{table}[!tbp]
 \caption{Summary of metabolism estimates (gross production, respiration, and net metabolism) for case studies using \ac{DO} time series before (observed) and after (detided) detiding with weighted regression.  Means and standard errors are based on daily integrated metabolism estimates.  Anomalous values are the proportion of metabolism estimates that were negative for gross production and positive for respiration.  Results are for weighted regressions with half window widths of six days, one hour within each day, and a tidal height proportion of one half.\label{tab:case_res}} 
 \begin{center}
@@ -680,10 +671,9 @@ SAPDC&0.10&0.02&0.54&0.07&&4.96&5.98&27.30&21.77&&4.89&-6.04&-1.16\tabularnewlin
 ~~Observed& 4.89&0.23&0.13&& -6.04&0.25&0.11&&-1.16&0.09\tabularnewline
 ~~Detided& 4.85&0.08&0.00&& -6.04&0.10&0.00&&-1.19&0.05\tabularnewline
 \hline
-\end{tabular}
-\end{center}
-\textsuperscript{\textit{a}}Pg: gross production, Rt: respiration, NEM: net ecosystem metabolism\end{table}
+\end{tabular}\end{center}
 
+\textsuperscript{\textit{a}}Pg: gross production, Rt: respiration, NEM: net ecosystem metabolism\end{table}
 
 \clearpage
 

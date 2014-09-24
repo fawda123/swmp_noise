@@ -7,7 +7,7 @@
 load('mod_perf.RData')
 
 # used in beginning of assessment
-perf_means <- colMeans(mod_perf[, c('cor', 'err')])
+perf_medians <- colMedians(mod_perf[, c('cor', 'err')])
 perf_rngs <- apply(mod_perf[, c('cor', 'err')], 2, range)
 
 ######
