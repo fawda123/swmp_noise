@@ -22,6 +22,39 @@ anom_dtd$.id <- gsub('_wtreg_[0-9]*.RData$', '', anom_dtd$.id)
 anom_dtd$.id <- factor(anom_dtd$.id, labels = c('Elkhorn Slough', 'Padilla Bay', 'Rookery Bay', 'Sapelo Island'))
 
 ######
+# changes in mean production, respiration for each site after filtering
+# used in estimates of ecosytem metab before/after section in assessment
+# basically same code used to create table 5
+load('met_comp.RData')
+
+mean_met <- met_comp
+names(mean_met)[1] <- 'Site'
+
+# convert metab data to g m^-2 d^-1
+#  1mmolO2 = 32 mg O2, 1000mg = 1g, multiply by 32/1000
+sel_vec <- !mean_met$Metric %in% 'Anom'
+mean_met$Value[sel_vec] <- 0.032 * mean_met$Value[sel_vec]
+
+# make columns as factors for correct row, column order w/ dcast
+mean_met$Input <- factor(mean_met$Input, levels = c('Observed', 'Detided'))
+mean_met$Metab <- factor(mean_met$Metab, levels = c('Pg', 'Rt', 'NEM'))
+mean_met$Metric <- factor(mean_met$Metric, levels = c('Avg', 'se', 'Anom'))
+
+# dcast long to wide
+mean_met <- dcast(mean_met, Site + Input ~ Metab + Metric, value.var = 'Value')
+
+##
+# % changes for specific sites
+
+# elk
+elk_per <- mean_met[grep('ELK', mean_met$Site), c('Pg_Avg', 'Rt_Avg')]
+elk_per <- -100 * (elk_per[1, ] - elk_per[2, ])/elk_per[1, ]
+
+# pdb
+pdb_per <- mean_met[grep('PDB', mean_met$Site), c('Pg_Avg', 'Rt_Avg')]
+pdb_per <- -100 * (pdb_per[1, ] - pdb_per[2, ])/pdb_per[1, ]
+
+######
 # objects for selecting window widht combinations for case studies
 casewins <- list(6, 1, 0.5)
 @

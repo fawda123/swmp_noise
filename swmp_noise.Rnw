@@ -1217,7 +1217,7 @@ Parms <- c('$\\boldsymbol{DO_{die}}$',
   )
 tab <- form_fun(to_tab[, -c(1:2)])
 rows <- to_tab[, 2]
-cap.val<-'Summary (range, median, percentiles) of correlations and error estimates comparing detided and biological \\ac{DO} time series for different simulation parameters ($DO_{die}$, $DO_{adv}$, $\\epsilon_{pro}$, $\\epsilon_{obs}$).  Values represent averages from multiple simulations with common parameters (e.g., row one is a summary of all simulations for which diel \\ac{DO} component was zero).'
+cap.val<-'Summary (range, median, quartiles) of correlations and error estimates comparing detided and biological \\ac{DO} time series for different simulation parameters ($DO_{die}$, $DO_{adv}$, $\\epsilon_{pro}$, $\\epsilon_{obs}$).  Values represent averages from multiple simulations with common parameters (e.g., row one is a summary of all simulations for which diel \\ac{DO} component was zero).'
 
 # foot.val<-'\\footnotesize \\textit{Note:} test' 
 
@@ -1289,7 +1289,7 @@ Parms <- c('Days', 'Hours', 'Tide')
 
 tab <- form_fun(to_tab[, -c(1:2)])
 rows <- to_tab[, 2]
-cap.val<-'Summary (range, median, percentiles) of correlations and error estimates comparing detided and biological \\ac{DO} time series for simulations using different half window widths in the weighted regressions (days, hours, and proportion of tidal range).  Values represent averages from multiple simulations with common window values (e.g., row one is a summary of all simulations for which the half window width was one day).'
+cap.val<-'Summary (range, median, quartiles) of correlations and error estimates comparing detided and biological \\ac{DO} time series for simulations using different half window widths in the weighted regressions (days, hours, and proportion of tidal range).  Values represent averages from multiple simulations with common window values (e.g., row one is a summary of all simulations for which the half window width was one day).'
 
 # foot.val<-'\\footnotesize \\textit{Note:} test' 
 
