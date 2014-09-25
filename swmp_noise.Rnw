@@ -148,6 +148,7 @@ We acknowledge the significant efforts of research staff and field crews from th
 
 %%%%%%
 % refs
+\clearpage
 \begin{singlespace}
 \bibliographystyle{apalike_mine}
 \bibliography{ref_diss}
@@ -159,56 +160,9 @@ We acknowledge the significant efforts of research staff and field crews from th
 
 \section{Figures}
 
-% example of detiding a simulated time series
-\centering\vspace*{\fill}
-<<do_dtd, eval = T, echo = F, cache = T, fig.width = 6, fig.height = 3, eval.after='fig.cap', fig.cap = 'Example of detiding a simulated \\ac{DO} time series.  $DO_{obs}$ represents an additive time series as in \\cref{do_obs_all}, $DO_{tid}$ represents the predicted values of \\ac{DO} conditional on tidal height and time (\\cref{do_tid}), and $DO_{nrm}$ represents the detided values of \\ac{DO} conditional on constant tidal height and time (\\cref{do_nrm}).  Yellow indicates daylight periods.'>>=
-######
-# examples of how detiding works
-
-vec <- c('2014-05-01 00:00:00', '2014-05-31 00:00:00')
-vec <- as.POSIXct(vec, format = '%Y-%m-%d %H:%M:%S')
-vec <- seq(vec[1], vec[2], by = 60*30)
-
-# create simulated time series of DO, tide, etc.
-DO_sim <- ts_create(
-  vec, 
-  do.amp = 2, 
-  tide_cat = 'Mixed Semidiurnal', 
-  tide_assoc = 4,
-  err_rng_obs = 2, 
-  err_rng_pro = 2, 
-  seeded = T
-  )  
-prd_tmp <- wtreg_fun(DO_sim, wins = list(6, 12, 1))
-
-levs <- c('DO_obs', 'DO_prd', 'DO_nrm')
-to.plo <- melt(prd_tmp, id.var = c('Day', 'sunrise'),
-  measure.var = levs
-  )
-to.plo$variable <- factor(to.plo$variable, levels = levs)
-
-ylab<-expression(paste('DO (mg ',L^-1,')'))
-p <- ggplot(to.plo, aes(x = Day, y = value, col = sunrise)) +
-  geom_line() +
-  facet_wrap(~ variable, scales = 'free_y', ncol = 1) + 
-  theme_bw() +
-  ylab(ylab) + 
-  scale_colour_gradientn(colours = c('orange', 'black')) +
-  theme(legend.position = 'none')
- 
-facet_wrap_labeller(p, labels = c(
-  expression(italic(DO [obs])),
-  expression(italic(DO [tid])),
-  expression(italic(DO [nrm]))
-  ))
-
-@
-\vfill
-\clearpage
-
 % example of creating simulated time series
 \centering\vspace*{\fill}
-<<do_sim, eval = T, echo = F, cache = T, fig.width = 7, fig.height = 6, eval.after='fig.cap', fig.cap = 'Example of each component of a simulated \\ac{DO} time series for testing weighted regression.  The time series were created using \\cref{do_obs,do_bio,do_unc,do_obs_all,do_sin,do_unc_n,deltdo,deltx,do_advp,do_adv}. Yellow indicates daylight periods.'>>=
+<<do_sim, eval = T, echo = F, cache = T, fig.width = 7, fig.height = 6, eval.after='fig.cap', fig.cap = 'Example of each component of a simulated \\ac{DO} time series for testing weighted regression.  The time series were created using \\cref{do_obs,do_bio,do_unc,do_obs_all,do_sin,do_unc_n,deltdo,deltx,do_advp,do_adv}. Yellow indicates a twelve hour daylight period beginning at 630 each day.'>>=
 # create time vector
 vec <- c('2014-05-01 00:00:00', '2014-05-31 00:00:00')
 vec <- as.POSIXct(vec, format = '%Y-%m-%d %H:%M:%S')
@@ -256,7 +210,7 @@ facet_wrap_labeller(p, labels = c(
 
 % plot of representative time series for simulation
 \centering\vspace*{\fill}
-<<sim_ex, fig.height = 4, fig.width = 7, out.width = '\\textwidth', cache = T, echo = F, eval = T, fig.cap = 'Representative examples of simulated time series of observed \\ac{DO} ($DO_{obs}$) and biological \\ac{DO} ($DO_{bio}$, as a component of observed) created by varying each of four parameters: strength of tidal association with \\ac{DO} signal ($DO_{adv}$), amount of process uncertainty ($\\epsilon_{pro}$), amount of observation observation uncertainty ($\\epsilon_{obs}$), and strength of diel \\ac{DO} component ($DO_{die}$).  Parameter values represent the minimum and maximum used in the simulations as mg L$^{-1}$ of \\ac{DO}.'>>=
+<<sim_ex, fig.height = 4, fig.width = 7, out.width = '\\textwidth', cache = T, echo = F, eval = T, fig.cap = 'Representative examples of simulated time series of observed \\ac{DO} ($DO_{obs}$, blue lines) and biological \\ac{DO} ($DO_{bio}$, as a component of observed, red lines) created by varying each of four parameters: strength of tidal association with \\ac{DO} signal ($DO_{adv}$), amount of process uncertainty ($\\epsilon_{pro}$), amount of observation uncertainty ($\\epsilon_{obs}$), and strength of diel \\ac{DO} component ($DO_{die}$).  Parameter values represent the minimum and maximum used in the simulations as mg L$^{-1}$ of \\ac{DO}.'>>=
 load('eval_grd.RData')
 
 # find rows in eval_grd of parms to plot
@@ -351,7 +305,7 @@ ggplot(to_plo, aes(x = Day, y = DO_obs, group = L1)) +
 
 % example of error surfaces 
 \centering\vspace*{\fill}
-<<err_surf1, fig.height = 3.5, fig.width = 5.5, cache = T, echo = F, eval = T, fig.cap = "Correlations and errors (\\ac{RMSE}) for detided \\ac{DO} time series ($DO_{dtd}$) from weighted regression with `true' biological \\ac{DO} ($DO_{bio}$) for varying simulation parameters: strength of tidal association with \\ac{DO} signal ($DO_{adv}$), amount of process uncertainty ($\\epsilon_{pro}$), amount of observation observation uncertainty ($\\epsilon_{obs}$), and strength of diel \\ac{DO} component ($DO_{die}$).  Each tile represents the correlation or error from results for a given combination of simulation parameters averaged for all window widths (\\cref{fig:err_surf2}).">>=
+<<err_surf1, fig.height = 3.5, fig.width = 5.5, cache = T, echo = F, eval = T, fig.cap = "Heat maps of correlations and errors (\\ac{RMSE}) for filtered \\ac{DO} time series ($DO_{dtd}$) from weighted regression with `true' biological \\ac{DO} ($DO_{bio}$) for varying simulation parameters: strength of tidal association with \\ac{DO} signal ($DO_{adv}$), amount of process uncertainty ($\\epsilon_{pro}$), amount of observation observation uncertainty ($\\epsilon_{obs}$), and strength of diel \\ac{DO} component ($DO_{die}$).  Each tile represents the correlation or error from results for a given combination of simulation parameters averaged for all window widths (\\cref{fig:err_surf2}).">>=
 
 # load summary of model performance for simulations
 load('mod_perf.RData')
@@ -434,7 +388,7 @@ grid.arrange(p1, p2, ncol = 2)
 
 % example of error surfaces 
 \centering\vspace*{\fill}
-<<err_surf2, fig.height = 2.33, fig.width = 6, cache = T, echo = F, eval = T, fig.cap = "Correlations and errors (\\ac{RMSE}) for detided \\ac{DO} time series ($DO_{dtd}$) from weighted regression with `true' biological \\ac{DO} ($DO_{bio}$) for varying half window widths: days, hour of day, and proportion of tidal range.  Each tile represents the correlation or error from results for a given combination of window widths averaged for all simulation parameters (\\cref{fig:err_surf2}).">>=
+<<err_surf2, fig.height = 2.33, fig.width = 6, cache = T, echo = F, eval = T, fig.cap = "Heat maps of correlations and errors (\\ac{RMSE}) for filtered \\ac{DO} time series ($DO_{dtd}$) from weighted regression with `true' biological \\ac{DO} ($DO_{bio}$) for varying half window widths: days, hour of day, and proportion of tidal range.  Each tile represents the correlation or error from results for a given combination of window widths averaged for all simulation parameters (\\cref{fig:err_surf1}).">>=
 
 # load summary of model performance for simulations
 load('mod_perf.RData')
@@ -580,7 +534,7 @@ meta <- meta[, c('Longitude', 'Latitude','Reserve.Name')]
 
 % example from SAPHD, phase out
 \centering\vspace*{\fill}
-<<phase_out, cache = T, fig.height = 3, fig.width = 5.5, out.width = '0.8\\textwidth', eval = T, echo = F, fig.cap = 'Continuous \\ac{DO} time series before (observed) and after (detided) detiding with weighted regression (top) and tidal height colored by total photosynthetically active radiation (bottom, mmol m$^{-2}$). Results are for the Sapelo Island station for a seven day period when high tide events were out of phase with diel periods, creating lower than expected observed \\ac{DO} during night and day periods. Detided values are based on a weighted regression with half window widths of six days, one hour within each day, and tidal height proportion of one half.'>>=
+<<phase_out, cache = T, fig.height = 3, fig.width = 5.5, out.width = '0.8\\textwidth', eval = T, echo = F, fig.cap = 'Continuous \\ac{DO} time series before (observed) and after (filtered) filtering with weighted regression (top) and tidal height (m) colored by total photosynthetically active radiation (bottom, mmol m$^{-2}$). Results are for the Sapelo Island station for a seven day period when high tide events were out of phase with diel periods, creating lower than expected observed \\ac{DO} during night and day periods. Filtered values are based on a weighted regression with half window widths of six days, one hour within each day, and tidal height proportion of one half.'>>=
 ######
 # SAPHD example
 
@@ -634,7 +588,7 @@ ylab<-expression(paste('DO (mg ',L^-1,')'))
 p1 <- ggplot(to_plo, aes(x = DateTimeStamp)) + 
   ggpoly1 +
   geom_line(aes(y = DO_obs, colour = 'Observed')) +
-  geom_line(aes(y = DO_nrm, colour = 'Detided')) +
+  geom_line(aes(y = DO_nrm, colour = 'Filtered')) +
   coord_cartesian(ylim = rng.fun(to_plo$DO_obs)) +
   scale_fill_manual(values='orange',labels='Day') +
   theme_bw() +
@@ -685,7 +639,7 @@ grid.arrange(
 
 % example from SAPHD, phase in
 \centering\vspace*{\fill}
-<<phase_in, cache = T, fig.height = 3, fig.width = 5.5, out.width = '0.8\\textwidth', eval = T, echo = F, fig.cap = 'Continuous \\ac{DO} time series before (observed) and after (detided) detiding with weighted regression (top) and tidal height colored by total photosynthetically active radiation (bottom, mmol m$^{-2}$). Results are for the Sapelo Island station for a seven day period when high tide events were in phase with diel periods, creating higher than expected observed \\ac{DO} during night and day periods. Detided values are based on a weighted regression with half window widths of six days, one hour within each day, and tidal height proportion of one half.'>>=
+<<phase_in, cache = T, fig.height = 3, fig.width = 5.5, out.width = '0.8\\textwidth', eval = T, echo = F, fig.cap = 'Continuous \\ac{DO} time series before (observed) and after (filtered) filtering with weighted regression (top) and tidal height (m) colored by total photosynthetically active radiation (bottom, mmol m$^{-2}$). Results are for the Sapelo Island station for a seven day period when high tide events were in phase with diel periods, creating higher than expected observed \\ac{DO} during night and day periods. Filtered values are based on a weighted regression with half window widths of six days, one hour within each day, and tidal height proportion of one half.'>>=
 ######
 # SAPHD example
 
@@ -739,7 +693,7 @@ ylab<-expression(paste('DO (mg ',L^-1,')'))
 p1 <- ggplot(to_plo, aes(x = DateTimeStamp)) + 
   ggpoly1 +
   geom_line(aes(y = DO_obs, colour = 'Observed')) +
-  geom_line(aes(y = DO_nrm, colour = 'Detided')) +
+  geom_line(aes(y = DO_nrm, colour = 'Filtered')) +
   coord_cartesian(ylim = rng.fun(to_plo$DO_obs)) +
   scale_fill_manual(values='orange',labels='Day') +
   theme_bw() +
@@ -792,7 +746,7 @@ grid.arrange(
 
 % example from SAPDC
 \centering\vspace*{\fill}
-<<case_ex, cache = T, fig.height = 2.5, fig.width = 5.5, out.width = '0.8\\textwidth', eval = T, echo = F, fig.cap = 'Example of daily mean metabolism (net ecosystem metabolism, gross production, and total respiration) before (observed) and after (detided) detiding with weighted regression. Results are for the Sapelo Island station for a two week period in February, 2012 when high tide was out of phase with the diel cycle during the first week (\\cref{fig:phase_out}) and in phase during the second week (\\cref{fig:phase_in}).'>>=
+<<case_ex, cache = T, fig.height = 2.5, fig.width = 5.5, out.width = '0.8\\textwidth', eval = T, echo = F, fig.cap = 'Example of daily mean metabolism (net ecosystem metabolism, gross production, and total respiration) before (observed) and after (filtered) filtering with weighted regression. Results are for the Sapelo Island station for a two week period in February, 2012 when high tide was out of phase with the diel cycle during the first week (\\cref{fig:phase_out}) and in phase during the second week (\\cref{fig:phase_in}).'>>=
 ######
 # SAPDC example
 
@@ -834,8 +788,8 @@ to_plo1 <- melt(met_subs, id.var = c('Date'),
   measure.var = grep('Pg|Rt|NEM', names(met_subs), value = T)
   )
 to_plo1$Input <- 'Observed'
-to_plo1$Input[grep('dtd', to_plo1$variable)] <- 'Detided'
-to_plo1$Input <- factor(to_plo1$Input, levels = c('Observed', 'Detided'))
+to_plo1$Input[grep('dtd', to_plo1$variable)] <- 'Filtered'
+to_plo1$Input <- factor(to_plo1$Input, levels = c('Observed', 'Filtered'))
 to_plo1$variable <- gsub('_dtd', '', to_plo1$variable)
 
 ylab<-expression(paste('g ',O [2], ' ', m^-2, d^-1))
@@ -855,7 +809,7 @@ print(p1)
 % plots of summarized metabolism estimates, before/after detiding
 % ELKVM, PDBBY
 \centering\vspace*{\fill}
-<<metab_sum1, cache = T, eval = T, echo = F, fig.height = 5.5, fig.width = 7, fig.cap = 'Means and standard errors of daily metabolism estimates (gross production, total respiration) aggregated by month and season.  Aggregated estimates are for Elkhorn Slough and Padilla Bay from observed and detided \\ac{DO} time series.'>>=
+<<metab_sum1, cache = T, eval = T, echo = F, fig.height = 5.5, fig.width = 7, fig.cap = 'Means and standard errors of daily metabolism estimates (gross production, total respiration) aggregated by month and season.  Aggregated estimates are for Elkhorn Slough and Padilla Bay from observed and filtered \\ac{DO} time series.'>>=
 
 # load metabolism data
 load('met_ls.RData')
@@ -946,7 +900,7 @@ to_plo$value <- factor(to_plo$value, levels = c('01', '02', '03', '04',
 to_plo$var <- factor(to_plo$var, levels = c('Pg', 'Rt', 'NEM'), 
   labels = c('Pg', 'Rt', 'NEM'))
 to_plo$sub_var <- factor(to_plo$sub_var, levels = c('dtd', 'obs'), 
-  labels = c('Detided', 'Observed'))
+  labels = c('Filtered', 'Observed'))
 to_plo$L1 <- gsub('_wtreg_[0-9]*.RData$', '', to_plo$L1)
 to_plo$L1 <- factor(to_plo$L1, 
   levels = c('ELKVM', 'PDBBY', 'RKBMB', 'SAPDC'),
@@ -1004,7 +958,7 @@ grid.arrange(
 % RKBMB, SAPDC
 % plots of summarized metabolism estimates, before/after detiding
 \centering\vspace*{\fill}
-<<metab_sum2, cache = T, eval = T, echo = F, fig.height =5.5, fig.width = 7, fig.cap = 'Means and standard errors of daily metabolism estimates (gross production, total respiration) aggregated by month and season.  Aggregated estimates are for Rookery Bay and Sapelo Island from observed and detided \\ac{DO} time series.  May was removed from Rookery Bay because of incomplete data.'>>=
+<<metab_sum2, cache = T, eval = T, echo = F, fig.height =5.5, fig.width = 7, fig.cap = 'Means and standard errors of daily metabolism estimates (gross production, total respiration) aggregated by month and season.  Aggregated estimates are for Rookery Bay and Sapelo Island from observed and filtered \\ac{DO} time series.  May was removed from Rookery Bay because of incomplete data.'>>=
 
 # load metabolism data
 load('met_ls.RData')
@@ -1095,7 +1049,7 @@ to_plo$value <- factor(to_plo$value, levels = c('01', '02', '03', '04',
 to_plo$var <- factor(to_plo$var, levels = c('Pg', 'Rt', 'NEM'), 
   labels = c('Pg', 'Rt', 'NEM'))
 to_plo$sub_var <- factor(to_plo$sub_var, levels = c('dtd', 'obs'), 
-  labels = c('Detided', 'Observed'))
+  labels = c('Filtered', 'Observed'))
 to_plo$L1 <- gsub('_wtreg_[0-9]*.RData$', '', to_plo$L1)
 to_plo$L1 <- factor(to_plo$L1, 
   levels = c('ELKVM', 'PDBBY', 'RKBMB', 'SAPDC'),
@@ -1217,7 +1171,7 @@ Parms <- c('$\\boldsymbol{DO_{die}}$',
   )
 tab <- form_fun(to_tab[, -c(1:2)])
 rows <- to_tab[, 2]
-cap.val<-'Summary (range, median, quartiles) of correlations and error estimates comparing detided and biological \\ac{DO} time series for different simulation parameters ($DO_{die}$, $DO_{adv}$, $\\epsilon_{pro}$, $\\epsilon_{obs}$).  Values represent averages from multiple simulations with common parameters (e.g., row one is a summary of all simulations for which diel \\ac{DO} component was zero).'
+cap.val<-'Summary (range, median, quartiles) of correlations and error estimates comparing filtered and biological \\ac{DO} time series for different simulation parameters ($DO_{die}$, $DO_{adv}$, $\\epsilon_{pro}$, $\\epsilon_{obs}$).  Values represent averages from multiple simulations with common parameters (e.g., row one is a summary of all simulations for which the diel \\ac{DO} component was zero).'
 
 # foot.val<-'\\footnotesize \\textit{Note:} test' 
 
@@ -1289,7 +1243,7 @@ Parms <- c('Days', 'Hours', 'Tide')
 
 tab <- form_fun(to_tab[, -c(1:2)])
 rows <- to_tab[, 2]
-cap.val<-'Summary (range, median, quartiles) of correlations and error estimates comparing detided and biological \\ac{DO} time series for simulations using different half window widths in the weighted regressions (days, hours, and proportion of tidal range).  Values represent averages from multiple simulations with common window values (e.g., row one is a summary of all simulations for which the half window width was one day).'
+cap.val<-'Summary (range, median, quartiles) of correlations and error estimates comparing filtered and biological \\ac{DO} time series for simulations using different half window widths in the weighted regressions (days, hours, and proportion of tidal range).  Values represent averages from multiple simulations with common window values (e.g., row one is a summary of all simulations for which the half window width was one day).'
 
 # foot.val<-'\\footnotesize \\textit{Note:} test' 
 
@@ -1405,7 +1359,7 @@ tab[, c('Pg', 'Rt', 'NEM')] <- 0.032 * tab[, c('Pg', 'Rt', 'NEM')]
 tab <- form_fun(tab)
 rows <- rownames(tab)
 
-cap.val<-'Summary statistics of tidal component amplitudes (m), selected water quality parameters (\\ac{DO} mg L$^{-1}$, chlorophyll-a $\\mu$g L$^{-1}$, salinity psu, water temperature $^{\\circ}$C)  and metabolism estimates (gross production, respiration, and net ecosystem metabolism as g m$^{-2}$ d$^{-1}$) for each case study.  Tidal components are principal lunar semidiurnal (O1, frequency 25.82 hours), solar diurnal (P1, 24.07 hours), lunar semidiurnal (M2, 12.42 hours), and solar semidiurnal (S2, 12 hours) estimated from harmonic regressions of tidal height (\\texttt{oce} package in R, \\citealt{Foreman89}, \\citetalias{RDCT14}).  Water quality data are averages for the entire period of record (30 minute observations) for each site.  Metabolism estimates are means of daily integrated values.'
+cap.val<-'Summary statistics of tidal component amplitudes (m), selected water quality parameters (\\ac{DO} mg L$^{-1}$, chlorophyll-a $\\mu$g L$^{-1}$, salinity psu, water temperature $^{\\circ}$C)  and metabolism estimates (gross production, respiration, and net ecosystem metabolism as g m$^{-2}$ d$^{-1}$) for each case study.  Tidal components are principal lunar semidiurnal (O1, frequency 25.82 hours), solar diurnal (P1, 24.07 hours), lunar semidiurnal (M2, 12.42 hours), and solar semidiurnal (S2, 12 hours) estimated from harmonic regressions of tidal height (\\texttt{oce} package in R, \\citealt{Foreman89}, \\citetalias{RDCT14}).  Water quality data are averages for the entire period of record for each site.  Metabolism estimates are means of daily integrated values.'
 
 foot.val<-'\\footnotesize\\textsuperscript{\\textit{a}}Pg: gross production, Rt: respiration, NEM: net ecosystem metabolism'
 
@@ -1594,7 +1548,7 @@ tab <- c(as.matrix(tab))
 tab <- paste0(tab, pvals)
 tab <- matrix(tab, nrow = pdims[1], ncol = pdims[2])
 
-cap.val<-'Correlations of tidal changes at each site with continuous \\ac{DO} observations and metabolism estimates (gross production, respiration, and net metabolism) before (observed) and after (detided) detiding with weighted regression.  \\ac{DO} values are correlated with predicted tidal height at each observation, whereas metabolism estimates are correlated with mean tidal height change between observations during day, night, or total day periods for production, respiration, and net metabolism, respectively.'
+cap.val<-'Correlations of tidal changes at each site with continuous \\ac{DO} observations and metabolism estimates (gross production, respiration, and net metabolism) before (observed) and after (filtered) filtering with weighted regression.  \\ac{DO} values are correlated with predicted tidal height at each observation, whereas metabolism estimates are correlated with mean tidal height change between observations during day, night, or total day periods for production, respiration, and net metabolism, respectively.'
 
 foot.val<-'\\footnotesize *$p<0.05$; **$p<0.01$; ***$p<0.001$\\\\\\textsuperscript{\\textit{a}}Pg: gross production, Rt: respiration, NEM: net ecosystem metabolism' 
 
@@ -1608,7 +1562,7 @@ latex(
   caption = cap.val,
   colheads = c('DO', 'Pg\\textsuperscript{\\textit{a}}', 'Rt', 'NEM'),
   caption.loc = 'top',
-  rowname = rep(c('Observed', 'Detided'), 4),
+  rowname = rep(c('Observed', 'Filtered'), 4),
   label = 'tab:cor_res'
   )
 
@@ -1676,7 +1630,7 @@ sel_vec <- !to_tab$Metric %in% 'Anom'
 to_tab$Value[sel_vec] <- 0.032 * to_tab$Value[sel_vec]
 
 # make columns as factors for correct row, column order w/ dcast
-to_tab$Input <- factor(to_tab$Input, levels = c('Observed', 'Detided'))
+to_tab$Input <- factor(to_tab$Input, levels = c('Observed', 'Filtered'))
 to_tab$Metab <- factor(to_tab$Metab, levels = c('Pg', 'Rt', 'NEM'))
 to_tab$Metric <- factor(to_tab$Metric, levels = c('Avg', 'se', 'Anom'))
 
@@ -1690,7 +1644,7 @@ to_tab$Site <- gsub('_wtreg_[0-9]*.RData$', '', to_tab$Site)
 
 tab <- form_fun(to_tab[, -c(1:2)])
 rows <- to_tab[, 2]
-cap.val<-'Summary of metabolism estimates (gross production, respiration, and net metabolism) for case studies using \\ac{DO} time series before (observed) and after (detided) detiding with weighted regression.  Means and standard errors are based on daily integrated metabolism estimates.  Anomalous values are the proportion of metabolism estimates that were negative for gross production and positive for respiration.  Results are for weighted regressions with half window widths of six days, one hour within each day, and a tidal height proportion of one half.'
+cap.val<-'Summary of metabolism estimates (gross production, respiration, and net metabolism) for case studies using \\ac{DO} time series before (observed) and after (filtered) filtering with weighted regression.  Means and standard errors are based on daily integrated metabolism estimates.  Anomalous values are the proportion of metabolism estimates that were negative for gross production and positive for respiration.  Results are for weighted regressions with half window widths of six days, one hour within each day, and a tidal height proportion of one half.'
 
 foot.val<-'\\textsuperscript{\\textit{a}}Pg: gross production, Rt: respiration, NEM: net ecosystem metabolism' 
 latex( 
