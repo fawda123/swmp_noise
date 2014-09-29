@@ -73,13 +73,6 @@ Hirsch RM, Moyer DL, Archfield SA. 2010.
   an application to {C}hesapeake {B}ay river inputs.
 \newblock Journal of the American Water Resources Association, 46(5):857--880.
 
-\bibitem[Hopkinson and Smith, 2005]{Hopkinson05}
-Hopkinson CS, Smith EM. 2005.
-\newblock Estuarine respiration: an overview of benthic, pelagic, and whole
-  system respiration.
-\newblock In: Giorgio PAD, Williams P, editors, Respiration in Aquatic
-  Ecosystems, pages 122--146. Oxford Press, Oxford, United Kingdom.
-
 \bibitem[Kemp and Testa, 2012]{Kemp12}
 Kemp WM, Testa JM. 2012.
 \newblock Metabolic balance between ecosystem production and consumption.
@@ -104,6 +97,18 @@ Nidzieko NJ, Needoba JA, Monismith SG, Johnson KS. 2014.
 \newblock Fortnightly tidal modulations affect net community production in a
   mesotidal estuary.
 \newblock Estuaries and Coasts.
+
+\bibitem[Nixon, 1995]{Nixon95}
+Nixon SW. 1995.
+\newblock Coastal marine eutrophication: A definition, social causes, and
+  future concerns.
+\newblock Ophelia, 41:199--219.
+
+\bibitem[{NRC (National Research Council}, 2000]{NRC00}
+{NRC (National Research Council}. 2000.
+\newblock Clean Coastal Waters: Understanding and Reducing the Effects of
+  Nutrient Pollution.
+\newblock National Academy Press, Washington, DC.
 
 \bibitem[Odum, 1956]{Odum56}
 Odum HT. 1956.
@@ -147,6 +152,11 @@ Sanger DM, Arendt MD, Chen Y, Wenner EL, Holland AF, Edwards D, Caffrey J.
 Short FT, Wyllie-Echeverria S. 1996.
 \newblock Natural and human-induced disturbance of seagrasses.
 \newblock Environmental Conservation, 23(1):17--27.
+
+\bibitem[Shumway and Stoffer, 2011]{Shumway11}
+Shumway RH, Stoffer DS. 2011.
+\newblock Time Series Analysis and its Applications: With R Examples.
+\newblock Springer, New York, New York, 3rd edition.
 
 \bibitem[Staehr et~al., 2010]{Staehr10}
 Staehr PA, Bade D, de~Bogert MCV, Koch GR, Williamson C, Hanson P, Cole JJ,

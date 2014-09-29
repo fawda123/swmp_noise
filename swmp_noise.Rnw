@@ -45,6 +45,7 @@
 % aliased citations
 \defcitealias{BeckIR}{Beck and Hagy, In review}
 \defcitealias{CDMO14}{CDMO 2014}
+\defcitealias{NRC00}{NRC 2000}
 \defcitealias{RDCT14}{RDCT 2014}
 
 % acronyms
