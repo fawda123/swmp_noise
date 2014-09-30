@@ -22,6 +22,4 @@ pdrnrm folder contains 'prdnrm_*.RData' that are results for simulations, create
 
 ## Revision points
 
-* Use of 'detiding' - a more appropriate descriptor?
-* Relevance of indepth description of simulated data - not a primary focus
-* Add to discussion relevant literature of people who have done similar things - Kahlman filter
+Second iteration of mcm revisions are done - more careful description of problem and methods for addressing are included.
