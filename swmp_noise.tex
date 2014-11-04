@@ -169,11 +169,12 @@ We acknowledge the significant efforts of research staff and field crews from th
 
 Time series of dissolved oxygen are increasingly used to estimate ecosystem metabolism \citep{Kemp12,Needoba12}.  Integrated measures of metabolism describe the balance between production and respiration processes that create and consume organic matter, respectively.  Although metabolic rates vary naturally at different spatial and temporal scales \citep{Ziegler98,Caffrey04,Russell07}, anthropogenic nutrient sources are often contributing factors that increase rates of production (\citealt{Nixon95}, \citetalias{NRC00}).  Inputs of limiting nutrients beyond background concentrations may decrease the resilience of an ecosystem such that higher rates of production are coupled with higher biological oxygen demand \citep{Yin04,Kemp09}.  Cultural eutrophication is frequently linked to declines in water quality through lower levels of dissolved oxygen, degradation in aquatic vegetation habitat, and increased frequency of harmful algal blooms \citep{Cloern96,Short96,Rabalais02,Diaz08}.  Reliables estimates of ecosystem metabolism are critical for measuring both background rates of production and potential impacts of human activities on ecosytem condition.     
 
-Open-water techniques have been used for decades to infer metabolic rates using \textit{in situ} measurements from continuous monitoring data \citep{Odum56}. Daily integrated measurements of metabolism represent the balance between daytime production and nighttime respiration.  The open-water method uses the diel fluctuation of dissolved oxygen to estimate ecosytem metabolism, after correcting for air-water gas exchange \citep{Kemp12}.  As with any method, the ability to accurately estimate whole system metabolism depends on the degree to which assumptions of the theory are met.  The fundamental assumption is that the time series of \ac{DO} describes the same water mass over time \citep{Needoba12}.  Estimates of metabolism may be inaccurate if substantial variation in water column mixing occurs throughout the period of observation \citep{Kemp80,Russell07}.  Given this critical challenge, the open-water method has been used with varying success in lakes \citep{Staehr10,Coloso11,Batt12} and estuaries \citep{Caffrey04,Russell07,Caffrey13}.  Appropriate placement of monitoring sondes, sampling frequency and duration, and reliability of data from single stations have been relevant issues in applying the open-water method to systems influenced by physical mixing \citep{Russell07,Staehr10}.  Application of the method to estuaries is a particular concern as physical mixing caused by tidal currents may confound the biological variation in \ac{DO} time series \citep{Kemp80,Caffrey03,Nidzieko14}.  Individual sampling stations near bay inlets or along major tidal axes may produce \ac{DO} time series that fail to meet the assumptions of the open-water method.   
+Open-water techniques have been used for decades to infer metabolic rates using \textit{in situ} measurements from continuous monitoring data \citep{Odum56}. Daily integrated measurements of metabolism represent the balance between daytime production and nighttime respiration.  The open-water method uses the diel fluctuation of dissolved oxygen to estimate ecosytem metabolism, after correcting for air-water gas exchange \citep{Kemp12}.  As with any method, the ability to accurately estimate whole system metabolism depends on the degree to which assumptions of the theory are met.  The fundamental assumption is that the time series of \ac{DO} represents a Lagrangian specification of the flow field that describes the same water mass over time \citep{Needoba12}.  The Lagrangian specification assumes that the time series characterizes individual fluid parcels regardless of location, as in a parcel of water moving with the tide.  In reality, most \ac{DO} time series are collected at fixed locations such as a mooring or dock, which is characteristized by an Eulerian specification of the flow field.  Time series at fixed locations may characterize water masses with different metabolic histories if water particles are transported by physical advection.  
+A Lagrangian flow field is often assumed, such that estimates of metabolism may be inaccurate if substantial variation in water column mixing occurs throughout the period of observation \citep{Kemp80,Russell07}.  Given this critical challenge, the open-water method has been used with varying success in lakes \citep{Staehr10,Coloso11,Batt12} and estuaries \citep{Caffrey04,Russell07,Caffrey13}.  Appropriate placement of monitoring sondes, sampling frequency and duration, and reliability of data from single stations have been relevant issues in applying the open-water method to systems influenced by physical mixing \citep{Russell07,Staehr10}.  Application of the method to estuaries is a particular concern as physical mixing caused by tidal currents may confound the biological variation in \ac{DO} time series \citep{Kemp80,Caffrey03,Nidzieko14}.  Individual sampling stations near bay inlets or along major tidal axes may produce \ac{DO} time series that fail to meet the assumptions of the open-water method.   
 
-Although numerous studies have shown that application of the open-water method to lakes or estuaries may be problematic \citep{Ziegler98,Caffrey03,Coloso11,Batt12,Nidzieko14}, very few quantitative approaches have been developed to address potential bias or noise in \ac{DO} signals from phyical advection.  For example, an extensive analysis by \citet{Caffrey03} applied the open-water method to estimate metabolism at 28 continuous monitoring stations at 14 US estuaries.  A significant portion of the production and respiration estimates were negative (3 - 69\% depending on site), suggesting significant variation from advection of water masses with different metabolic histories was a likely factor influencing the \ac{DO} time series.  These `anomalous' values are typically omitted from the analysis \citep{Caffrey03,Collins13}, which may upwardly bias estimates of metabolism \citep{Murrell13}.  Further, \citet{Nidzieko14} evaluated the effects of tidal advection on metabolism estimates in a mesotidal estuary.  Estimates from a single location were strongly correlated with the spring-neap cycle such that net heterotrophy was more common during spring tides, whereas metabolism was generally balanced during neap tides.  A control-volume approach was used by impounding a section of the upper estuary to understand how physical processes contribute to biological variability.  Although useful as an \textit{in situ}, site-specific approach, more accessible statistical methods specific to time series are needed given the increasing availability of continuous monitoring data. For example, \citet{Batt12} acknowledged this need by exploring the use of a Kalman filter \citep{Harvey89} to remove process and observation uncertainty from \ac{DO} time series in lakes.  Similar approaches have not been developed for estuaries, particularly those that address potential effects of tidal advection.
+Although numerous studies have shown that application of the open-water method to lakes or estuaries may be problematic \citep{Ziegler98,Caffrey03,Coloso11,Batt12,Nidzieko14}, very few quantitative approaches have been developed to address potential bias or noise in \ac{DO} signals from physical advection.  For example, an extensive analysis by \citet{Caffrey03} applied the open-water method to estimate metabolism at 28 continuous monitoring stations at 14 US estuaries.  A significant portion of the production and respiration estimates were negative (3 - 69\% depending on site), suggesting advection of water masses was a likely factor influencing the \ac{DO} time series.  These `anomalous' values are typically omitted from the analysis \citep{Caffrey03,Collins13}, which may upwardly bias estimates of metabolism \citep{Murrell13}.  Further, \citet{Nidzieko14} evaluated the effects of tidal advection on metabolism estimates in a mesotidal estuary.  Estimates from a single location were strongly correlated with the spring-neap cycle such that net heterotrophy was more common during spring tides, whereas metabolism was generally balanced during neap tides.  A control-volume approach was used by impounding a section of the upper estuary to understand how physical processes contribute to biological variability.  Although useful as an \textit{in situ}, site-specific approach, more accessible statistical methods specific to time series are needed given the increasing availability of continuous monitoring data. For example, \citet{Batt12} explored the use of a Kalman filter \citep{Harvey89} to remove process and observation uncertainty from \ac{DO} time series in lakes.  Similar approaches have not been developed for estuaries, particularly those that address potential effects of tidal advection.
 
-This article describes the application of a method for filtering an observed \ac{DO} time series for estimated tidal effects to more accurately quantify estimates of ecosystem metabolism for estuaries.  Specifically, the apparent effects of tidal advection on \ac{DO} observations are removed to improve the fidelity of open-water metabolism estimates derived from continuous water quality data.  We used a weighted regression approach originally developed to resolve trends in pollutant concentrations in streams and rivers \citep{Hirsch10}.  The weighted regression approach creates dynamic predictions of \ac{DO} as a function of time and tidal height change, which are then used to filter, or detide, the \ac{DO} signal.  First, we used simulated \ac{DO} time series with known characteristics to evaluate ability of the weighted regression to remove the simulated effects of a tidally-advected \ac{DO} gradient.  Second, the simulation results informed the application of the method to four case studies chosen from the \aclu{NERRS} (\acs{NERRS}, \citealt{Wenner04}).  Specifically, one year of \ac{DO} time series for each case study was filtered to adjust estimates of ecosystem metabolism to apparent tidal effects.  In all examples, tidal height is used as a proxy for lateral water movements that may influence \ac{DO} observations.  In the absence of quantitative data describing lateral \ac{DO} variation (e.g., contemporaneous stations along a tidal axis), we assume tidal height is an appropriate measure that approximates lateral variation.  Accordingly, `tidal variation' or `changes in tidal height' are used throughout in reference to assumed lateral \ac{DO} gradients that are carried past monitoring sensors by tidal currents.  Overall, the analysis is meant to better characterize the relative roles of biological and physical processes in estuarine systems.
+This article describes the development and application of a method for improving estimates of ecosytem metabolism computed from \ac{DO} time series.  Specifically, the apparent effects of tidal advection on \ac{DO} observations are removed to improve the fidelity of open-water metabolism estimates derived from continuous water quality data.  We used a weighted regression approach originally developed to resolve trends in pollutant concentrations in streams and rivers \citep{Hirsch10}.  The weighted regression approach creates dynamic predictions of \ac{DO} as a function of time and tidal height change, which are then used to filter, or detide, the \ac{DO} signal.  The model is based on the recognition that daily fluctuations in \ac{DO} are caused by metabolism associated with the solar cycle, whereas other fluctuations in estuaries are likely associated with water level changes that generally exhibit pregression relative to the solar cycle.  The weighted regression model was applied, rather than methods commonly used for detiding in physical oceanography, to allow for the complex and dynamic patterns of \ac{DO} changes relative to advection.  First, we used simulated \ac{DO} time series with known characteristics to evaluate ability of the weighted regression to remove the simulated effects of a tidally-advected \ac{DO} gradient.  Second, the simulation results informed the application of the method to four case studies chosen from the \aclu{NERRS} (\acs{NERRS}, \citealt{Wenner04}).  In all examples, tidal height is used as a proxy for lateral water movements that may influence \ac{DO} observations.  In the absence of quantitative data describing lateral \ac{DO} variation (e.g., contemporaneous stations along a tidal axis), we assume tidal height is an appropriate characterization of lateral variation.  Accordingly, `tidal variation' or `changes in tidal height' are used throughout in reference to assumed lateral \ac{DO} gradients that are carried past monitoring sensors by tidal currents.
 
 %%%%%%
 % materials and procedures
@@ -279,15 +280,15 @@ Half window widths of six days, one hour, and a tidal proportion of one half wer
 
 Filtering had significant effects on the correlations between water level changes, \ac{DO} time series, and daily integrated metabolism estimates (\cref{tab:cor_res}, see the link in the \hyperref[multi]{multimedia} section for graphical results of each case study).  Correlations of observed \ac{DO} time series with predicted tidal height were highly significant and positive at all sites, except Padilla Bay where increases in water level were associated with decreases in \ac{DO}  concentration.  The filtered \ac{DO} time series had greatly reduced correlations with tidal height, although relationships were still significant after filtering likely because of the large sample size for each site (n $\approx$ 17,500). Comparison of metabolic rates to tidal changes before and after filtering produced inconsistent results (\cref{tab:cor_res}).  Correlations for Elkhorn Slough and Sapelo Island showed consistent reductions in all three metabolims estimates after filtering.  Correlations for Padilla Bay and Rookery Bay were of opposite sign and greater magnitude after filtering for production and respiration, although net metabolism estimates had reduced correlations.  
 
-The proportion of daily integrated metabolism estimates that were anomalous (negative production, positive respiration) were significantly reduced for most sites after filtering (\cref{tab:case_res}), perhaps indicating the relative effects of water movement.  Before filtering, anomalous values ranged from 0.09 (as a proportion of the total estimates, Rookery Bay) to 0.22 (Padilla Bay) for production and 0.08 (Rookery Bay) to 0.21 (Elkhorn Slough) for respiration. Anomalous values were reduced to near zero for Rookery Bay and Sapelo Island, by approximately half for Padilla Bay (0.13 for production, 0.13 for respiration), and only slightly reduced for Elkhorn Slough (0.17 for production, 0.17 for respiration).  Metabolism estimates using filtered \ac{DO} time series had decreased mean production (-55.5 \% change from the annual mean) and respiration (-55.2 \%) for Elkhorn Slough, increased mean production (74.0 \%) and respiration (74.8 \%) for Padilla Bay, and generally unchanged mean production and respiration for Rookery Bay and Sapelo Island (\cref{tab:case_res}).  Mean net ecosystem metabolism was unchanged for all sites.  Decreases in the standard erorr for all metabolism estimates (production, respiration, and net) were observed for all cases after filtering.  
+The proportion of daily integrated metabolism estimates that were anomalous (negative production, positive respiration) were significantly reduced for most sites after filtering (\cref{tab:case_res}), perhaps indicating the relative effects of water movement.  Before filtering, anomalous values ranged from 0.09 (as a proportion of the total estimates, Rookery Bay) to 0.22 (Padilla Bay) for production and 0.08 (Rookery Bay) to 0.21 (Elkhorn Slough) for respiration. Anomalous values were reduced to near zero for Rookery Bay and Sapelo Island, by approximately half for Padilla Bay (0.08, 0.07, 0.06, 0.06, 0.07, 0.08, 0.10, 0.11, 0.07, 0.06, 0.06, 0.08, 0.14, 0.08, 0.09, 0.06, 0.05, 0.05, 0.06, 0.14, 0.06, 0.04, 0.04, 0.06, 0.06, 0.18, 0.08, 0.04, 0.05, 0.06, 0.04, 0.05, 0.06, 0.28, 0.10, 0.06, 0.06, 0.07, 0.06, 0.35, 0.16, 0.08, 0.07, 0.06, 0.05, 0.07, 0.12, 0.08, 0.06, 0.04, 0.07, 0.07, 0.06, 0.06, 0.06, 0.12, 0.05, 0.04, 0.05, 0.07, 0.06, 0.16, 0.07, 0.05, 0.04, 0.05, 0.22, 0.11, 0.05, 0.05, 0.08, 0.06, 0.05, 0.08, 0.13, 0.14, 0.15, 0.06, 0.06, 0.07, 0.07, 0.07, 0.06, 0.11, 0.05, 0.06, 0.06, 0.06, 0.15, 0.08, 0.04, 0.04, 0.04, 0.05, 0.17, 0.10, 0.04, 0.04, 0.06, 0.05, 0.07, 0.10, 0.11, 0.06, 0.14, 0.07, 0.06, 0.08, 0.08, 0.07, 0.08, 0.07, 0.05, 0.05, 0.06, 0.06, 0.14, 0.07, 0.04, 0.04, 0.06, 0.18, 0.09, 0.04, 0.04 for production, 0.07, 0.07, 0.06, 0.06, 0.06, 0.08, 0.10, 0.11, 0.08, 0.06, 0.06, 0.08, 0.19, 0.07, 0.09, 0.06, 0.05, 0.05, 0.06, 0.12, 0.06, 0.04, 0.04, 0.06, 0.06, 0.19, 0.08, 0.04, 0.05, 0.06, 0.04, 0.05, 0.06, 0.33, 0.11, 0.06, 0.05, 0.07, 0.06, 0.39, 0.20, 0.08, 0.07, 0.06, 0.06, 0.07, 0.12, 0.08, 0.06, 0.04, 0.08, 0.07, 0.06, 0.06, 0.06, 0.14, 0.04, 0.04, 0.06, 0.07, 0.07, 0.21, 0.06, 0.04, 0.04, 0.05, 0.34, 0.12, 0.04, 0.04, 0.08, 0.06, 0.06, 0.07, 0.12, 0.13, 0.15, 0.07, 0.07, 0.07, 0.06, 0.07, 0.06, 0.11, 0.06, 0.06, 0.06, 0.06, 0.17, 0.07, 0.04, 0.04, 0.04, 0.06, 0.25, 0.11, 0.04, 0.05, 0.06, 0.06, 0.07, 0.10, 0.10, 0.06, 0.14, 0.07, 0.07, 0.07, 0.09, 0.08, 0.09, 0.07, 0.05, 0.05, 0.07, 0.07, 0.12, 0.08, 0.04, 0.04, 0.06, 0.20, 0.10, 0.04, 0.04 for respiration), and only slightly reduced for Elkhorn Slough (0.18, 0.07, 0.05, 0.22, 0.24, 0.19, 0.18, 0.16, 0.15, 0.21, 0.19, 0.13, 0.18, 0.13, 0.16, 0.15, 0.12, 0.09, 0.05, 0.18, 0.13, 0.10, 0.05, 0.14, 0.03, 0.20, 0.12, 0.10, 0.05, 0.02, 0.10, 0.08, 0.08, 0.26, 0.17, 0.12, 0.09, 0.16, 0.09, 0.33, 0.21, 0.14, 0.13, 0.13, 0.21, 0.20, 0.16, 0.13, 0.15, 0.11, 0.15, 0.15, 0.15, 0.11, 0.11, 0.18, 0.16, 0.12, 0.09, 0.14, 0.08, 0.18, 0.16, 0.12, 0.09, 0.08, 0.23, 0.18, 0.12, 0.08, 0.13, 0.11, 0.22, 0.23, 0.17, 0.14, 0.13, 0.16, 0.18, 0.16, 0.13, 0.16, 0.09, 0.16, 0.16, 0.12, 0.11, 0.08, 0.16, 0.15, 0.12, 0.07, 0.13, 0.07, 0.19, 0.15, 0.12, 0.08, 0.07, 0.22, 0.23, 0.17, 0.18, 0.10, 0.15, 0.15, 0.19, 0.18, 0.14, 0.11, 0.16, 0.17, 0.12, 0.10, 0.07, 0.07, 0.16, 0.15, 0.11, 0.07, 0.05, 0.19, 0.13, 0.11, 0.07 for production, 0.19, 0.05, 0.06, 0.24, 0.23, 0.18, 0.18, 0.16, 0.19, 0.24, 0.21, 0.13, 0.21, 0.10, 0.15, 0.18, 0.13, 0.10, 0.06, 0.19, 0.14, 0.10, 0.06, 0.15, 0.04, 0.23, 0.14, 0.10, 0.06, 0.03, 0.11, 0.08, 0.08, 0.30, 0.18, 0.14, 0.10, 0.15, 0.09, 0.36, 0.22, 0.14, 0.11, 0.11, 0.24, 0.20, 0.16, 0.11, 0.15, 0.11, 0.16, 0.16, 0.16, 0.11, 0.09, 0.17, 0.17, 0.13, 0.09, 0.13, 0.08, 0.23, 0.16, 0.13, 0.09, 0.08, 0.29, 0.18, 0.12, 0.09, 0.13, 0.08, 0.24, 0.23, 0.16, 0.15, 0.13, 0.18, 0.19, 0.16, 0.12, 0.18, 0.09, 0.16, 0.17, 0.13, 0.12, 0.08, 0.20, 0.15, 0.13, 0.08, 0.14, 0.07, 0.27, 0.16, 0.11, 0.09, 0.07, 0.24, 0.23, 0.17, 0.18, 0.09, 0.15, 0.19, 0.22, 0.18, 0.14, 0.10, 0.16, 0.17, 0.13, 0.11, 0.07, 0.07, 0.16, 0.14, 0.11, 0.07, 0.05, 0.25, 0.15, 0.11, 0.07 for respiration).  Metabolism estimates using filtered \ac{DO} time series had decreased mean production (-69.3 \% change from the annual mean) and respiration (-69.3 \%) for Elkhorn Slough, increased mean production (43.7 \%) and respiration (44.7 \%) for Padilla Bay, and generally unchanged mean production and respiration for Rookery Bay and Sapelo Island (\cref{tab:case_res}).  Mean net ecosystem metabolism was unchanged for all sites.  Decreases in the standard erorr for all metabolism estimates (production, respiration, and net) were observed for all cases after filtering.  
 
 An example from Sapelo Island illustrates the effects of weighted regression on \ac{DO} and metabolism estimates (\cref{fig:phase_out,fig:phase_in,fig:case_ex}).   A two-week period in February showed when the tidal cycles were both in and out of phase with the diel cycling, where phasing describes synchronicity between maximum tide heights and day/night periods \citep{Nidzieko14}.  That is, maximum tide heights were generally out of phase with the diel cycle during the first week when low tides were observed during the middle of the night and the middle of the day (\cref{fig:phase_out}), whereas tide heights were in phase during the second week when the maximum tide height occured during the day and night (\cref{fig:phase_in}).  The effects of tidal height change on the observed \ac{DO} time series are visually apparent in the plots. The first week illustrates a strong negative bias (less respiration, less production) in the observed \ac{DO} signal from low tides at mid-day and mid-night, whereas the second example illustrates a strong positive bias (more respiration, more production) in the observed \ac{DO} from high tides. These biases are apparent in the metabolism estimates using the observed data (\cref{fig:case_ex}).  Anomalous estimates occur when low tides are in phase with the solar cycle (week one), whereas metabolism estimates are likely over-estimated when high tides are in phase with the solar cycle (week two).  The filtered time series shows noticeable changes given the direction of bias from the phasing between tidal height and diel period.  \ac{DO} values were higher after filtering when low tides occurred during night and day periods, whereas \ac{DO} values were lower after filtering when high tides occurred during day and night periods (\cref{fig:phase_out,fig:phase_in}).  Changes in metabolism estimates after filtering were also apparent, such that the anomalous values were removed during the first week and the positive bias in the second week is decreased (\cref{fig:case_ex}).
 
 \subsection{Effects of aggregation and importance of filtering}
 
-A point of concern is the period of observation within which observed \ac{DO} is affected by tidal height changes and the extent to which this affects the interpretation of ecosystem metabolism.  The effects of tidal variation on daily estimates may not be relevant if seasonal or annual aggregations remove this potential bias.  The example from Sapelo Island in the previous section highlights this point given that mean production and respiration estimates before and after filtering were generally unchanged for the two-week period. \cref{tab:case_res} also indicated that mean annual estimates of production and respiration were unchanged for Rookery Bay and Sapelo Island.  However, annual averages of production and respiration estimates were significantly different for Elkhorn Slough and Padilla Bay. Given these results, tidal variation may or may not have effects on metabolism estimates on aggregated time scales longer than 24 hours, depending on the location.  Therefore, an evaluation of weighted regression to filter the effects of tidal variation on ecosystem metabolism for different periods of observation is critical for its application.  Specifically, when should filtering be applied if aggregation of observed data on longer time periods removes potential bias?  A comparison of observed and filtered estimates that are aggregated over different periods of observation (e.g., annual, seasonal, monthly) could help address this question.
+A point of concern is the period of observation within which observed \ac{DO} is affected by tidal height changes and the extent to which this affects the interpretation of ecosystem metabolism.  The effects of tidal variation on daily estimates may not be relevant if seasonal or annual aggregations (e.g., mean annual metabolism) remove this potential bias.  The example from Sapelo Island in the previous section highlights this point given that mean production and respiration estimates before and after filtering were generally unchanged for the two-week period. Alternatively, annual averages of production and respiration estimates were significantly different for Elkhorn Slough and Padilla Bay (\cref{tab:case_res}). Given these results, tidal variation may or may not have effects on metabolism estimates on aggregated time scales, depending on the location.  Therefore, an evaluation of weighted regression to filter the effects of tidal variation on ecosystem metabolism for different periods of observation is critical for its application.  Specifically, when should filtering be applied if aggregation of observed data on longer time periods removes potential bias?  A comparison of observed and filtered estimates that are aggregated over different periods of observation could help address this question.
 
-The observed and filtered daily estimates were averaged by month and season (Fall, Spring, Summer, and Winter) for each case study to evaluate effects of aggregation on mean production and respiration.  Mean annual estimates in \cref{tab:case_res} also provided a basis of comparison with monthly and seasonal aggregation. Significant variation in aggregated production and respiration estimates for month and season was observed for each case study (\cref{fig:metab_sum1,fig:metab_sum2}).  Filtered production and respiration estimates for Padilla Bay and Rookery Bay exhibited seasonal and monthly variation that was more characteristic of expected trends during warmer months.  Specifically, production estimates based on observed \ac{DO} were substantially muted for both Padilla Bay (\cref{fig:metab_sum1}) and Rookery Bay (\cref{fig:metab_sum2}) during summer months, whereas values were significantly higher after filtering. Results for Sapelo Island suggested that winter and summer months were under- and over-estimated, respectively, based on the observed data.  Results for Elkhorn Slough varied significantly such that production and respiration were significantly reduced after filtering regardless of the aggregation period.  Overall, these trends emphasize the importance of considering different aggregation periods for interpreting metabolism estimates.  Each case study showed differences in observed and filtered values at monthly and seasonal aggregations, whereas only two of the four case studies had mean aggregated estimates that were substantially different (Elkhorn Slough and Padilla Bay, \cref{tab:case_res}).  Periods of observation as long as one year may include significant sources of bias from tidal advection, suggesting the need for applying weighted regression given careful consideration of appropriate window widths.       
+The observed and filtered daily estimates were averaged by month for each case study to evaluate effects of aggregation on mean production and respiration.  Mean annual estimates in \cref{tab:case_res} also provided a basis of comparison with the aggregations. Significant variation in aggregated production and respiration estimates was observed for each case study (\cref{fig:metab_sum}).  Filtered production and respiration estimates for Padilla Bay and Rookery Bay exhibited monthly variation that was more characteristic of expected trends during warmer months.  Specifically, metabolism estimates based on observed \ac{DO} were substantially muted for both Padilla Bay and Rookery Bay during summer months, whereas values were significantly higher after filtering. Results for Sapelo Island suggested that aggregated estimates were similar before and after filtering, although winter and summer months were slightly under- and over-estimated, respectively, using the observed data.  Results for Elkhorn Slough varied significantly such that production and respiration were significantly reduced after filtering.  Overall, these trends emphasize the importance of considering different aggregation periods for interpreting metabolism estimates.  Each case study showed differences in observed and filtered values at monthly aggregations, whereas only two of the four case studies had mean aggregated estimates that were substantially different (Elkhorn Slough and Padilla Bay, \cref{tab:case_res}).  Periods of observation as long as one year may include significant sources of bias from tidal advection, suggesting the need for applying weighted regression given careful consideration of appropriate window widths.       
 
  
 
@@ -468,36 +469,17 @@ Although the above analyses suggest the approach has merit, the case studies emp
 \end{knitrout}
 
 % plots of summarized metabolism estimates, before/after detiding
-% ELKVM, PDBBY
+% all case studies
 \centering\vspace*{\fill}
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[!ht]
 
 
-{\centering \includegraphics[width=\maxwidth]{figure/metab_sum1} 
+{\centering \includegraphics[width=\maxwidth]{figure/metab_sum} 
 
 }
 
-\caption[Means and standard errors of daily metabolism estimates (gross production, total respiration) aggregated by month and season]{Means and standard errors of daily metabolism estimates (gross production, total respiration) aggregated by month and season.  Aggregated estimates are for Elkhorn Slough and Padilla Bay from observed and filtered \ac{DO} time series.\label{fig:metab_sum1}}
-\end{figure}
-
-
-\end{knitrout}
-\vfill
-\clearpage
-
-% RKBMB, SAPDC
-% plots of summarized metabolism estimates, before/after detiding
-\centering\vspace*{\fill}
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[!ht]
-
-
-{\centering \includegraphics[width=\maxwidth]{figure/metab_sum2} 
-
-}
-
-\caption[Means and standard errors of daily metabolism estimates (gross production, total respiration) aggregated by month and season]{Means and standard errors of daily metabolism estimates (gross production, total respiration) aggregated by month and season.  Aggregated estimates are for Rookery Bay and Sapelo Island from observed and filtered \ac{DO} time series.  May was removed from Rookery Bay because of incomplete data.\label{fig:metab_sum2}}
+\caption[Means and standard errors of daily metabolism estimates (gross production, total respiration) aggregated by month]{Means and standard errors of daily metabolism estimates (gross production, total respiration) aggregated by month.  Aggregated estimates are shown for observed and filtered \ac{DO} time series.  May was removed from Rookery Bay because of incomplete data.\label{fig:metab_sum}}
 \end{figure}
 
 
@@ -511,8 +493,7 @@ Although the above analyses suggest the approach has merit, the case studies emp
 \section{Tables}
 
 % summary of simulation performance for detided and biological, sim parameters
-% latex.default(tab, file = "", where = "h", rowlabel = "Parameter",      caption = cap.val, caption.loc = "top", rgroup = Parms, n.rgroup = rep(3,          4), cgroup = c("Correlation", "RMSE"), n.cgroup = c(5,          5), rowname = rows, colheads = rep(c("Min", "25\\textsuperscript{th}",          "Median", "75\\textsuperscript{th}", "Max"), 2), label = "tab:dtd_perf1") 
-%
+%latex.default(tab, file = "", where = "h", rowlabel = "Parameter",     caption = cap.val, caption.loc = "top", rgroup = Parms, n.rgroup = rep(3,         4), cgroup = c("Correlation", "RMSE"), n.cgroup = c(5,         5), rowname = rows, colheads = rep(c("Min", "25\\textsuperscript{th}",         "Median", "75\\textsuperscript{th}", "Max"), 2), label = "tab:dtd_perf1")%
 \begin{table}[h]
 \caption{Summary (range, median, quartiles) of correlations and error estimates comparing filtered and biological \ac{DO} time series for different simulation parameters ($DO_{die}$, $DO_{adv}$, $\epsilon_{pro}$, $\epsilon_{obs}$).  Values represent averages from multiple simulations with common parameters (e.g., row one is a summary of all simulations for which the diel \ac{DO} component was zero).\label{tab:dtd_perf1}} 
 \begin{center}
@@ -542,15 +523,13 @@ Although the above analyses suggest the approach has merit, the case studies emp
 ~~1& 0.05&0.37&0.58&0.81&0.99&&0.07&0.98&1.05&1.49&2.39\tabularnewline
 ~~2& 0.05&0.40&0.58&0.70&0.99&&0.15&1.06&1.96&2.01&2.40\tabularnewline
 \hline
-\end{tabular}
-\end{center}
+\end{tabular}\end{center}
+
 \end{table}
 
 
-
 % summary of simulation performance for detided and biological, window widths
-% latex.default(tab, file = "", rowlabel = "Window", caption = cap.val,      caption.loc = "top", rgroup = Parms, n.rgroup = rep(3, 3),      cgroup = c("Correlation", "RMSE"), n.cgroup = c(5, 5), rowname = rows,      colheads = rep(c("Min", "25\\textsuperscript{th}", "Median",          "75\\textsuperscript{th}", "Max"), 2), label = "tab:dtd_perf2") 
-%
+%latex.default(tab, file = "", rowlabel = "Window", caption = cap.val,     caption.loc = "top", rgroup = Parms, n.rgroup = rep(3, 3),     cgroup = c("Correlation", "RMSE"), n.cgroup = c(5, 5), rowname = rows,     colheads = rep(c("Min", "25\\textsuperscript{th}", "Median",         "75\\textsuperscript{th}", "Max"), 2), label = "tab:dtd_perf2")%
 \begin{table}[!tbp]
 \caption{Summary (range, median, quartiles) of correlations and error estimates comparing filtered and biological \ac{DO} time series for simulations using different half window widths in the weighted regressions (days, hours, and proportion of tidal range).  Values represent averages from multiple simulations with common window values (e.g., row one is a summary of all simulations for which the half window width was one day).\label{tab:dtd_perf2}} 
 \begin{center}
@@ -575,15 +554,13 @@ Although the above analyses suggest the approach has merit, the case studies emp
 ~~0.5& 0.06&0.43&0.62&0.88&1.00&&0.00&0.61&1.09&1.97&2.27\tabularnewline
 ~~1&-0.78&0.30&0.51&0.79&1.00&&0.00&0.73&1.20&1.97&2.40\tabularnewline
 \hline
-\end{tabular}
-\end{center}
+\end{tabular}\end{center}
+
 \end{table}
 
 
-
 % descriptive table of case studies
-% latex.default(tab, file = "", rowlabel = "Site", insert.bottom = foot.val,      caption = cap.val, caption.loc = "top", cgroup = c("Tidal amplitude",          "Water quality", "Metabolism\\textsuperscript{\\textit{a}}"),      n.cgroup = c(4, 4, 3), rowname = rows, colheads = c("O1",          "P1", "M2", "S2", "DO", "Chl", "Sal", "Temp", "Pg", "Rt",          "NEM"), label = "tab:case_att") 
-%
+%latex.default(tab, file = "", rowlabel = "Site", insert.bottom = foot.val,     caption = cap.val, caption.loc = "top", cgroup = c("Tidal amplitude",         "Water quality", "Metabolism\\textsuperscript{\\textit{a}}"),     n.cgroup = c(4, 4, 3), rowname = rows, colheads = c("O1",         "P1", "M2", "S2", "DO", "Chl", "Sal", "Temp", "Pg", "Rt",         "NEM"), label = "tab:case_att")%
 \begin{table}[!tbp]
 \caption{Summary statistics of tidal component amplitudes (m), selected water quality parameters (\ac{DO} mg L$^{-1}$, chlorophyll-a $\mu$g L$^{-1}$, salinity psu, water temperature $^{\circ}$C)  and metabolism estimates (gross production, respiration, and net ecosystem metabolism as g m$^{-2}$ d$^{-1}$) for each case study.  Tidal components are principal lunar semidiurnal (O1, frequency 25.82 hours), solar diurnal (P1, 24.07 hours), lunar semidiurnal (M2, 12.42 hours), and solar semidiurnal (S2, 12 hours) estimated from harmonic regressions of tidal height (\texttt{oce} package in R, \citealt{Foreman89}, \citetalias{RDCT14}).  Water quality data are averages for the entire period of record for each site.  Metabolism estimates are means of daily integrated values.\label{tab:case_att}} 
 \begin{center}
@@ -598,47 +575,43 @@ PDBBY&0.46&0.23&0.63&0.15&&8.97&2.24&29.17&10.44&&5.95&-5.90& 0.05\tabularnewlin
 RKBMB&0.13&0.04&0.36&0.10&&4.48&4.50&30.53&25.85&&3.02&-3.62&-0.60\tabularnewline
 SAPDC&0.10&0.02&0.54&0.07&&4.96&5.98&27.30&21.77&&4.89&-6.04&-1.16\tabularnewline
 \hline
-\end{tabular}
-\end{center}
+\end{tabular}\end{center}
+
 \footnotesize\textsuperscript{\textit{a}}Pg: gross production, Rt: respiration, NEM: net ecosystem metabolism\end{table}
 
 
-
 % correlations with tide before/after wtreg
-% latex.default(tab, file = "", rowlabel = "Site", rgroup = unique(rows),      n.rgroup = rep(2, 4), insert.bottom = foot.val, caption = cap.val,      colheads = c("DO", "Pg\\textsuperscript{\\textit{a}}", "Rt",          "NEM"), caption.loc = "top", rowname = rep(c("Observed",          "Filtered"), 4), label = "tab:cor_res") 
-%
+%latex.default(tab, file = "", rowlabel = "Site", rgroup = unique(rows),     n.rgroup = rep(2, 4), insert.bottom = foot.val, caption = cap.val,     colheads = c("DO", "Pg\\textsuperscript{\\textit{a}}", "Rt",         "NEM"), caption.loc = "top", rowname = rep(c("Observed",         "Filtered"), 4), label = "tab:cor_res")%
 \begin{table}[!tbp]
-\caption{Correlations of tidal changes at each site with continuous \ac{DO} observations and metabolism estimates (gross production, respiration, and net metabolism) before (observed) and after (filtered) filtering with weighted regression.  \ac{DO} values are correlated with predicted tidal height at each observation, whereas metabolism estimates are correlated with mean tidal height change between observations during day, night, or total day periods for production, respiration, and net metabolism, respectively.\label{tab:cor_res}} 
+\caption{Correlations of tidal changes at each site with continuous \ac{DO} observations and metabolism estimates (gross production, respiration, and net metabolism) before (observed) and after (filtered) filtering with weighted regression.  Values are averages of monthly correlations.  \ac{DO} values are correlated with predicted tidal height at each observation, whereas metabolism estimates are correlated with mean tidal height change between observations during day, night, or total day periods for production, respiration, and net metabolism, respectively.\label{tab:cor_res}} 
 \begin{center}
 \begin{tabular}{lllll}
 \hline\hline
 \multicolumn{1}{l}{Site}&\multicolumn{1}{c}{DO}&\multicolumn{1}{c}{Pg\textsuperscript{\textit{a}}}&\multicolumn{1}{c}{Rt}&\multicolumn{1}{c}{NEM}\tabularnewline
 \hline
 {\bfseries ELKVM}&&&&\tabularnewline
-~~Observed& 0.47***& 0.60***& 0.73***& 0.35***\tabularnewline
-~~Filtered& 0.02*& 0.19***& 0.13*& 0.06 \tabularnewline
+~~Observed& 0.44& 0.43& 0.43& 0.33\tabularnewline
+~~Filtered&-0.04& 0.04&-0.01& 0.09\tabularnewline
 \hline
 {\bfseries PDBBY}&&&&\tabularnewline
-~~Observed&-0.45***&-0.33***&-0.46***&-0.25***\tabularnewline
-~~Filtered& 0.07***& 0.48***& 0.47***&-0.21***\tabularnewline
+~~Observed&-0.49&-0.11&-0.29&-0.28\tabularnewline
+~~Filtered& 0.01&-0.05& 0.00&-0.33\tabularnewline
 \hline
 {\bfseries RKBMB}&&&&\tabularnewline
-~~Observed& 0.28***& 0.34***& 0.39***& 0.24***\tabularnewline
-~~Filtered&-0.02**&-0.31***&-0.36***& 0.12*\tabularnewline
+~~Observed& 0.45& 0.26& 0.34& 0.30\tabularnewline
+~~Filtered& 0.02&-0.04& 0.03& 0.10\tabularnewline
 \hline
 {\bfseries SAPDC}&&&&\tabularnewline
-~~Observed& 0.48***& 0.54***& 0.71***& 0.41***\tabularnewline
-~~Filtered&-0.03***& 0.16**& 0.18***&-0.05 \tabularnewline
+~~Observed& 0.62& 0.47& 0.64& 0.43\tabularnewline
+~~Filtered& 0.00&-0.04& 0.07&-0.04\tabularnewline
 \hline
-\end{tabular}
-\end{center}
-\footnotesize *$p<0.05$; **$p<0.01$; ***$p<0.001$\\\textsuperscript{\textit{a}}Pg: gross production, Rt: respiration, NEM: net ecosystem metabolism\end{table}
+\end{tabular}\end{center}
 
+\textsuperscript{\textit{a}}Pg: gross production, Rt: respiration, NEM: net ecosystem metabolism\end{table}
 
 
 % case study metabolism results, including perc anom
-% latex.default(tab, file = "", rowlabel = "Site", insert.bottom = foot.val,      caption = cap.val, caption.loc = "top", rgroup = unique(to_tab$Site),      n.rgroup = rep(2, 4), cgroup = c("Pg\\textsuperscript{\\textit{a}}",          "Rt", "NEM"), n.cgroup = c(3, 3, 2), rowname = rows,      colheads = c(rep(c("Mean", "Std. Err.", "Anom"), 2), c("Mean",          "Std. Err.")), label = "tab:case_res") 
-%
+%latex.default(tab, file = "", rowlabel = "Site", insert.bottom = foot.val,     caption = cap.val, caption.loc = "top", rgroup = unique(to_tab$Site),     n.rgroup = rep(2, 4), cgroup = c("Pg\\textsuperscript{\\textit{a}}",         "Rt", "NEM"), n.cgroup = c(3, 3, 2), rowname = rows,     colheads = c(rep(c("Mean", "Std. Err.", "Anom"), 2), c("Mean",         "Std. Err.")), label = "tab:case_res")%
 \begin{table}[!tbp]
 \caption{Summary of metabolism estimates (gross production, respiration, and net metabolism) for case studies using \ac{DO} time series before (observed) and after (filtered) filtering with weighted regression.  Means and standard errors are based on daily integrated metabolism estimates.  Anomalous values are the proportion of metabolism estimates that were negative for gross production and positive for respiration.  Results are for weighted regressions with half window widths of six days, one hour within each day, and a tidal height proportion of one half.\label{tab:case_res}} 
 \begin{center}
@@ -649,23 +622,23 @@ SAPDC&0.10&0.02&0.54&0.07&&4.96&5.98&27.30&21.77&&4.89&-6.04&-1.16\tabularnewlin
 \multicolumn{1}{l}{}&\multicolumn{1}{c}{Mean}&\multicolumn{1}{c}{Std. Err.}&\multicolumn{1}{c}{Anom}&\multicolumn{1}{c}{}&\multicolumn{1}{c}{Mean}&\multicolumn{1}{c}{Std. Err.}&\multicolumn{1}{c}{Anom}&\multicolumn{1}{c}{}&\multicolumn{1}{c}{Mean}&\multicolumn{1}{c}{Std. Err.}\tabularnewline
 \hline
 {\bfseries ELKVM}&&&&&&&&&&\tabularnewline
-~~Observed& 8.14&0.67&0.19&& -8.19&0.69&0.21&&-0.05&0.16\tabularnewline
-~~NA& 3.63&0.23&0.17&& -3.67&0.24&0.17&&-0.04&0.05\tabularnewline
+~~Observed&8.14&0.67&0.19&&-8.19&0.69&0.21&&-0.05&0.16\tabularnewline
+~~Filtered&3.00&0.13&0.07&&-3.06&0.14&0.07&&-0.06&0.02\tabularnewline
 \hline
 {\bfseries PDBBY}&&&&&&&&&&\tabularnewline
-~~Observed& 5.95&0.69&0.22&& -5.90&0.74&0.19&& 0.05&0.22\tabularnewline
-~~NA&10.36&0.63&0.13&&-10.32&0.63&0.13&& 0.04&0.08\tabularnewline
+~~Observed&5.95&0.69&0.22&&-5.90&0.74&0.19&& 0.05&0.22\tabularnewline
+~~Filtered&7.01&0.40&0.05&&-7.01&0.40&0.06&& 0.00&0.07\tabularnewline
 \hline
 {\bfseries RKBMB}&&&&&&&&&&\tabularnewline
-~~Observed& 3.02&0.14&0.09&& -3.62&0.15&0.08&&-0.60&0.06\tabularnewline
-~~NA& 3.73&0.09&0.01&& -4.35&0.10&0.00&&-0.62&0.04\tabularnewline
+~~Observed&3.02&0.14&0.09&&-3.62&0.15&0.08&&-0.60&0.06\tabularnewline
+~~Filtered&3.46&0.10&0.01&&-4.07&0.11&0.01&&-0.61&0.04\tabularnewline
 \hline
 {\bfseries SAPDC}&&&&&&&&&&\tabularnewline
-~~Observed& 4.89&0.23&0.13&& -6.04&0.25&0.11&&-1.16&0.09\tabularnewline
-~~NA& 4.85&0.08&0.00&& -6.04&0.10&0.00&&-1.19&0.05\tabularnewline
+~~Observed&4.89&0.23&0.13&&-6.04&0.25&0.11&&-1.16&0.09\tabularnewline
+~~Filtered&4.94&0.09&0.00&&-6.13&0.10&0.00&&-1.19&0.05\tabularnewline
 \hline
-\end{tabular}
-\end{center}
+\end{tabular}\end{center}
+
 \textsuperscript{\textit{a}}Pg: gross production, Rt: respiration, NEM: net ecosystem metabolism\end{table}
 
 

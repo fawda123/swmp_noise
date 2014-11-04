@@ -56,5 +56,10 @@ pdb_per <- -100 * (pdb_per[1, ] - pdb_per[2, ])/pdb_per[1, ]
 
 ######
 # objects for selecting window widht combinations for case studies
-casewins <- list(6, 1, 0.5)
+casewins <- list(
+  ELKVM = list(12, 6, 0.8), 
+  PDBBY = list(3, 6, 0.6), 
+  RKBMB = list(3, 1, 0.6), 
+  SAPDC = list(3, 1, 0.6)
+)
 @

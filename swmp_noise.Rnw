@@ -544,7 +544,7 @@ load('case_grds.RData')
 # subsets by case. date range, window comb
 case <- 'SAPDC'
 dat.rng<-as.Date(c('2012-02-01','2012-02-14')) 
-sel_vec <- with(case_grds, which(dec_time == casewins[[1]] & hour == casewins[[2]] & Tide == casewins[[3]]))
+sel_vec <- with(case_grds, which(dec_time == casewins[['SAPDC']][[1]] & hour == casewins[['SAPDC']][[2]] & Tide == casewins[['SAPDC']][[3]]))
 sel_vec <- paste0(case, '_wtreg_', sel_vec, '.RData')
 
 load(paste0('wtreg/', sel_vec))
@@ -649,7 +649,7 @@ load('case_grds.RData')
 # subsets by case. date range, window comb
 case <- 'SAPDC'
 dat.rng<-as.Date(c('2012-02-01','2012-02-14')) 
-sel_vec <- with(case_grds, which(dec_time == casewins[[1]] & hour == casewins[[2]] & Tide == casewins[[3]]))
+sel_vec <- with(case_grds, which(dec_time == casewins[['SAPDC']][[1]] & hour == casewins[['SAPDC']][[2]] & Tide == casewins[['SAPDC']][[3]]))
 sel_vec <- paste0(case, '_wtreg_', sel_vec, '.RData')
 
 load(paste0('wtreg/', sel_vec))
@@ -757,7 +757,7 @@ load('case_grds.RData')
 # subsets by case. date range, window comb
 case <- 'SAPDC'
 dat.rng<-as.Date(c('2012-02-01','2012-02-14')) 
-sel_vec <- with(case_grds, which(dec_time == casewins[[1]] & hour == casewins[[2]] & Tide == casewins[[3]]))
+sel_vec <- with(case_grds, which(dec_time == casewins[['SAPDC']][[1]] & hour == casewins[['SAPDC']][[2]] & Tide == casewins[['SAPDC']][[3]]))
 sel_vec <- paste0(case, '_wtreg_', sel_vec, '.RData')
 
 # select case, window
@@ -808,53 +808,51 @@ print(p1)
 @
 
 % plots of summarized metabolism estimates, before/after detiding
-% ELKVM, PDBBY
+% all case studies
 \centering\vspace*{\fill}
-<<metab_sum1, cache = T, eval = T, echo = F, fig.height = 5.5, fig.width = 7, fig.cap = 'Means and standard errors of daily metabolism estimates (gross production, total respiration) aggregated by month and season.  Aggregated estimates are for Elkhorn Slough and Padilla Bay from observed and filtered \\ac{DO} time series.'>>=
+<<metab_sum, cache = T, eval = T, echo = F, cache = T, fig.height = 5.5, fig.width = 7, fig.cap = 'Means and standard errors of daily metabolism estimates (gross production, total respiration) aggregated by month.  Aggregated estimates are shown for observed and filtered \\ac{DO} time series.  May was removed from Rookery Bay because of incomplete data.'>>=
 
-# load metabolism data
+# load metabolism dataa
 load('met_ls.RData')
 
-# subset metab estimates by 30 day window and tide prop 1
+# subset metab estimates by window widhts for each case study
 load('case_grds.RData')
-sel_vec <- with(case_grds, which(dec_time == casewins[[1]] & hour == casewins[[2]] & Tide == casewins[[3]]))
-
-met_sub <- met_ls[grep(sel_vec, names(met_ls))]
+sel_vec <- llply(
+  casewins, 
+  .fun = function(x) with(case_grds, which(dec_time == x[[1]] & hour == x[[2]] & Tide == x[[3]]))
+)
+sel_vec <- paste0(names(casewins), '_wtreg_', unlist(sel_vec), '.RData')
+met_sub <- met_ls[names(met_ls) %in% sel_vec]
 
 # creat weekly, monthly, seasonal categories
 met_sub <- llply(met_sub, 
   .fun = function(x){
     
-    # add week, month cols
-    x$Week <- format(x$Date, '%W')
+    # month cols
     x$Month <- format(x$Date, '%m')
-    
-    # seas col
-    x$Season <- car::recode(x$Month, "c('01','02','03') = 'W'; 
-      c('04','05','06') = 'Sp'; 
-      c('07','08','09') = 'Su'; 
-      c('10','11','12') = 'F'")
     
     x
     
   })
 
 # aggregate by weekly, monthly, seasonal categories
-# for each case...
-agg_sum <- llply(met_sub, 
+agg_sum <- llply(names(met_sub), 
   .fun = function(x){
+    
+    station <- gsub('_.*$', '', x)
+    x <- met_sub[[x]]
     
     # metabolism column names
     met_cols <- c('Pg', 'Rt', 'Pg_dtd', 'Rt_dtd')
     
     # melt by weekly, monthly, seasonal cats
     # change here for cats to includes
-    x <- melt(x, measure.var = c('Month', 'Season'),
+    x <- melt(x, measure.var = c('Month'),
       id.var = c('Date', met_cols)
       )
     
     agg_res <- dlply(x,
-      .var = c('variable'), 
+      .var = 'variable', 
       .fun = function(y){
         
         out <- vector('list', length = length(met_cols))
@@ -864,20 +862,18 @@ agg_sum <- llply(met_sub,
           tmp <- summarySE(y, measurevar = met, groupvars = 'value',
             narm = T) 
           names(tmp)[names(tmp) %in% met] <- 'mean'
+          tmp$var <- met
           out[[met]] <- tmp
            
         }
         
-        # combine metabolism categories 
-        out <- melt(out, id.var = names(out[[1]]))
-        names(out)[names(out) %in% 'L1'] <- 'var'
-        out
+        # combine metabolism categories
+        out <- do.call('rbind', out)
         
       })
     
     # combine time categories
-    agg_res <- melt(agg_res, id.var = names(agg_res[[1]]))
-    names(agg_res)[names(agg_res) %in% 'L1'] <- 'cats'
+    agg_res <- agg_res[[1]]
     
     # separate var column into metabolis, obs/dtd
     agg_res$var[!grepl('dtd',agg_res$var)] <- paste0(
@@ -886,229 +882,57 @@ agg_sum <- llply(met_sub,
     agg_res$sub_var <- gsub('^[A-Z,a-z]*_', '', agg_res$var)
     agg_res$var <- gsub('_[a-z]*$', '', agg_res$var)
     
-    agg_res
-    
-  })
-
-to_plo <- melt(agg_sum, id.var = names(agg_sum[[1]]))
-
-# reassign factor labels
-to_plo$value <- factor(to_plo$value, levels = c('01', '02', '03', '04',
-  '05', '06', '07', '08', '09', '10', '11', '12', 'W', 'Sp', 'Su', 'F'), 
-  labels = c('1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11',' 12',
-    'W', 'Sp', 'Su', 'F')
-  )
-to_plo$var <- factor(to_plo$var, levels = c('Pg', 'Rt', 'NEM'), 
-  labels = c('Pg', 'Rt', 'NEM'))
-to_plo$sub_var <- factor(to_plo$sub_var, levels = c('dtd', 'obs'), 
-  labels = c('Filtered', 'Observed'))
-to_plo$L1 <- gsub('_wtreg_[0-9]*.RData$', '', to_plo$L1)
-to_plo$L1 <- factor(to_plo$L1, 
-  levels = c('ELKVM', 'PDBBY', 'RKBMB', 'SAPDC'),
-  labels = c('Elkhorn Slough', 'Padilla Bay', 'Rookery Bay', 
-    'Sapelo Island')
-  )
-
-# convert metab data to g m^-2 d^-1
-#  1mmolO2 = 32 mg O2, 1000mg = 1g, multiply by 32/1000
-to_plo[, c('mean', 'sd', 'se', 'ci')] <- 0.032 * to_plo[, c('mean', 'sd', 'se', 'ci')]
-
-ylab <- expression(paste('g ', O [2], ' ', m^-2, d^-1))
-for(site in 1:2){
-
-  sub_plo <- to_plo[to_plo$L1 %in% levels(to_plo$L1)[site], ]
-  
-  p <- ggplot(sub_plo, aes(x = factor(value), y = mean, group = sub_var,
-      colour = sub_var)) +
-    geom_line() +
-    geom_point() + 
-    geom_errorbar(aes(ymin = mean - se, ymax = mean + se), 
-      width=.3) +
-    facet_wrap(cats ~ var, scales = 'free') +
-    theme_bw() +
-    scale_y_continuous(ylab) + 
-    scale_x_discrete(name = element_blank()) +
-    theme(
-      legend.position = 'top',
-      legend.title = element_blank(),
-      plot.margin= unit(rep(0, 4), "lines"),
-      axis.text = element_text(size = 8)
-      ) +
-    ggtitle(levels(to_plo$L1)[site])
-
-  assign(paste0('p', site), p)
-  
-  }
-
-# get common legend, remove from p1
-mylegend <- g_legend(p1)
-p1 <- p1 + theme(legend.position = 'none')
-p2 <- p2 + theme(legend.position = 'none')
-
-# final plot
-grid.arrange(
-  mylegend,   
-  arrangeGrob(p1, p2, ncol = 1),
-  ncol = 1, heights = c(1,10)
-  )
-
-@
-\vfill
-\clearpage
-
-% RKBMB, SAPDC
-% plots of summarized metabolism estimates, before/after detiding
-\centering\vspace*{\fill}
-<<metab_sum2, cache = T, eval = T, echo = F, fig.height =5.5, fig.width = 7, fig.cap = 'Means and standard errors of daily metabolism estimates (gross production, total respiration) aggregated by month and season.  Aggregated estimates are for Rookery Bay and Sapelo Island from observed and filtered \\ac{DO} time series.  May was removed from Rookery Bay because of incomplete data.'>>=
-
-# load metabolism data
-load('met_ls.RData')
-
-# subset metab estimates by 30 day window and tide prop 1
-load('case_grds.RData')
-sel_vec <- with(case_grds, which(dec_time == casewins[[1]] & hour == casewins[[2]] & Tide == casewins[[3]]))
-
-met_sub <- met_ls[grep(sel_vec, names(met_ls))]
-
-# creat weekly, monthly, seasonal categories
-met_sub <- llply(met_sub, 
-  .fun = function(x){
-    
-    # add week, month cols
-    x$Week <- format(x$Date, '%W')
-    x$Month <- format(x$Date, '%m')
-    
-    # seas col
-    x$Season <- car::recode(x$Month, "c('01','02','03') = 'W'; 
-      c('04','05','06') = 'Sp'; 
-      c('07','08','09') = 'Su'; 
-      c('10','11','12') = 'F'")
-    
-    x
-    
-  })
-
-# aggregate by weekly, monthly, seasonal categories
-# for each case...
-agg_sum <- llply(met_sub, 
-  .fun = function(x){
-    
-    # metabolism column names
-    met_cols <- c('Pg', 'Rt', 'Pg_dtd', 'Rt_dtd')
-    
-    # melt by weekly, monthly, seasonal cats
-    # change here for cats to includes
-    x <- melt(x, measure.var = c('Month', 'Season'),
-      id.var = c('Date', met_cols)
-      )
-    
-    agg_res <- dlply(x,
-      .var = c('variable'), 
-      .fun = function(y){
-        
-        out <- vector('list', length = length(met_cols))
-        names(out) <- met_cols
-        for(met in met_cols){
-          
-          tmp <- summarySE(y, measurevar = met, groupvars = 'value',
-            narm = T) 
-          names(tmp)[names(tmp) %in% met] <- 'mean'
-          out[[met]] <- tmp
-           
-        }
-        
-        # combine metabolism categories 
-        out <- melt(out, id.var = names(out[[1]]))
-        names(out)[names(out) %in% 'L1'] <- 'var'
-        out
-        
-      })
-    
-    # combine time categories
-    agg_res <- melt(agg_res, id.var = names(agg_res[[1]]))
-    names(agg_res)[names(agg_res) %in% 'L1'] <- 'cats'
-    
-    # separate var column into metabolis, obs/dtd
-    agg_res$var[!grepl('dtd',agg_res$var)] <- paste0(
-      agg_res$var[!grepl('dtd',agg_res$var)], '_obs')
-      
-    agg_res$sub_var <- gsub('^[A-Z,a-z]*_', '', agg_res$var)
-    agg_res$var <- gsub('_[a-z]*$', '', agg_res$var)
+    agg_res$station <- station
     
     agg_res
     
   })
 
-to_plo <- melt(agg_sum, id.var = names(agg_sum[[1]]))
+to_plo <- do.call('rbind', agg_sum)
 
 # reassign factor labels
 to_plo$value <- factor(to_plo$value, levels = c('01', '02', '03', '04',
-  '05', '06', '07', '08', '09', '10', '11', '12', 'W', 'Sp', 'Su', 'F'), 
-  labels = c('1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11',' 12',
-    'W', 'Sp', 'Su', 'F')
+  '05', '06', '07', '08', '09', '10', '11', '12'), 
+  labels = c('1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11',' 12')
   )
 to_plo$var <- factor(to_plo$var, levels = c('Pg', 'Rt', 'NEM'), 
   labels = c('Pg', 'Rt', 'NEM'))
 to_plo$sub_var <- factor(to_plo$sub_var, levels = c('dtd', 'obs'), 
   labels = c('Filtered', 'Observed'))
-to_plo$L1 <- gsub('_wtreg_[0-9]*.RData$', '', to_plo$L1)
-to_plo$L1 <- factor(to_plo$L1, 
+to_plo$station <- factor(to_plo$station, 
   levels = c('ELKVM', 'PDBBY', 'RKBMB', 'SAPDC'),
   labels = c('Elkhorn Slough', 'Padilla Bay', 'Rookery Bay', 
     'Sapelo Island')
   )
 
-# convert metab data to g m^-2 d^-1
-#  1mmolO2 = 32 mg O2, 1000mg = 1g, multiply by 32/1000
-to_plo[, c('mean', 'sd', 'se', 'ci')] <- 0.032 * to_plo[, c('mean', 'sd', 'se', 'ci')]
-
+# remove may from RKB, lots of missing values
 # remove may from Rookery Bay, lots of missing data
-to_plo[to_plo$L1 %in% 'Rookery Bay'  & to_plo$value %in% '5', c('mean', 'sd', 'se', 'ci')] <- NA
+to_plo[to_plo$station %in% 'Rookery Bay'  & to_plo$value %in% '5', c('mean', 'sd', 'se', 'ci')] <- NA
+
+# convert metab data to g m^-2 d^-1
+#  1mmolO2 = 32 mg O2, 1000mg = 1g, multiply by 32/1000
+to_plo[, c('mean', 'sd', 'se', 'ci')] <- 0.032 * to_plo[, c('mean', 'sd', 'se', 'ci')]
 
 ylab <- expression(paste('g ', O [2], ' ', m^-2, d^-1))
-for(site in 3:4){
+p <- ggplot(to_plo, aes(x = factor(value), y = mean, group = sub_var,
+    colour = sub_var)) +
+  geom_hline(yintercept = 0, linetype = 'dashed') +
+  geom_line() +
+  geom_point() + 
+  geom_errorbar(aes(ymin = mean - se, ymax = mean + se), 
+    width=.3) +
+  facet_grid(station ~ var, scales = 'free') +
+  theme_bw() +
+  scale_y_continuous(ylab) + 
+  scale_x_discrete(name = element_blank()) +
+  theme(
+    legend.position = 'top',
+    legend.title = element_blank(),
+    plot.margin= unit(rep(0, 4), "lines"),
+    axis.text = element_text(size = 8)
+    )
 
-  sub_plo <- to_plo[to_plo$L1 %in% levels(to_plo$L1)[site], ]
-  
-  p <- ggplot(sub_plo, aes(x = factor(value), y = mean, group = sub_var,
-      colour = sub_var)) +
-    geom_line() +
-    geom_point() + 
-    geom_errorbar(aes(ymin = mean - se, ymax = mean + se), 
-      width=.3) +
-    facet_wrap(cats ~ var, scales = 'free') +
-    theme_bw() +
-    scale_y_continuous(ylab) + 
-    scale_x_discrete(name = element_blank()) +
-    theme(
-      legend.position = 'top',
-      legend.title = element_blank(), 
-      plot.margin= unit(rep(0, 4), "lines"),
-      axis.text = element_text(size = 8)
-      ) +
-    ggtitle(levels(to_plo$L1)[site])
-
-  assign(paste0('p', site), p)
-  
-  }
-
-g_legend<-function(a.gplot){
-  tmp <- ggplot_gtable(ggplot_build(a.gplot))
-  leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
-  legend <- tmp$grobs[[leg]]
-  return(legend)}
- 
-# get common legend, remove from p1
-mylegend <- g_legend(p3)
-p3 <- p3 + theme(legend.position = 'none')
-p4 <- p4 + theme(legend.position = 'none')
-
-# final plot
-grid.arrange(
-  mylegend,   
-  arrangeGrob(p3, p4, ncol = 1),
-  ncol = 1, heights = c(1,10)
-  )
+print(p)
 
 @
 \vfill
@@ -1395,6 +1219,7 @@ latex(
 # case_regs <- list.files('wtreg', '_wtreg_[0-9]*.RData')
 # cor_res <- alply(matrix(case_regs),
 #   1, 
+#   .progress = 'tk',
 #   .fun = function(x){
 #   
 #     # load wtreg data
@@ -1402,15 +1227,22 @@ latex(
 #     nm <- gsub('.RData', '', x)
 #     dat_in <- get(nm)
 #       
+#     # add month column
+#     dat_in$month <- strftime(dat_in$Date, '%m')
+#     
 #     # DO obs v tide
-#     do_obs <- with(dat_in, 
-#       cor.test(DO_obs, Tide)
-#       )
+#     do_obs <- ddply(
+#       dat_in, 
+#       .variable = c('month'), 
+#       .fun = function(x) with(x, cor.test(DO_obs, Tide)$estimate)
+#     )
 #     
 #     # DO dtd v tide
-#     do_dtd <- with(dat_in, 
-#       cor.test(DO_nrm, Tide)
-#       )
+#     do_dtd <- ddply(
+#       dat_in, 
+#       .variable = c('month'), 
+#       .fun = function(x) with(x, cor.test(DO_nrm, Tide)$estimate)
+#     )
 #     
 #     # get tidal range for metabolic day/night periods from flux_in
 #     # for correlation with daily integrated metab
@@ -1440,118 +1272,86 @@ latex(
 #     # get metab data from list
 #     dat_in <- met_ls[[x]]
 #     dat_in <- merge(dat_in, tide_rngs, by = 'Date', all.x = T)
+#     dat_in$month <- strftime(dat_in$Date, '%m')
 #     
-#     # as list for all metab correlations
 #     # Pg values correlated with tidal range during sunlight hours
 #     # Rt values correlated with tidal range during night hours
 #     # NEM values correlated with metabolic daily tidal range
-#     met_cor <- list(
-#       
-#       Pg_obs = with(dat_in, 
-#         cor.test(Pg, sunrise)
-#         ),
-#     
-#       Rt_obs = with(dat_in, 
-#         cor.test(Rt, sunset)
-#         ),
-#     
-#       NEM_obs = with(dat_in, 
-#         cor.test(NEM, daytot)
-#         ),
-#     
-#       Pg_dtd = with(dat_in, 
-#         cor.test(Pg_dtd, sunrise)
-#         ),
-#     
-#       Rt_dtd = with(dat_in, 
-#         cor.test(Rt_dtd, sunset)
-#         ),
-#     
-#       NEM_dtd = with(dat_in, 
-#         cor.test(NEM_dtd, daytot)
-#         )
-#       
+#     # NA if error is returned in correlation
+#     erf<- function(e) NA
+#     met_cor <- ddply(
+#         dat_in, 
+#         .variable = c('month'), 
+#         .fun = function(x){
+#           
+#           with(x, {c(
+#             Pg_obs = tryCatch(cor.test(Pg, sunrise)$estimate, error = erf),
+#             Rt_obs = tryCatch(cor.test(Rt, sunset)$estimate, error = erf),
+#             NEM_obs = tryCatch(cor.test(NEM, daytot)$estimate, error = erf),
+#             Pg_dtd = tryCatch(cor.test(Pg_dtd, sunrise)$estimate, error = erf),
+#             Rt_dtd =  tryCatch(cor.test(Rt_dtd, sunset)$estimate, error = erf),
+#             NEM_dtd = tryCatch(cor.test(NEM_dtd, daytot)$estimate, error = erf)
+#           )})
+#           
+#         }
 #       )
+#     names(met_cor) <- gsub('\\.cor$', '', names(met_cor))
 #     
 #     # DO and metab corrs combined
-#     all_ls <- c(do_obs = list(do_obs), do_dtd = list(do_dtd),
-#       met_cor)
+#     res_sum <- data.frame(met_cor, do_obs = do_obs$cor, do_dtd = do_dtd$cor)
 #     
-#     # convert the stats for each wtreg to data frame
-#     res_sum <- ldply(all_ls, 
-#       function(x) with(x, c(estimate, p.value))
-#       )
-#     names(res_sum) <- c('var', 'cor', 'pval')
-# 
+#     # add column for sim name
+#     res_sum$L1 <- nm
+#     
 #     res_sum
 #     
 #   })
 # names(cor_res) <- case_regs
+# cor_res <- do.call('rbind', cor_res)
+# row.names(cor_res) <- 1:nrow(cor_res)
 # 
-# # melt and make separate columns for site and window comb value
-# cor_res <- melt(cor_res, id.var = names(cor_res[[1]]))  
-# cor_res$site <- gsub('_wtreg_[0-9]*.RData', '', cor_res$L1)
-# cor_res$wins <- as.numeric(gsub('^.*_wtreg_|.RData', '', cor_res$L1))
+# cor_res$site <- gsub('_wtreg_[0-9]*$', '', cor_res$L1)
+# cor_res$wins <- as.numeric(gsub('^.*_wtreg_', '', cor_res$L1))
 # 
 # # merge with case_grds
 # case_grds$wins <- as.numeric(row.names(case_grds))
 # cor_res <- merge(cor_res, case_grds, by = 'wins', all.x = T)
 # 
+# cor_res <- melt(cor_res, measure.var = c('Pg_obs', 'Rt_obs', 'NEM_obs', 'Pg_dtd', 'Rt_dtd', 'NEM_dtd', 'do_obs', 'do_dtd'))
+# 
 # # create columns for variable (DO, flux, etc.) and sub variable (obs, dtd)
-# cor_res$sub_var <- gsub('^.*_', '', cor_res$var)
+# cor_res$sub_var <- gsub('^.*_', '', cor_res$variable)
 # cor_res$var <- gsub('_.*$', '', cor_res$var)
-# 
-# save(cor_res, file = 'cor_res.RData')
-# 
-# to_plo <- cor_res
-# to_plo$group_var <- paste(to_plo$Tide, to_plo$sub_var)
-# to_plo_obs <- to_plo[to_plo$sub_var %in% 'obs', ]
-# p1 <- ggplot(to_plo[to_plo$sub_var %in% 'dtd',], 
-#     aes(x = dec_time, y = cor, colour = Tide, group = group_var)) +
-#   geom_line() + 
-#   geom_line(data = to_plo_obs, 
-#     aes(x = dec_time, y = cor, group = group_var), 
-#     colour = 'black', size = 1) +
-#   geom_point(aes(pch = sub_var)) +
-#   facet_grid(hour ~ site + var) +
-#   ylim(c(-1, 1))
 
 load('cor_res.RData')
 
-# subset cor_res for window of 30 days, tidal prop 1
-cor_res <- cor_res[with(cor_res, dec_time == casewins[[1]] & hour == casewins[[2]] & Tide == casewins[[3]]), ]
+# subset metab estimates by window widhts for each case study
+load('case_grds.RData')
+sel_vec <- llply(
+  casewins, 
+  .fun = function(x) with(case_grds, which(dec_time == x[[1]] & hour == x[[2]] & Tide == x[[3]]))
+)
+sel_vec <- paste0(names(casewins), '_wtreg_', unlist(sel_vec))
 
-# make wide form
-to_tab <- dcast(cor_res, site + sub_var ~ var, value.var = 'cor')
+cor_res <- cor_res[cor_res$L1 %in% sel_vec, ]
+
+# make wide form, take monthly averages of correlations
+to_tab <- dcast(cor_res, site + sub_var ~ var, value.var = 'value', 
+  fun.aggregate = function(x) mean(x, na.rm = T))
 
 # reorder rows, columns for plot
 to_tab$sub_var <- factor(to_tab$sub_var, levels = c('obs', 'dtd'))
 to_tab <- to_tab[with(to_tab, order(site, sub_var)), ]
 to_tab <- to_tab[, c('site', 'sub_var', 'do', 'Pg', 'Rt', 'NEM')]
 
-# p vals for each correlation
-pvals <- dcast(cor_res, site + sub_var ~ var, value.var = 'pval')
-
-# reorder rows, columns for plot
-pvals$sub_var <- factor(pvals$sub_var, levels = c('obs', 'dtd'))
-pvals <- pvals[with(pvals, order(site, sub_var)), ]
-pvals <- pvals[, c('site', 'sub_var', 'do', 'Pg', 'Rt', 'NEM')]
-
 # combine both tables
 tab <- to_tab
 rows <- as.character(tab$site)
 tab <- form_fun(tab[, -c(1:2)])
-pvals <- pvals[, -c(1:2)]
-pdims <- dim(pvals)
 
-pvals <- star_fun(c(as.matrix(pvals)))
-tab <- c(as.matrix(tab))
-tab <- paste0(tab, pvals)
-tab <- matrix(tab, nrow = pdims[1], ncol = pdims[2])
+cap.val<-'Correlations of tidal changes at each site with continuous \\ac{DO} observations and metabolism estimates (gross production, respiration, and net metabolism) before (observed) and after (filtered) filtering with weighted regression.  Values are averages of monthly correlations.  \\ac{DO} values are correlated with predicted tidal height at each observation, whereas metabolism estimates are correlated with mean tidal height change between observations during day, night, or total day periods for production, respiration, and net metabolism, respectively.'
 
-cap.val<-'Correlations of tidal changes at each site with continuous \\ac{DO} observations and metabolism estimates (gross production, respiration, and net metabolism) before (observed) and after (filtered) filtering with weighted regression.  \\ac{DO} values are correlated with predicted tidal height at each observation, whereas metabolism estimates are correlated with mean tidal height change between observations during day, night, or total day periods for production, respiration, and net metabolism, respectively.'
-
-foot.val<-'\\footnotesize *$p<0.05$; **$p<0.01$; ***$p<0.001$\\\\\\textsuperscript{\\textit{a}}Pg: gross production, Rt: respiration, NEM: net ecosystem metabolism' 
+foot.val<-'\\textsuperscript{\\textit{a}}Pg: gross production, Rt: respiration, NEM: net ecosystem metabolism' 
 
 latex( 
   tab,
@@ -1610,17 +1410,20 @@ latex(
 #   return(out)
 #   
 #   })
-#
-# 
-# # subset metab estimates windows that were used
-# load('case_grds.RData')
-# sel_vec <- with(case_grds, which(dec_time == casewins[[1]] & hour == casewins[[2]] & Tide == casewins[[3]]))
-# 
-# met_comp <- met_comp[grep(sel_vec, met_comp$.id),]
 # 
 # save(met_comp, file = 'met_comp.RData')
 
 load('met_comp.RData')
+
+# subset metab estimates by window widths for each case study
+load('case_grds.RData')
+sel_vec <- llply(
+  casewins, 
+  .fun = function(x) with(case_grds, which(dec_time == x[[1]] & hour == x[[2]] & Tide == x[[3]]))
+)
+sel_vec <- paste0(names(casewins), '_wtreg_', unlist(sel_vec), '.RData')
+
+met_comp <- met_comp[met_comp$.id %in% sel_vec, ]
 
 to_tab <- met_comp
 names(to_tab)[1] <- 'Site'
@@ -1631,7 +1434,7 @@ sel_vec <- !to_tab$Metric %in% 'Anom'
 to_tab$Value[sel_vec] <- 0.032 * to_tab$Value[sel_vec]
 
 # make columns as factors for correct row, column order w/ dcast
-to_tab$Input <- factor(to_tab$Input, levels = c('Observed', 'Filtered'))
+to_tab$Input <- factor(to_tab$Input, levels = c('Observed', 'Detided'), labels = c('Observed', 'Filtered'))
 to_tab$Metab <- factor(to_tab$Metab, levels = c('Pg', 'Rt', 'NEM'))
 to_tab$Metric <- factor(to_tab$Metric, levels = c('Avg', 'se', 'Anom'))
 
@@ -1664,6 +1467,7 @@ latex(
   label = 'tab:case_res'
   )
 @
+
 \clearpage
 
 %%%%%%

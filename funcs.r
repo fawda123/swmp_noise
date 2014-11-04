@@ -314,8 +314,8 @@ poly.fun<-function(flag.in,dat, for_leg = F){
         )
     
     plo.dates$inds<-rep(1:(nrow(plo.dates)/2),each=2)
-    tz<-attr(plo.dates$value,'tzone')
-    plo.dates$value <- as.character(plo.dates$value)
+    tz<-attr(dat$DateTimeStamp,'tzone')
+#     plo.dates$value <- as.character(plo.dates$value)
     plo.dates<-dcast(plo.dates,inds~solar,value.var='value')
     plo.dates<-with(plo.dates,
       data.frame(sunrise,sunset,sunset,sunrise)
