@@ -570,7 +570,7 @@ get_map_meta <- function(val_in){
   trim.trailing <- function(x) sub('^\\s+|\\s+$', '', x)
 
   # station metadata
-  stats<-read.csv('M:/wq_models/SWMP/sampling_stations.csv',header=T)
+  stats<-read.csv('sampling_stations.csv', header=T)
   stats<-stats[grep('Active*',stats$Status),]
   
   # subset by reserve
