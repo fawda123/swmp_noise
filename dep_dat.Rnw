@@ -14,6 +14,31 @@ perf_rngs <- apply(mod_perf[, c('cor', 'err')], 2, range)
 # anomalous data, from 'case_res' code chunk in 'swmp_noise.Rnw'
 load('met_comp.RData')
 
+# objects for selecting window widht combinations for case studies
+casewins <- list(
+  ELKVM = list(12, 6, 0.8), 
+  PDBBY = list(3, 6, 0.6), 
+  RKBMB = list(3, 1, 0.6), 
+  SAPDC = list(3, 1, 0.6)
+)
+
+# casewins as text
+casewinstxt <- llply(casewins, function(x){
+  tmp <- unlist(x)
+  tmp[3] <- paste('and', tmp[3])
+  paste(tmp, collapse = ', ')
+})
+
+# subset metab estimates by window widths for each case study
+load('case_grds.RData')
+sel_vec <- llply(
+  casewins, 
+  .fun = function(x) with(case_grds, which(dec_time == x[[1]] & hour == x[[2]] & Tide == x[[3]]))
+)
+sel_vec <- paste0(names(casewins), '_wtreg_', unlist(sel_vec), '.RData')
+
+met_comp <- met_comp[met_comp$.id %in% sel_vec, ]
+
 anom_obs <- met_comp[met_comp$Metric %in% 'Anom' & met_comp$Input %in% 'Observed', ]
 anom_obs$.id <- gsub('_wtreg_[0-9]*.RData$', '', anom_obs$.id)
 anom_obs$.id <- factor(anom_obs$.id, levels = c('ELKVM', 'PDBBY', 'RKBMB', 'SAPDC'), labels = c('Elkhorn Slough', 'Padilla Bay', 'Rookery Bay', 'Sapelo Island'))
@@ -25,7 +50,6 @@ anom_dtd$.id <- factor(anom_dtd$.id, labels = c('Elkhorn Slough', 'Padilla Bay',
 # changes in mean production, respiration for each site after filtering
 # used in estimates of ecosytem metab before/after section in assessment
 # basically same code used to create table 5
-load('met_comp.RData')
 
 mean_met <- met_comp
 names(mean_met)[1] <- 'Site'
@@ -54,12 +78,4 @@ elk_per <- -100 * (elk_per[1, ] - elk_per[2, ])/elk_per[1, ]
 pdb_per <- mean_met[grep('PDB', mean_met$Site), c('Pg_Avg', 'Rt_Avg')]
 pdb_per <- -100 * (pdb_per[1, ] - pdb_per[2, ])/pdb_per[1, ]
 
-######
-# objects for selecting window widht combinations for case studies
-casewins <- list(
-  ELKVM = list(12, 6, 0.8), 
-  PDBBY = list(3, 6, 0.6), 
-  RKBMB = list(3, 1, 0.6), 
-  SAPDC = list(3, 1, 0.6)
-)
 @

@@ -20,6 +20,8 @@ pdrnrm folder contains 'prdnrm_*.RData' that are results for simulations, create
 
 'case_tab.RData' is data frame of summary informaiton for case studies, created in 'case_att' chunk in 'swmp_noise.Rnw'
 
+'angle_tide_its.RData' is list of results of moving window correlations between sun and tidal angles for each case study, created in 'angle_tide.R' of 'detiding_cases.RProj'
+
 ## Revision points
 
 Second iteration of mcm revisions are done - more careful description of problem and methods for addressing are included.

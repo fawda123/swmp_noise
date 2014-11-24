@@ -358,7 +358,7 @@ p1 <- ggplot(to_plo, aes(x = factor(err_rng_pro), y = factor(err_rng_obs), z = c
   facet_grid(bio_rng ~ tide_assoc,
     labeller = plot_labeller) +
   scale_fill_gradientn(name = 'Correlation', 
-    colours = brewer.pal(11, 'Spectral')#, limits = c(0, 1)
+    colours = brewer.pal(11, 'GnBu')#, limits = c(0, 1)
     ) +
   scale_x_discrete(expand = c(0,0)) + 
   scale_y_discrete(expand = c(0,0)) +
@@ -372,7 +372,7 @@ p2 <- ggplot(to_plo, aes(x = factor(err_rng_pro), y = factor(err_rng_obs), z = e
   facet_grid(bio_rng ~ tide_assoc,
     labeller = plot_labeller) +
   scale_fill_gradientn(name = 'RMSE', 
-    colours = rev(brewer.pal(11, 'Spectral')), limits = c(0.6, 1.8)
+    colours = rev(brewer.pal(11, 'GnBu')), limits = c(0, 2.5)
     ) +
   scale_x_discrete(expand = c(0,0)) + 
   scale_y_discrete(expand = c(0,0)) +
@@ -390,6 +390,8 @@ grid.arrange(p1, p2, ncol = 2)
 % example of error surfaces 
 \centering\vspace*{\fill}
 <<err_surf2, fig.height = 2.33, fig.width = 6, cache = T, echo = F, eval = T, fig.cap = "Heat maps of correlations and errors (\\ac{RMSE}) for filtered \\ac{DO} time series ($DO_{dtd}$) from weighted regression with `true' biological \\ac{DO} ($DO_{bio}$) for varying half window widths: days, hour of day, and proportion of tidal range.  Each tile represents the correlation or error from results for a given combination of window widths averaged for all simulation parameters (\\cref{fig:err_surf1}).">>=
+
+options(digits=3)
 
 # load summary of model performance for simulations
 load('mod_perf.RData')
@@ -419,8 +421,10 @@ p1 <- ggplot(to_plo, aes(x = factor(dec_time), y = factor(hour), z = cor, fill =
   geom_tile() +
   facet_grid(~ Tide) +
   scale_fill_gradientn(name = 'Correlation', 
-    colours = brewer.pal(11, 'Spectral')#, limits = c(0.3, 0.7),
-#     breaks = seq(0.3, 0.7, by = 0.1)
+    colours = brewer.pal(9, 'GnBu'),
+    labels = format(seq(0.62, 0.7, by = 0.02), nsmall = 1),
+    limits = c(0.62, 0.7),
+    breaks = seq(0.62, 0.7, by = 0.02)
     ) +
   scale_x_discrete(expand = c(0,0)) +
   scale_y_discrete(expand = c(0,0)) +
@@ -433,8 +437,10 @@ p2 <- ggplot(to_plo, aes(x = factor(dec_time), y = factor(hour), z = err, fill =
   geom_tile() +
   facet_grid(~ Tide) +
   scale_fill_gradientn(name = 'RMSE', 
-    colours = rev(brewer.pal(11, 'Spectral')), limits = c(0.6, 1.8) 
-#     labels = format(seq(1, 1.5, by = 0.1), nsmall = 1)
+    colours = rev(brewer.pal(9, 'GnBu')), 
+    labels = format(seq(1.08, 1.2, by = 0.04), nsmall = 1),
+    limits = c(1.08, 1.2),
+    breaks = seq(1.08, 1.2, by = 0.04)
     ) +
   scale_x_discrete(expand = c(0,0)) + 
   scale_y_discrete(expand = c(0,0)) +
@@ -445,6 +451,7 @@ p2 <- ggplot(to_plo, aes(x = factor(dec_time), y = factor(hour), z = err, fill =
 
 grid.arrange(p1, p2, ncol = 2)
 
+options(digits=1)
 @
 \vfill
 \clearpage
@@ -801,6 +808,48 @@ p1 <- ggplot(to_plo1, aes(x = Date, y = 0.032 * value, group = variable,
   geom_point(size = 2) +
   facet_wrap(~Input, ncol = 1) +
   scale_y_continuous(ylab)  +
+  my_theme
+
+print(p1)
+
+@
+
+% moving correlations
+\centering\vspace*{\fill}
+<<move_corrs, cache = T, fig.height = 5, fig.width = 5.5, out.width = '0.8\\textwidth', eval = T, echo = F, fig.cap = 'Correlations of sun angle with tidal change (as an angular rate) using a half-window width of 12 days.  Correlations larger or smaller than zero are periods when weighted regression may not effectively quantify variation from biological and physical sources in \\ac{DO} time series due to collinearity.'>>=
+######
+load('angle_tide_its.RData')
+
+tmp <- do.call('cbind', angle_tide_its)
+
+# file to upload, doesn't matter which for dates
+load(paste0('wtreg/ELKVM_wtreg_1.RData'))
+dat <- get(gsub('\\.RData$', '', 'ELKVM_wtreg_1.RData'))
+
+tmp <- data.frame(DateTimeStamp = dat$DateTimeStamp, tmp)
+tmp <- melt(tmp, id.var = 'DateTimeStamp')
+tmp$daywin <- gsub('^X|\\..*$', '' ,tmp$variable)
+tmp$case <- gsub('^X[0-9]*\\.', '', tmp$variable)
+
+# show 12 day half window
+daywin <- '12'
+to_plo <- tmp[tmp$daywin %in% daywin, ]
+
+my_theme <- theme(
+  legend.position = 'top',
+  axis.title.x = element_blank(),legend.box= 'horizontal',
+  plot.margin= unit(c(0, 1, 0, 1), "lines") # top right bottom left
+  )
+
+# plot
+p1 <- ggplot(to_plo, 
+    aes(x = DateTimeStamp, y = value)) + 
+  geom_line() + 
+  facet_wrap(~ case, ncol = 1) + 
+  theme_bw() + 
+  ylab('Correlation') +
+  scale_y_continuous(limits= c(-0.5, 0.5)) +
+  geom_hline(yintercept = 0, linetype = 'dashed', colour = 'red') +
   my_theme
 
 print(p1)
@@ -1349,7 +1398,10 @@ tab <- to_tab
 rows <- as.character(tab$site)
 tab <- form_fun(tab[, -c(1:2)])
 
-cap.val<-'Correlations of tidal changes at each site with continuous \\ac{DO} observations and metabolism estimates (gross production, respiration, and net metabolism) before (observed) and after (filtered) filtering with weighted regression.  Values are averages of monthly correlations.  \\ac{DO} values are correlated with predicted tidal height at each observation, whereas metabolism estimates are correlated with mean tidal height change between observations during day, night, or total day periods for production, respiration, and net metabolism, respectively.'
+# remove NEM
+tab <- tab[, !names(tab) %in% 'NEM']
+
+cap.val<-'Correlations of tidal changes at each site with continuous \\ac{DO} observations and metabolism estimates (gross production, respiration) before (observed) and after (filtered) filtering with weighted regression.  Values are averages of monthly correlations.  \\ac{DO} values are correlated with predicted tidal height at each observation, whereas metabolism estimates are correlated with mean tidal height change between observations during day or night periods for production and respiration, respectively.'
 
 foot.val<-'\\textsuperscript{\\textit{a}}Pg: gross production, Rt: respiration, NEM: net ecosystem metabolism' 
 
@@ -1361,7 +1413,7 @@ latex(
   n.rgroup = rep(2, 4),
   insert.bottom = foot.val,
   caption = cap.val,
-  colheads = c('DO', 'Pg\\textsuperscript{\\textit{a}}', 'Rt', 'NEM'),
+  colheads = c('DO', 'Pg\\textsuperscript{\\textit{a}}', 'Rt'),
   caption.loc = 'top',
   rowname = rep(c('Observed', 'Filtered'), 4),
   label = 'tab:cor_res'
@@ -1444,13 +1496,16 @@ to_tab <- dcast(to_tab, Site + Input ~ Metab + Metric, value.var = 'Value')
 # remove extra text on site variable
 to_tab$Site <- gsub('_wtreg_[0-9]*.RData$', '', to_tab$Site)
 
+# remove NEM columns
+to_tab <- to_tab[, !grepl('^NEM', names(to_tab))]
+
 # names for row categories in table
 
 tab <- form_fun(to_tab[, -c(1:2)])
 rows <- to_tab[, 2]
-cap.val<-'Summary of metabolism estimates (gross production, respiration, and net metabolism) for case studies using \\ac{DO} time series before (observed) and after (filtered) filtering with weighted regression.  Means and standard errors are based on daily integrated metabolism estimates.  Anomalous values are the proportion of metabolism estimates that were negative for gross production and positive for respiration.  Results are for weighted regressions with half window widths of six days, one hour within each day, and a tidal height proportion of one half.'
+cap.val<-'Summary of metabolism estimates (gross production, respiration) for case studies using \\ac{DO} time series before (observed) and after (filtered) filtering with weighted regression.  Means and standard errors are based on daily integrated metabolism estimates.  Anomalous values are the proportion of metabolism estimates that were negative for gross production and positive for respiration.'
 
-foot.val<-'\\textsuperscript{\\textit{a}}Pg: gross production, Rt: respiration, NEM: net ecosystem metabolism' 
+foot.val<-'\\textsuperscript{\\textit{a}}Pg: gross production, Rt: respiration' 
 latex( 
   tab,
   file = '',
@@ -1460,8 +1515,8 @@ latex(
   caption.loc = 'top',
   rgroup = unique(to_tab$Site),
   n.rgroup = rep(2, 4),
-  cgroup = c('Pg\\textsuperscript{\\textit{a}}', 'Rt', 'NEM'),
-  n.cgroup = c(3, 3, 2),
+  cgroup = c('Pg\\textsuperscript{\\textit{a}}', 'Rt'),
+  n.cgroup = c(3, 3),
   rowname = rows,
   colheads=c(rep(c('Mean','Std. Err.', 'Anom'),2), c('Mean', 'Std. Err.')),
   label = 'tab:case_res'
