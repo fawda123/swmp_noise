@@ -24,7 +24,7 @@
 \usepackage{array}
 \usepackage{pdflscape}
 \usepackage{bm}
-\usepackage{showlabels}
+% \usepackage{showlabels}
 \bibpunct{(}{)}{,}{a}{}{,}
 
 % page margins and section title formatting
