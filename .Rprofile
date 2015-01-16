@@ -23,6 +23,6 @@ library(gtable)
 library(miscTools)
 
 # functions to use
-source('funcs.r')
+source('R/funcs.R')
 
 theme_set(theme_bw())

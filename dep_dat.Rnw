@@ -4,7 +4,7 @@
 
 # 'mod_perf' is all results for each simulation/window combination 
 # created in detiding_sims.RProj source_me.r
-load('mod_perf.RData')
+load('data/mod_perf.RData')
 
 # used in beginning of assessment
 perf_medians <- colMedians(mod_perf[, c('cor', 'err')])
@@ -12,7 +12,7 @@ perf_rngs <- apply(mod_perf[, c('cor', 'err')], 2, range)
 
 ######
 # anomalous data, from 'case_res' code chunk in 'swmp_noise.Rnw'
-load('met_comp.RData')
+load('data/met_comp.RData')
 
 # objects for selecting window widht combinations for case studies
 casewins <- list(
@@ -30,7 +30,7 @@ casewinstxt <- llply(casewins, function(x){
 })
 
 # subset metab estimates by window widths for each case study
-load('case_grds.RData')
+load('data/case_grds.RData')
 sel_vec <- llply(
   casewins, 
   .fun = function(x) with(case_grds, which(dec_time == x[[1]] & hour == x[[2]] & Tide == x[[3]]))
