@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.8.29)  16 JAN 2015 13:09
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.8.29)  16 JAN 2015 17:34
 entering extended mode
 **internal_review_response.tex
 (M:\docs\manuscripts\swmp_noise\internal_review_response.tex
@@ -638,6 +638,7 @@ Missing character: There is no Â in font cmr12!
 Missing character: There is no “ in font cmr12!
 Missing character: There is no Â in font cmr12!
 Missing character: There is no ” in font cmr12!
+ [2] [3]
 Missing character: There is no Â in font cmr12!
 Missing character: There is no ’ in font cmr12!
 Missing character: There is no Â in font cmr12!
@@ -652,32 +653,32 @@ Missing character: There is no Â in font cmr12!
 Missing character: There is no “ in font cmr12!
 Missing character: There is no Â in font cmr12!
 Missing character: There is no ” in font cmr12!
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 121.
-Package atenddvi Info: Last page = 2.
- [2]
-Package atveryend Info: Executing hook `AfterLastShipout' on input line 121.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 152.
+Package atenddvi Info: Last page = 4.
+ [4]
+Package atveryend Info: Executing hook `AfterLastShipout' on input line 152.
 
 (M:\docs\manuscripts\swmp_noise\internal_review_response.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 121.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 121.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 152.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 152.
 Package rerunfilecheck Info: File `internal_review_response.out' has not change
 d.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 121.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 152.
  ) 
 Here is how much of TeX's memory you used:
- 10602 strings out of 493921
- 173145 string characters out of 3147282
- 302033 words of memory out of 3000000
+ 10604 strings out of 493921
+ 173157 string characters out of 3147282
+ 305033 words of memory out of 3000000
  13762 multiletter control sequences out of 15000+200000
  4285 words of font info for 16 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 44i,5n,42p,1173b,359s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 44i,6n,42p,1742b,371s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Pro
 gram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on internal_review_response.pdf (2 pages, 42244 bytes).
+Output written on internal_review_response.pdf (4 pages, 52392 bytes).
 PDF statistics:
- 23 PDF objects out of 1000 (max. 8388607)
- 3 named destinations out of 1000 (max. 500000)
+ 31 PDF objects out of 1000 (max. 8388607)
+ 5 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
