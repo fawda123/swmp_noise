@@ -1429,13 +1429,13 @@ latex(
 # met_comp <- ldply(met_ls, function(x){
 #   
 #   # detided
-#   anoms <- anoms.fun(x, pgvar = 'Pg_dtd', rtvar = 'Rt_dtd')
+#   anoms <- 100 * anoms.fun(x, pgvar = 'Pg_dtd', rtvar = 'Rt_dtd')
 #   anoms <- data.frame(variable = 'Anom', anoms)
 #   anoms <- melt(anoms, id.var = 'variable', variable.name = 'X1')[, c(2, 1, 3)]
 #   subs <- na.omit(x[, c('Pg_dtd', 'Rt_dtd', 'NEM_dtd')])  
 #   sums <- adply(t(subs),
 #     1, 
-#     function(y) data.frame(Avg = mean(y), se = sd(y)/sqrt(length(y)))
+#     function(y) data.frame(Avg = mean(y), sd = sd(y))
 #     )
 #   sums <- melt(sums, id.var = 'X1')
 #   dtd <- rbind(anoms, sums)
@@ -1443,13 +1443,13 @@ latex(
 #   dtd$Input <- 'Detided'
 #   
 #   # observed
-#   anoms <- anoms.fun(x, pgvar = 'Pg', rtvar = 'Rt')
+#   anoms <- 100 * anoms.fun(x, pgvar = 'Pg', rtvar = 'Rt')
 #   anoms <- data.frame(variable = 'Anom', anoms)
 #   anoms <- melt(anoms, id.var = 'variable', variable.name = 'X1')[, c(2, 1, 3)]
 #   subs <- na.omit(x[, c('Pg', 'Rt', 'NEM')])  
 #   sums <- adply(t(subs),
 #     1, 
-#     function(y) data.frame(Avg = mean(y), se = sd(y)/sqrt(length(y)))
+#     function(y) data.frame(Avg = mean(y), sd = sd(y))
 #     )
 #   sums <- melt(sums, id.var = 'X1')
 #   obs <- rbind(anoms, sums)
@@ -1463,7 +1463,7 @@ latex(
 #   
 #   })
 # 
-# save(met_comp, file = 'met_comp.RData')
+# save(met_comp, file = 'data/met_comp.RData')
 
 load('data/met_comp.RData')
 
@@ -1488,7 +1488,7 @@ to_tab$Value[sel_vec] <- 0.032 * to_tab$Value[sel_vec]
 # make columns as factors for correct row, column order w/ dcast
 to_tab$Input <- factor(to_tab$Input, levels = c('Observed', 'Detided'), labels = c('Observed', 'Filtered'))
 to_tab$Metab <- factor(to_tab$Metab, levels = c('Pg', 'Rt', 'NEM'))
-to_tab$Metric <- factor(to_tab$Metric, levels = c('Avg', 'se', 'Anom'))
+to_tab$Metric <- factor(to_tab$Metric, levels = c('Avg', 'sd', 'Anom'))
 
 # dcast long to wide
 to_tab <- dcast(to_tab, Site + Input ~ Metab + Metric, value.var = 'Value')
@@ -1503,7 +1503,7 @@ to_tab <- to_tab[, !grepl('^NEM', names(to_tab))]
 
 tab <- form_fun(to_tab[, -c(1:2)])
 rows <- to_tab[, 2]
-cap.val<-'Summary of metabolism estimates (gross production, respiration) for case studies using \\ac{DO} time series before (observed) and after (filtered) filtering with weighted regression.  Means and standard errors are based on daily integrated metabolism estimates.  Anomalous values are the proportion of metabolism estimates that were negative for gross production and positive for respiration.'
+cap.val<-'Summary of metabolism estimates (gross production, respiration) for case studies using \\ac{DO} time series before (observed) and after (filtered) filtering with weighted regression.  Means and standard deviation are based on daily integrated metabolism estimates.  Anomalous values are the percentage of metabolism estimates that were negative for gross production and positive for respiration.'
 
 foot.val<-'\\textsuperscript{\\textit{a}}Pg: gross production, Rt: respiration' 
 latex( 
@@ -1518,7 +1518,7 @@ latex(
   cgroup = c('Pg\\textsuperscript{\\textit{a}}', 'Rt'),
   n.cgroup = c(3, 3),
   rowname = rows,
-  colheads=c(rep(c('Mean','Std. Err.', 'Anom'),2), c('Mean', 'Std. Err.')),
+  colheads=c(rep(c('Mean','SD', 'Anom'),2), c('Mean', 'SD')),
   label = 'tab:case_res'
   )
 @
