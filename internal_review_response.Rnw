@@ -61,14 +61,14 @@ A couple of issues/questions I still have after digesting the manuscript:
 
 2. I am not sure I follow the reasoning behind assuming that reduced variation of metabolism estimates after the filtering procedure provides greater confidence of the estimates (line 428 and elsewhere). Substantial short-term variability in Pg and R are well documented from discrete measurements and perhaps this variability is just being “filtered out” by the procedure.
 
-{\it This is a valid concern that we discussed at length during the development of this technique.  This is a potential issue when the solar cycle is correlated with tidal height changes such that the two are quantitatavely indistinguishable.  Figure 9 provides a visualization of these occurrences and when the method may not work as expected. Variation in the DO time series related to biology may be removed when the two are correlated.  When the two are not correlated, it is statistically unlikely to remove variation attributed to true metabolism.  In both cases, a reduction in variation would be expected and this may not be the most appropriate metric of performance. This is why we relied on four different performance measures. We feel that the comments and recommendations section adequately addresses these concerns.  The following was also added.
+{\it This is a valid concern that we discussed at length during the development of this technique.  This is a potential issue when the solar cycle is correlated with tidal height changes such that the two are quantitatavely indistinguishable.  Figure 9 provides a visualization of these occurrences and when the method may not work as expected. Variation in the DO time series related to biology may be removed when the two are correlated.  When the two are not correlated, the model is unlikely to remove variation attributed to true metabolism.  In both cases, a reduction in variation would be expected and this may not be the most appropriate metric of performance. This is why we relied on four different performance measures. We feel that the comments and recommendations section adequately addresses these concerns.  The following was also added.
 
 Line 346: `However, reduction in variation may also occur if the biological signal is reduced individually or in addition to physical variation.  The extent to which this reduction is related to the former should be minimal, provided that the two are statistically distinguishable.  Situations when the phasing of the tidal and solar cycles are correlated could be instances when the two are unable to be separated by the model.  Reductions in mean annual values (particularly at Elkhorn Slough) in addition to variance reduction suggests that true metabolism may have been removed.'
 }
 
 3. I had a bit of trouble following the “weight-of-evidence” approach for selection of halfwindow widths described starting on line 301. Not sure I fully understand / was able to follow the rationale for the performance metrics. Perhaps just a bit more detail on the thinking behind these metrics and how they specifically inform/influence the choices made?
 
-{\it The following was added to the paragraph to more clearly describe selection of half-window widths using the performance metrics.  We also removed any reference to `weight-of-evidence' as this was an insufficient description of the process.
+{\it The following was added to the paragraph to more clearly describe selection of half-window widths using the performance metrics.  We also removed any reference to `weight-of-evidence' as this was an inaccurate description of the process.
 
 `The selection of half-window widths for filtering the DO time series was based on an evaluation of results using four performance metrics.  In other words, the `optimal' window widths for each case study were those that provided the greatest measure of performance based on all four metrics.  First, the regression results were evaluated using correlations of DO and metabolism estimates with tidal height before and after application of the model, such that window widths that provided maximum reduction in correlation relative to the observed data were desirable [...]. The second and third performance metrics evaluated changes in the mean annual metabolism estimates and standard deviation before and after filtering [...] Optimum window widths in this context were considered those that maintained the mean values while reducing standard deviation relative to the observed data. Finally, results were evaluated based on the occurrence of `anomalous' daily production or respiration estimates [...] Optimum window widths for this metric were those that provided the maximum reduction in anomalous values.'
 }
@@ -108,11 +108,11 @@ Line 298: Don’t you mean that respiration at night was assumed to be equal to 
 
 {\it Sentence was revised:
 
-`Respiration rates were assumed constant during day and night such that total daily rates were calculated as hourly respiration multiplied by 24. Respiration was subtracted from daily net production estimates to yield gross production.'
+`Respiration rates were assumed constant during day and night such that total daily rates were calculated as hourly respiration multiplied by 24. The ``metabolic day'' was considered the approximate 24 hour period between sunsets on two adjacent calendar days. Respiration was subtracted from daily net production estimates to yield gross production.'
 }
 
 Line 313: “gross production” rather than “production” just to be explicit.
 
-{\it Text was changed accordingly.}
+{\it Text was changed.}
 
 \end{document}
