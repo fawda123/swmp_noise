@@ -92,7 +92,7 @@ options(replace.assign=TRUE,width=90,digits=1)
 \begin{document}
 
 \raggedbottom
-\linenumbers
+% \linenumbers
 \raggedright
 \urlstyle{same}
 \setlength{\parindent}{0.5in}
@@ -106,7 +106,7 @@ options(replace.assign=TRUE,width=90,digits=1)
 % acknowledgments
 \section{Acknowledgments}
 
-We acknowledge the significant efforts of research staff and field crews from the \acl{SWMP} of the \acl{NERRS} for providing access to high quality data sets.  We thank Dr. Jane Caffrey for reviewing a manuscript draft and previous work on applications of the open-water method to estuarine monitoring data. This study was funded by the US \acl{EPA}, but the contents are solely the views of the authors.  Use of trade names does not constitute endorsement by the US government.
+We acknowledge the significant efforts of research staff and field crews from the \acl{SWMP} of the \acl{NERRS} for providing access to high quality data sets.  We thank Dr. Jane Caffrey and Dr. Erik Smith for reviewing early drafts of the manuscript. The views expressed in this article are those of the authors and do not necessarily reflect the views or policies of the U.S. Environmental Protection Agency.
 
 %%%%%%
 % abstract
