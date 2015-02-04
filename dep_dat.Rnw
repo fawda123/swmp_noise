@@ -78,4 +78,33 @@ elk_per <- -100 * (elk_per[1, ] - elk_per[2, ])/elk_per[1, ]
 pdb_per <- mean_met[grep('PDB', mean_met$Site), c('Pg_Avg', 'Rt_Avg')]
 pdb_per <- -100 * (pdb_per[1, ] - pdb_per[2, ])/pdb_per[1, ]
 
+# ######
+# # tidal ranges  for  each station
+# cases <- c('ELKVM','PDBBY', 'RKBMB', 'SAPDC')
+# 
+# ##
+# 
+# files <- list.files('M:/wq_models/SWMP/raw/rproc/proc5/', 
+#   pattern = paste(cases, collapse = '|'), 
+#   full.names = T)
+# file_ls <- list()
+# for(file in files){
+#   load(file)
+#   nm <- gsub('.RData', '', basename(file))
+#   tmp <- get(nm)
+#   mod <- oce::tidem(tmp$Depth, tmp$DateTimeStamp, 
+#     constituents = c('P1', 'O1', 'M2', 'S2'))
+#   rngs <- diff(range(predict(mod), na.rm = T))
+#     
+#   file_ls[[nm]] <- rngs
+#   }
+# tide_range <- do.call('rbind', file_ls)
+tide_range <- list(
+  ELKVM = '2.0',
+  PDBBY = '2.9', 
+  RKBMB = '1.3', 
+  SAPDC = '1.4'
+  )
+tide_range <- do.call('rbind', tide_range)
+
 @

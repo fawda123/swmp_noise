@@ -73,6 +73,11 @@ Hirsch RM, Moyer DL, Archfield SA. 2010.
   an application to {C}hesapeake {B}ay river inputs.
 \newblock Journal of the American Water Resources Association, 46(5):857--880.
 
+\bibitem[Kelley and Richards, 2014]{Kelley14}
+Kelley D, Richards C. 2014.
+\newblock oce: Analysis of oceanographic data, {R} package version 0.9-15.
+\newblock \url{http://dankelley.github.com/oce/}.
+
 \bibitem[Kemp and Boynton, 1980]{Kemp80}
 Kemp WM, Boynton WR. 1980.
 \newblock Influence of biological and physical processes on dissolved oxygen
