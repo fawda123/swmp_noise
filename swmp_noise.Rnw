@@ -1,7 +1,8 @@
 \documentclass[letterpaper,12pt,oneside]{article}
 \usepackage[paperwidth=8.5in,paperheight=11in,top=1in,bottom=1in,left=1in,right=1in]{geometry}
 \usepackage{setspace}
-\usepackage[colorlinks=true,allcolors=Blue]{hyperref}
+% \usepackage[colorlinks=true,allcolors=Blue]{hyperref}
+\usepackage[hidelinks]{hyperref}
 \usepackage[usenames,dvipsnames]{xcolor}
 \usepackage{indentfirst}
 \usepackage{titlesec}
@@ -25,7 +26,7 @@
 \usepackage{pdflscape}
 \usepackage{bm}
 % \usepackage{showlabels}
-\bibpunct{(}{)}{,}{a}{}{,}
+\bibpunct{(}{)}{;}{a}{}{,}
 
 % page margins and section title formatting
 \linespread{2}
@@ -43,7 +44,6 @@
 \renewcommand{\figurename}{Fig.}
 
 % aliased citations
-\defcitealias{BeckIR}{Beck and Hagy, In review}
 \defcitealias{CDMO14}{CDMO 2014}
 \defcitealias{NRC00}{NRC 2000}
 \defcitealias{RDCT14}{RDCT 2014}
@@ -92,7 +92,7 @@ options(replace.assign=TRUE,width=90,digits=1)
 \begin{document}
 
 \raggedbottom
-% \linenumbers
+\linenumbers
 \raggedright
 \urlstyle{same}
 \setlength{\parindent}{0.5in}

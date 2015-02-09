@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.8.29)  9 FEB 2015 10:05
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.8.29)  9 FEB 2015 12:11
 entering extended mode
 **swmp_noise.tex
 (M:\docs\manuscripts\swmp_noise\swmp_noise.tex
@@ -176,7 +176,6 @@ File: pd1enc.def 2012/11/06 v6.83m Hyperref: PDFDocEncoding definition (HO)
 ("C:\Program Files\MiKTeX 2.9\tex\latex\00miktex\hyperref.cfg"
 File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 4319.
 Package hyperref Info: Hyper figures OFF on input line 4443.
 Package hyperref Info: Link nesting OFF on input line 4448.
 Package hyperref Info: Hyper index ON on input line 4451.
@@ -199,7 +198,7 @@ Package hyperref Info: Hyper figures OFF on input line 6295.
 Package hyperref Info: Link nesting OFF on input line 6300.
 Package hyperref Info: Hyper index ON on input line 6303.
 Package hyperref Info: backreferencing OFF on input line 6310.
-Package hyperref Info: Link coloring ON on input line 6313.
+Package hyperref Info: Link coloring OFF on input line 6315.
 Package hyperref Info: Link coloring with OCG OFF on input line 6320.
 Package hyperref Info: PDF/A mode OFF on input line 6325.
 LaTeX Info: Redefining \ref on input line 6365.
@@ -620,7 +619,7 @@ File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 \AtBeginShipoutBox=\box31
-Package hyperref Info: Link coloring ON on input line 138.
+Package hyperref Info: Link coloring OFF on input line 138.
 ("C:\Program Files\MiKTeX 2.9\tex\latex\hyperref\nameref.sty"
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 
@@ -645,6 +644,11 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <20.74> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 18.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <17.28> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 18.
+LaTeX Font Info:    Try loading font information for OT1+phv on input line 18.
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\ot1phv.fd"
+File: ot1phv.fd 2001/06/04 scalable font definitions for OT1/phv.
+)
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <14.4> on input line 18.
 LaTeX Font Info:    External font `cmex10' loaded for size
@@ -697,7 +701,7 @@ File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 
 Package xcolor Warning: Incompatible color definition on input line 335.
 
-<figure/do_sim.pdf, id=472, 505.89pt x 433.62pt>
+<figure/do_sim.pdf, id=478, 505.89pt x 433.62pt>
 File: figure/do_sim.pdf Graphic file (type pdf)
  <use figure/do_sim.pdf>
 Package pdftex.def Info: figure/do_sim.pdf used on input line 338.
@@ -709,7 +713,7 @@ Package pdftex.def Info: figure/do_sim.pdf used on input line 338.
 
 Package xcolor Warning: Incompatible color definition on input line 353.
 
-<figure/sim_ex.pdf, id=488, 505.89pt x 289.08pt>
+<figure/sim_ex.pdf, id=494, 505.89pt x 289.08pt>
 File: figure/sim_ex.pdf Graphic file (type pdf)
  <use figure/sim_ex.pdf>
 Package pdftex.def Info: figure/sim_ex.pdf used on input line 356.
@@ -721,7 +725,7 @@ Package pdftex.def Info: figure/sim_ex.pdf used on input line 356.
 
 Package xcolor Warning: Incompatible color definition on input line 371.
 
-<figure/err_surf1.pdf, id=503, 397.485pt x 252.945pt>
+<figure/err_surf1.pdf, id=509, 397.485pt x 252.945pt>
 File: figure/err_surf1.pdf Graphic file (type pdf)
 
 <use figure/err_surf1.pdf>
@@ -733,7 +737,7 @@ Package pdftex.def Info: figure/err_surf1.pdf used on input line 374.
 
 Package xcolor Warning: Incompatible color definition on input line 389.
 
-<figure/err_surf2.pdf, id=520, 433.62pt x 167.62625pt>
+<figure/err_surf2.pdf, id=526, 433.62pt x 167.62625pt>
 File: figure/err_surf2.pdf Graphic file (type pdf)
 
 <use figure/err_surf2.pdf>
@@ -745,7 +749,7 @@ Package pdftex.def Info: figure/err_surf2.pdf used on input line 392.
 
 Package xcolor Warning: Incompatible color definition on input line 407.
 
-<figure/case_map.pdf, id=535, 578.16pt x 361.35pt>
+<figure/case_map.pdf, id=541, 578.16pt x 361.35pt>
 File: figure/case_map.pdf Graphic file (type pdf)
  <use figure/case_map.pdf>
 Package pdftex.def Info: figure/case_map.pdf used on input line 410.
@@ -757,7 +761,7 @@ Package pdftex.def Info: figure/case_map.pdf used on input line 410.
 
 Package xcolor Warning: Incompatible color definition on input line 425.
 
-<figure/phase_out.pdf, id=548, 397.485pt x 216.81pt>
+<figure/phase_out.pdf, id=554, 397.485pt x 216.81pt>
 File: figure/phase_out.pdf Graphic file (type pdf)
 
 <use figure/phase_out.pdf>
@@ -769,7 +773,7 @@ Package pdftex.def Info: figure/phase_out.pdf used on input line 428.
 
 Package xcolor Warning: Incompatible color definition on input line 443.
 
-<figure/phase_in.pdf, id=565, 397.485pt x 216.81pt>
+<figure/phase_in.pdf, id=571, 397.485pt x 216.81pt>
 File: figure/phase_in.pdf Graphic file (type pdf)
  <use figure/phase_in.pdf>
 Package pdftex.def Info: figure/phase_in.pdf used on input line 446.
@@ -781,7 +785,7 @@ Package pdftex.def Info: figure/phase_in.pdf used on input line 446.
 
 Package xcolor Warning: Incompatible color definition on input line 461.
 
-<figure/case_ex.pdf, id=581, 397.485pt x 180.675pt>
+<figure/case_ex.pdf, id=587, 397.485pt x 180.675pt>
 File: figure/case_ex.pdf Graphic file (type pdf)
  <use figure/case_ex.pdf>
 Package pdftex.def Info: figure/case_ex.pdf used on input line 464.
@@ -790,7 +794,7 @@ Package pdftex.def Info: figure/case_ex.pdf used on input line 464.
 
 Package xcolor Warning: Incompatible color definition on input line 477.
 
-<figure/move_corrs.pdf, id=586, 397.485pt x 361.35pt>
+<figure/move_corrs.pdf, id=592, 397.485pt x 361.35pt>
 File: figure/move_corrs.pdf Graphic file (type pdf)
 
 <use figure/move_corrs.pdf>
@@ -800,7 +804,7 @@ Package pdftex.def Info: figure/move_corrs.pdf used on input line 480.
 
 Package xcolor Warning: Incompatible color definition on input line 494.
 
-<figure/metab_sum.pdf, id=587, 505.89pt x 397.485pt>
+<figure/metab_sum.pdf, id=593, 505.89pt x 397.485pt>
 File: figure/metab_sum.pdf Graphic file (type pdf)
 
 <use figure/metab_sum.pdf>
@@ -847,13 +851,13 @@ LaTeX Warning: There were multiply-defined labels.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 676.
  ) 
 Here is how much of TeX's memory you used:
- 11868 strings out of 493921
- 187379 string characters out of 3147282
- 326576 words of memory out of 3000000
- 14828 multiletter control sequences out of 15000+200000
- 35807 words of font info for 78 fonts, out of 3000000 for 9000
+ 11921 strings out of 493921
+ 188094 string characters out of 3147282
+ 326534 words of memory out of 3000000
+ 14876 multiletter control sequences out of 15000+200000
+ 38074 words of font info for 81 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 44i,14n,47p,2864b,552s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 44i,14n,47p,2864b,564s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/fontname/8r.enc}<C:/Program File
 s/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files/MiKTeX
  2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Program Files/MiKTeX 2.9/fon
@@ -864,12 +868,13 @@ fonts/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/
 cmr8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb
 ><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Prog
 ram Files/MiKTeX 2.9/fonts/type1/urw/courier/ucrr8a.pfb><C:/Program Files/MiKTe
-X 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1
-/urw/times/utmbi8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmr8
-a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb>
-Output written on swmp_noise.pdf (46 pages, 921839 bytes).
+X 2.9/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/ty
+pe1/urw/times/utmb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utm
+bi8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Prog
+ram Files/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb>
+Output written on swmp_noise.pdf (46 pages, 929991 bytes).
 PDF statistics:
- 726 PDF objects out of 1000 (max. 8388607)
+ 735 PDF objects out of 1000 (max. 8388607)
  128 named destinations out of 1000 (max. 500000)
  179 words of extra memory for PDF output out of 10000 (max. 10000000)
 
