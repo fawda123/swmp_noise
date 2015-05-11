@@ -1,7 +1,7 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.8.29)  28 JAN 2015 17:06
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.8.29)  11 MAY 2015 13:56
 entering extended mode
-**internal_review_response.tex
-(M:\docs\manuscripts\swmp_noise\internal_review_response.tex
+**review_response.tex
+(M:\docs\manuscripts\swmp_noise\review_response.tex
 LaTeX2e <2011/06/27>
 Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
 abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
@@ -403,7 +403,7 @@ Package caption Info: rotating package is loaded.
 \sf@top=\skip55
 \sf@bottom=\skip56
 )
-(C:/PROGRA~1/R/R-31~1.2/share/texmf/tex/latex\Sweave.sty
+(C:/PROGRA~1/R/R-32~1.0/share/texmf/tex/latex\Sweave.sty
 Package: Sweave 
 
 (C:\Users\mbeck\AppData\Roaming\MiKTeX\2.9\tex\latex\fancyvrb\fancyvrb.sty
@@ -544,28 +544,28 @@ Package: outlines 2012/1/23 1.1 Ch. Pecheur
 Package: upquote 2012/04/19 v1.3 upright-quote and grave-accent glyphs in verba
 tim
 )
-(M:\docs\manuscripts\swmp_noise\internal_review_response.aux)
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 80.
-LaTeX Font Info:    ... okay on input line 80.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 80.
-LaTeX Font Info:    ... okay on input line 80.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 80.
-LaTeX Font Info:    ... okay on input line 80.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 80.
-LaTeX Font Info:    ... okay on input line 80.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 80.
-LaTeX Font Info:    ... okay on input line 80.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 80.
-LaTeX Font Info:    ... okay on input line 80.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 80.
-LaTeX Font Info:    ... okay on input line 80.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 80.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 80.
+(M:\docs\manuscripts\swmp_noise\review_response.aux)
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 82.
+LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 82.
+LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 82.
+LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 82.
+LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 82.
+LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 82.
+LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 82.
+LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 82.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 82.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\base\ts1cmr.fd"
 File: ts1cmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 80.
+LaTeX Font Info:    ... okay on input line 82.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -602,7 +602,7 @@ LaTeX Font Info:    ... okay on input line 80.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 \AtBeginShipoutBox=\box31
-Package hyperref Info: Link coloring ON on input line 80.
+Package hyperref Info: Link coloring ON on input line 82.
 ("C:\Program Files\MiKTeX 2.9\tex\latex\hyperref\nameref.sty"
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 
@@ -611,22 +611,20 @@ Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
 \c@section@level=\count151
 )
-LaTeX Info: Redefining \ref on input line 80.
-LaTeX Info: Redefining \pageref on input line 80.
-LaTeX Info: Redefining \nameref on input line 80.
+LaTeX Info: Redefining \ref on input line 82.
+LaTeX Info: Redefining \pageref on input line 82.
+LaTeX Info: Redefining \nameref on input line 82.
 
-(M:\docs\manuscripts\swmp_noise\internal_review_response.out)
-(M:\docs\manuscripts\swmp_noise\internal_review_response.out)
+(M:\docs\manuscripts\swmp_noise\review_response.out)
+(M:\docs\manuscripts\swmp_noise\review_response.out)
 \@outlinefile=\write5
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: subfig package v1.3 is loaded.
 Package caption Info: End \AtBeginDocument code.
 Missing character: There is no Â in font cmr12!
-Missing character: There is no ‘ in font cmr12!
+Missing character: There is no “ in font cmr12!
 Missing character: There is no Â in font cmr12!
-Missing character: There is no ’ in font cmr12!
-Missing character: There is no Â in font cmr12!
-Missing character: There is no ’ in font cmr12!
+Missing character: There is no ” in font cmr12!
  [1
 
 {C:/Users/mbeck/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
@@ -634,12 +632,56 @@ Missing character: There is no Â in font cmr12!
 Missing character: There is no “ in font cmr12!
 Missing character: There is no Â in font cmr12!
 Missing character: There is no ” in font cmr12!
- [2]
+Missing character: There is no Â in font cmr12!
+Missing character: There is no — in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no — in font cmr12!
 Missing character: There is no Â in font cmr12!
 Missing character: There is no “ in font cmr12!
 Missing character: There is no Â in font cmr12!
 Missing character: There is no ” in font cmr12!
- [3] [4]
+Missing character: There is no Â in font cmr12!
+Missing character: There is no — in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no “ in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ” in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no — in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ’ in font cmr12!
+ [2]
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ’ in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ’ in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ’ in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ’ in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ’ in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ’ in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ’ in font cmr12!
+ [3]
+Missing character: There is no Â in font cmr12!
+Missing character: There is no “ in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ” in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no “ in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ” in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no “ in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ” in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no “ in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ” in font cmr12!
 Missing character: There is no Â in font cmr12!
 Missing character: There is no ’ in font cmr12!
 Missing character: There is no Â in font cmr12!
@@ -654,32 +696,182 @@ Missing character: There is no Â in font cmr12!
 Missing character: There is no “ in font cmr12!
 Missing character: There is no Â in font cmr12!
 Missing character: There is no ” in font cmr12!
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 163.
-Package atenddvi Info: Last page = 5.
+ [4]
+Missing character: There is no Â in font cmr12!
+Missing character: There is no “ in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ” in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no “ in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ” in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no “ in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ” in font cmr12!
+Missing character: There is no Ã in font cmr12!
+Missing character: There is no   in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no “ in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ” in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no “ in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ” in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ’ in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ’ in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ’ in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no “ in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ” in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ’ in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no “ in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ” in font cmr12!
  [5]
-Package atveryend Info: Executing hook `AfterLastShipout' on input line 163.
+Missing character: There is no Â in font cmr12!
+Missing character: There is no “ in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no … in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ” in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no “ in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ” in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ’ in font cmr12!
+Missing character: There is no Ã in font cmr12!
+Missing character: There is no   in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no “ in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ” in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no “ in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ” in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no “ in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ” in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no “ in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ” in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no “ in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ” in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ¶ in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no “ in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ” in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no “ in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ” in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ’ in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no “ in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ” in font cmr12!
+Missing character: There is no Ã in font cmr12!
+Missing character: There is no © in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ’ in font cmr12!
+Missing character: There is no Ã in font cmr12!
+Missing character: There is no © in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no “ in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ” in font cmr12!
+ [6]
+Missing character: There is no Â in font cmr12!
+Missing character: There is no “ in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ” in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ’ in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no “ in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ” in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ’ in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no “ in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ” in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ’ in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ’ in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no “ in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ” in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ’ in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ’ in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no µ in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ’ in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no “ in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ” in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ’ in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ’ in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ’ in font cmr12!
+ [7]
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ’ in font cmr12!
+Missing character: There is no Ã in font cmr12!
+Missing character: There is no ¨ in font cmr12!
+Missing character: There is no Ã in font cmr12!
+Missing character: There is no © in font cmr12!
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 251.
+Package atenddvi Info: Last page = 8.
+ [8]
+Package atveryend Info: Executing hook `AfterLastShipout' on input line 251.
 
-(M:\docs\manuscripts\swmp_noise\internal_review_response.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 163.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 163.
-Package rerunfilecheck Info: File `internal_review_response.out' has not change
-d.
+(M:\docs\manuscripts\swmp_noise\review_response.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 251.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 251.
+Package rerunfilecheck Info: File `review_response.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 163.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 251.
  ) 
 Here is how much of TeX's memory you used:
- 10605 strings out of 493921
- 173163 string characters out of 3147282
- 304033 words of memory out of 3000000
- 13762 multiletter control sequences out of 15000+200000
- 4285 words of font info for 16 fonts, out of 3000000 for 9000
+ 10613 strings out of 493921
+ 173106 string characters out of 3147282
+ 304998 words of memory out of 3000000
+ 13765 multiletter control sequences out of 15000+200000
+ 4951 words of font info for 18 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 44i,6n,42p,1764b,371s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Pro
-gram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on internal_review_response.pdf (5 pages, 56168 bytes).
+ 44i,6n,42p,1237b,359s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbxti10.pfb><C:/
+Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program F
+iles/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb>
+Output written on review_response.pdf (8 pages, 70236 bytes).
 PDF statistics:
- 35 PDF objects out of 1000 (max. 8388607)
- 6 named destinations out of 1000 (max. 500000)
+ 55 PDF objects out of 1000 (max. 8388607)
+ 9 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
