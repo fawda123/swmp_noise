@@ -98,23 +98,41 @@ I think that the caveats described above have been acknowledged by the authors, 
 
 {\it We agree this is an important issue that deserves additional discussion.  As noted, we have partially addressed these concerns on line 527 but have not explicitly described the ``end member'' problem.  We have added text to this section that elaborates these points. 
 
-`A useful approach for conceptualizing instances when weighted regression may be most appropriate can be described using an `end member' paradigm.  These end members can be considered the terminal points of the water mass that is horizontally advected past the DO sensor.  One end member may be characterized by tidal marshes during high tide, whereas the second end member may be characterized by oxygenated oceanic waters during ebb tide.  An important distinction is made between end members that are influenced by actual biological processes that occur at each terminus and those that are not, where the former case is more likely a common occurrence at locations with large tidal amplitudes.  In the latter case, variation in dissolved oxygen at the DO sensor is solely related to physical advection and weighted regression should work as intended provided collinearity with the solar cycle is at a minimum.  For other sites where biological processes affect the DO at the ``end members'', the tidal characteristics of a site may be the primary factor that affects the ability of weighted regression to isolate the true biological signal.  Diurnal or semidiurnal tides that     
+`A useful approach for conceptualizing instances when weighted regression may be most appropriate can be described using an ``end member'' paradigm.  These end members are the terminal points of the water mass that is horizontally advected past the DO sensor.  One end member is typically characterized by tidal marshes during flood tide, whereas the second end member may be characterized by oxygenated oceanic waters during ebb tide.  An important distinction is made between end members that are influenced by actual biological processes that occur at each terminus and those that are not, where the former case is more likely a common occurrence at locations with large tidal amplitudes.  In the latter case, variation in dissolved oxygen at the DO sensor is solely related to physical advection and weighted regression should work as intended provided collinearity with the solar cycle is at a minimum.  For other sites where biological processes affect the DO at the end members, the tidal characteristics of a site and the chosen window widths are critical determinants of the ability of weighted regression to isolate the true metabolic signal.  Biological signals from diurnal or semidiurnal tides that exhibit rapid pregression with the solar cycle can be statistically isolated with relatively smaller window widths as the average (i.e., detided) signal can be quantified in fewer tidal cycles.  Conversely, mixed tides that exhibit prolonged periods of synchronicity with the solar cycle, as was observed for Elkhorn Slough, will require larger window widths to characterize the true metabolic signal.  Issues of collinearity at mixed sites add additional challenges as previously noted.  We conclude that weighted regression has the ability to describe the true metabolic signal regardless of tidal characteristcs and biological processes that vary at the end members, although choosing appropriate window widths and evaluating collinearity with the solar cycle are critical factors that must be considered in its application.'
 }
 
 Specific questions or corrections:
 
 1) This may be a naive question -  but is tidal height an accurate proxy for advection? It is intuitive that the higher the tidal amplitude the more advection that will occur over the period. However, it is also true that the fastest currents associated with tides occur in the mid-tide range, for example on a large ebb tide the highest currents (and presumably a significant part of the advection term) occur when the tide is actually near the mid-range in tide height. Equation 13 seems to contradict this fact, where the highest advection (DOadv) is associated with the highest tide measurement (H). This is in fact slack tide when very little advection is occurring.
 
+{\it This point was also mentioned by reviewer 2 (p. 8, lines 121-122) and we have added some additional text to describe this issue in more detail.  We agree that tide height is not the same measure as advection but all that is needed for weighted regression is a variable that can be mapped or linked to advection.  This is described in more detail in the added text, beginning on line 123.  We have also changed equation 12 to indicate that tidal height is simply a function of advection and may not be proportional (i.e., high tide may not be associated with large advection).
+
+`An important distinction between tidal height and advection is that the two variables could provide different information about a tidal regime.  Tidal heights at the minimum and maximum of the range may be associated with periods of low advection when water masses are not moving rapidly past the sensor, whereas tidal heights near the mean may be more likely to have greater advection.  Accordingly, our use of tidal height should not be confused with a variable that is directly proportional to advection.  The model only requires a variable that indicates a particular point in the tidal cycle, such that tidal height can be mapped to advection with quantifiable periodicity that the model can isolate.     
+'
+}
 
 2) The symbol for uncertainty in equation (6) and (7) and in the text on page 11 is not the same as the symbol used in figure 1, and both are different than at the bottom of page 13.
 
+{\it We have verified all equations, text, figures, and tables show the same same symbol, $\varepsilon$.}
+
 3) Line 247: should this be decreased process error?
+
+{\it No, we found that increasing process uncertainty actually improved the ability of the model to isolate the biological signal.  Process error is serially correlated and we suspect that this correlation structure is characterized well by the model since time is used as an explanatory variable.  This is somewhat of a minor point though because this was most pronounced when there was no advective component in the simulated DO time series and observation error was high.  In other words, there is no reason to apply weighted regression to an actual time series where advection effects are minimal.}
 
 4) Wind speed can have a significant influence on the calculation of DO flux, and therefore should be acknowledged as another source of error not accounted for by using a constant ka value. This influence is in addition to the advection term and can be significant.
 
+{\it I'm not sure where this comment applies in the text.  If this is in reference to the k value in equation 11, we have changed the symbol to avoid confusion because this does not refer to the the same ka used for the reaeration coefficient in the metabolism equations.  We did not consider any effect of wind in the simulated time series because it is not relevant for the analysis where the primary objective was to evaluate advective effects.  Wind effects could be considered a component of either process or observation uncertainty, although it was not addressed explicitly.  The following was added for clarification (line 186):
+
+`For example, wind events can affect air-sea gas exchange (Ziegler and Benner 1998; Caffrey et al. 2014) such that high wind may contribute to increased process uncertainty.  Although this was not an explicit focus of the simulation analyses, wind effects could be considered an implicit component of process uncertainty in addition to the effects of other unmeasured variables that influence DO in a time-dependent manner.'
+}
+
 5) The different scales on Fig 6 and 7 for DO are confusing. 
+
+{\it The figures now have the same scale for DO.}
+
 6) It would be beneficial to readers if the code for the analysis was distributed with the published paper.
 
+{\it we created a simple R package on GitHub that provides code and examples for implementing weighted regression and estimating ecosystem metabolism. A link was added as supplementary information: \href{https://github.com/fawda123/WtRegDO}{https://github.com/fawda123/WtRegDO}}  
 
 \Bigtxt{Reviewer 2:}
 
@@ -191,6 +209,8 @@ p. 7, lines 101-102: evaluate the ability
 pp. 7-8: Appropriate place for clarifying role of depth, or why it is being ignored (my comment above).
 
 p. 8, lines 121-122: I buy the idea, but is there some justification in the literature for using tidal height as a proxy for advection?
+
+{\it See our response to reviewer 1 about the use of tidal height as a proxy for advection.}
 
 p. 9, lines 139-140 ff: I was generally confused about why different time vectors were used to represent days and hours (or is it hour of day) separately. Maybe just some clarification of terminology would help.
 

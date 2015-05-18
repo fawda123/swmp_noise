@@ -29,7 +29,7 @@
 \bibpunct{(}{)}{;}{a}{}{,}
 
 % page margins and section title formatting
-\linespread{2}
+\linespread{1.5}
 \setlength{\footskip}{0.5in}
 \titleformat*{\section}{\Large\bf\em}
 \titleformat*{\subsection}{\singlespace\large\bf}
@@ -211,7 +211,7 @@ facet_wrap_labeller(p, labels = c(
 
 % plot of representative time series for simulation
 \centering\vspace*{\fill}
-<<sim_ex, fig.height = 4, fig.width = 7, out.width = '\\textwidth', cache = T, echo = F, eval = T, fig.cap = 'Representative examples of simulated time series of observed \\ac{DO} ($DO_{obs}$, blue lines) and biological \\ac{DO} ($DO_{bio}$, as a component of observed, red lines) created by varying each of four parameters: strength of tidal association with \\ac{DO} signal ($DO_{adv}$), amount of process uncertainty ($\\epsilon_{pro}$), amount of observation uncertainty ($\\epsilon_{obs}$), and strength of diel \\ac{DO} component ($DO_{die}$).  Parameter values represent the minimum and maximum used in the simulations as mg L$^{-1}$ of \\ac{DO}.'>>=
+<<sim_ex, fig.height = 4, fig.width = 7, out.width = '\\textwidth', cache = T, echo = F, eval = T, fig.cap = 'Representative examples of simulated time series of observed \\ac{DO} ($DO_{obs}$, blue lines) and biological \\ac{DO} ($DO_{bio}$, as a component of observed, red lines) created by varying each of four parameters: strength of tidal association with \\ac{DO} signal ($DO_{adv}$), amount of process uncertainty ($\\varepsilon_{pro}$), amount of observation uncertainty ($\\varepsilon_{obs}$), and strength of diel \\ac{DO} component ($DO_{die}$).  Parameter values represent the minimum and maximum used in the simulations as mg L$^{-1}$ of \\ac{DO}.'>>=
 load('data/eval_grd.RData')
 
 # find rows in eval_grd of parms to plot
@@ -306,7 +306,7 @@ ggplot(to_plo, aes(x = Day, y = DO_obs, group = L1)) +
 
 % example of error surfaces 
 \centering\vspace*{\fill}
-<<err_surf1, fig.height = 3.5, fig.width = 5.5, cache = T, echo = F, eval = T, fig.cap = "Heat maps of correlations and errors (\\ac{RMSE}) for filtered \\ac{DO} time series ($DO_{dtd}$) from weighted regression with `true' biological \\ac{DO} ($DO_{bio}$) for varying simulation parameters: strength of tidal association with \\ac{DO} signal ($DO_{adv}$), amount of process uncertainty ($\\epsilon_{pro}$), amount of observation observation uncertainty ($\\epsilon_{obs}$), and strength of diel \\ac{DO} component ($DO_{die}$).  Each tile represents the correlation or error from results for a given combination of simulation parameters averaged for all window widths (as in \\cref{fig:err_surf2}).">>=
+<<err_surf1, fig.height = 3.5, fig.width = 5.5, cache = T, echo = F, eval = T, fig.cap = "Heat maps of correlations and errors (\\ac{RMSE}) for filtered \\ac{DO} time series ($DO_{dtd}$) from weighted regression with `true' biological \\ac{DO} ($DO_{bio}$) for varying simulation parameters: strength of tidal association with \\ac{DO} signal ($DO_{adv}$), amount of process uncertainty ($\\varepsilon_{pro}$), amount of observation observation uncertainty ($\\varepsilon_{obs}$), and strength of diel \\ac{DO} component ($DO_{die}$).  Each tile represents the correlation or error from results for a given combination of simulation parameters averaged for all window widths (as in \\cref{fig:err_surf2}).">>=
 
 # load summary of model performance for simulations
 load('data/mod_perf.RData')
@@ -597,7 +597,7 @@ p1 <- ggplot(to_plo, aes(x = DateTimeStamp)) +
   ggpoly1 +
   geom_line(aes(y = DO_obs, colour = 'Observed')) +
   geom_line(aes(y = DO_nrm, colour = 'Filtered')) +
-  coord_cartesian(ylim = rng.fun(to_plo$DO_obs)) +
+  coord_cartesian(ylim = c(1, 9.5)) +
   scale_fill_manual(values='orange',labels='Day') +
   theme_bw() +
   scale_y_continuous(ylab) +
@@ -702,7 +702,7 @@ p1 <- ggplot(to_plo, aes(x = DateTimeStamp)) +
   ggpoly1 +
   geom_line(aes(y = DO_obs, colour = 'Observed')) +
   geom_line(aes(y = DO_nrm, colour = 'Filtered')) +
-  coord_cartesian(ylim = rng.fun(to_plo$DO_obs)) +
+  coord_cartesian(ylim = c(1, 9.5)) +
   scale_fill_manual(values='orange',labels='Day') +
   theme_bw() +
   scale_y_continuous(ylab) +
@@ -1040,12 +1040,12 @@ to_tab <-dtd_perf[!dtd_perf$Parameter %in% c('dec_time', 'hour', 'Tide'), ]
 # names for row categories in table
 Parms <- c('$\\boldsymbol{DO_{die}}$', 
   '$\\boldsymbol{DO_{adv}}$',  
-  '$\\boldsymbol{\\epsilon_{pro}}$', 
-  '$\\boldsymbol{\\epsilon_{obs}}$'
+  '$\\boldsymbol{\\varepsilon_{pro}}$', 
+  '$\\boldsymbol{\\varepsilon_{obs}}$'
   )
 tab <- form_fun(to_tab[, -c(1:2)])
 rows <- to_tab[, 2]
-cap.val<-'Summary (range, median, quartiles) of correlations and error estimates comparing filtered and biological \\ac{DO} time series for different simulation parameters ($DO_{die}$, $DO_{adv}$, $\\epsilon_{pro}$, $\\epsilon_{obs}$).  Values represent averages from multiple simulations with common parameters.  For example, row one is a summary of all simulations for which the diel \\ac{DO} component was zero ($n=729$).'
+cap.val<-'Summary (range, median, quartiles) of correlations and error estimates comparing filtered and biological \\ac{DO} time series for different simulation parameters ($DO_{die}$, $DO_{adv}$, $\\varepsilon_{pro}$, $\\varepsilon_{obs}$).  Values represent averages from multiple simulations with common parameters.  For example, row one is a summary of all simulations for which the diel \\ac{DO} component was zero ($n=729$).'
 
 # foot.val<-'\\footnotesize \\textit{Note:} test' 
 
