@@ -91,28 +91,19 @@ Specific questions or corrections:
 
 \Bigtxt{Reviewer 2:}
 
-Review of “Improving estimates of ecosystem metabolism by reducing effects of tidal advection on dissolved oxygen time series” by Beck et al., submitted to L\&O Methods, 2015
+Do the authors plan to make their R code available? They mention several times how useful it could be to others (a point on which I certainly agree), but it won’t be useful unless it’s available!
 
-Summary: Time-series dissolved oxygen data from remote monitoring stations and observing arrays has been applied for several decades now to estimate rates of ecosystem metabolism in a variety of marine and aquatic systems. In estuarine or coastal systems subject to significant physical forcings such as tidal advection — which operates over the same daily timescale as the target biological processes — the deconvolution of simultaneously encoded physical and biological signals remains a critical obstacle. Signal processing techniques (e.g., Kalman or
-band-pass filtering, or various applications of the autocorrelation function) can be and have been used to accomplish this deconvolution, but these techniques exclude signals in data based strictly on their periodicity. Thus, the risk in these existing methods of “throwing the baby out with the bathwater” — i.e., discarding desired biological signals along with the “nuisance” physical signals — is very high. Beck et al. instead apply a weighted regression method to filter out tidal signals in time-series data by targeting those tidal trends specifically. The method appears generally successful at (1) reducing unwanted artifacts from tidal advection and (2) reducing overall uncertainties in ecosystem metabolic estimates.
-
-General impression and recommendation: This is fine work that deserves publication in L\&O Methods, and has the potential to bring significant change to a sub-discipline that has grown rapidly in the past 20 years with the advent of high-frequency DO time-series data. Despite small advances here and there in data analysis techniques, many of these recent estimates of ecosystem metabolism have essentially rested on minimal updates to the original methods of Gaarder and Gran (1927) or Odum (1956). The method the authors propose here is (in the environmental sciences, at least) new and innovative. As such, the work represents a significant advance in the state of the art. I particularly liked the authors’ method of developing and testing their method with simulated datasets, and their sensitivity analyses are robust.
-
-However, I do have some questions and concerns of moderate significance; these revolve less around the authors’ method for filtering out tidal signals, which I found very well-explained, than around how they then used their method to calculate estimates ecosystem metabolism. In addition, the authors find using their own metrics that the method does not perform well at all in situations (or ecosystems) where the solar cycle and period of tidal height change are highly collinear, or where observational uncertainties are high and the tidal advection is weak. These caveats are certainly addressed in the manuscript, but I am concerned the magnitude of this sometimes poor performance is underrepresented in the abstract (fixable with a few edits).
-
-The manuscript is generally well-written and the figures are generally clear, though some captions are missing information and I recommend the authors change some of their notation to avoid confusion (see specific comments below).
-
-Overall, I very much liked the paper, and I am excited to see when and if the cottage industry that makes these measurements incorporates this elegant new method. The multimedia feature was a very useful addition to the paper, and helped me significantly in understanding the effect
-of varying various parameters in the authors’ method on the result. However, do the authors plan
- 
-to make their R code available? They mention several times how useful it could be to others (a
-point on which I certainly agree), but it won’t be useful unless it’s available!
-
-{\it We agree!  We've added a link in the supplementary information that provides instructions and examples for installing an R package to implement weighted regression: \href{https://github.com/fawda123/WtRegDO}{https://github.com/fawda123/WtRegDO}}
+{\it We agree!  We've added a link in the supplementary information that provides instructions and examples for installing a simple R package to implement weighted regression: \href{https://github.com/fawda123/WtRegDO}{https://github.com/fawda123/WtRegDO}}
 
 General comments:
 
-(1) As the authors acknowledge, the practice in physical oceanography of filtering high- frequency DO time-series data (or time series of other properties) to isolate certain signals is far from new. As far as I can tell, the major advantage of the authors’ proposed method over the traditional time-series methods (i.e., Kalman or band-pass filtering, or various applications of the autocorrelation function) is that the authors use weighted regression to create a separate, distinct time series that represents the tidal signal at each station, then use that time series to detrend the observed data. This has the distinct advantage of targeting the tidal signal explicitly, rather than simply filtering out all signals that happen to fall within a certain range of periodicity. The latter approach is fine in coastal or offshore systems, where the magnitudes of the tides (and of production and respiration themselves) are often not so high. But, the new method offers significant advantages for the types of systems in the NERRS network, which are the focus of their study. The authors touch on this distinction briefly in lines 98-100, but I think they need to expand on the point and make it more prominent.
+(1) The new method offers significant advantages for the types of systems in the NERRS network, which are the focus of their study. The authors touch on this distinction briefly in lines 98-100, but I think they need to expand on the point and make it more prominent.
+
+{\it Text was added to elaborate this point, both in the introduction and the abstract.
+
+Line 100: `This approach offers a distinct advantage for estuaries where the magnitude of tidal effects on water quality observations can be severe. The weighted regression approach targets the tidal component as a specific parameter during model fitting, which allows the ability to isolate the biological component of the dissolved oxygen time series.  As a result, the weighted regression approach can preserve the true biological signal in the output rather'
+
+Abstract, line 
 
 (2) I was generally confused, both in the authors’ application of their filtering method, and in the way they calculated their metabolic estimates, about the role of the third dimension (depth). The authors adapted the Hirsch et al. WRTDS method for a laminar or channel flow case (rivers and streams) for use in estuaries, where the regime is certainly not channelized or laminar. How was the method used to filter data from multiple depths simultaneously in the four case study
 systems? Did the authors apply the same weight vectors and half-window widths to the data from each depth in a given system? Or, perhaps the authors chose the four systems they did for their case studies because the depth at those particular stations was shallow enough such that only one series of DO data was needed? If this was the case, are the authors making the assumption that
