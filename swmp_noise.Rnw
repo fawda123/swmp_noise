@@ -112,7 +112,8 @@ We acknowledge the significant efforts of research staff and field crews from th
 % abstract
 \newpage
 \section{Abstract}
-\input{abstract.tex}
+<<intro, child = 'abstract.Rnw'>>=
+@
 
 \acresetall
 \clearpage
@@ -306,7 +307,7 @@ ggplot(to_plo, aes(x = Day, y = DO_obs, group = L1)) +
 
 % example of error surfaces 
 \centering\vspace*{\fill}
-<<err_surf1, fig.height = 3.5, fig.width = 5.5, cache = T, echo = F, eval = T, fig.cap = "Heat maps of correlations and errors (\\ac{RMSE}) for filtered \\ac{DO} time series ($DO_{dtd}$) from weighted regression with `true' biological \\ac{DO} ($DO_{bio}$) for varying simulation parameters: strength of tidal association with \\ac{DO} signal ($DO_{adv}$), amount of process uncertainty ($\\varepsilon_{pro}$), amount of observation observation uncertainty ($\\varepsilon_{obs}$), and strength of diel \\ac{DO} component ($DO_{die}$).  Each tile represents the correlation or error from results for a given combination of simulation parameters averaged for all window widths (as in \\cref{fig:err_surf2}).">>=
+<<err_surf1, fig.height = 3.5, fig.width = 5.5, cache = T, echo = F, eval = T, fig.cap = "Heat maps of correlations and errors (\\ac{RMSE}) for filtered \\ac{DO} time series ($DO_{dtd}$) from weighted regression with `true' biological \\ac{DO} ($DO_{bio}$) for varying simulation parameters: strength of tidal association with \\ac{DO} signal ($DO_{adv}$), amount of process uncertainty ($\\varepsilon_{pro}$), amount of observation observation uncertainty ($\\varepsilon_{obs}$), and strength of diel \\ac{DO} component ($DO_{die}$).  Each tile represents the correlation or error from results for a given combination of simulation parameters averaged for all window widths (as in \\cref{fig:err_surf2}).  See \\cref{tab:dtd_perf1} for a summary of results for each unique parameter.">>=
 
 # load summary of model performance for simulations
 load('data/mod_perf.RData')
@@ -389,7 +390,7 @@ grid.arrange(p1, p2, ncol = 2)
 
 % example of error surfaces 
 \centering\vspace*{\fill}
-<<err_surf2, fig.height = 2.33, fig.width = 6, cache = T, echo = F, eval = T, fig.cap = "Heat maps of correlations and errors (\\ac{RMSE}) for filtered \\ac{DO} time series ($DO_{dtd}$) from weighted regression with `true' biological \\ac{DO} ($DO_{bio}$) for varying half window widths: days, hour of day, and proportion of tidal range.  Each tile represents the correlation or error from results for a given combination of window widths averaged for all simulation parameters (as in \\cref{fig:err_surf1}).">>=
+<<err_surf2, fig.height = 2.33, fig.width = 6, cache = T, echo = F, eval = T, fig.cap = "Heat maps of correlations and errors (\\ac{RMSE}) for filtered \\ac{DO} time series ($DO_{dtd}$) from weighted regression with `true' biological \\ac{DO} ($DO_{bio}$) for varying half window widths: days, hour of day, and proportion of tidal range.  Each tile represents the correlation or error from results for a given combination of window widths averaged for all simulation parameters (as in \\cref{fig:err_surf1}).  See \\cref{tab:dtd_perf2} for a summary of results for each unique window.">>=
 
 options(digits=3)
 
@@ -1045,7 +1046,7 @@ Parms <- c('$\\boldsymbol{DO_{die}}$',
   )
 tab <- form_fun(to_tab[, -c(1:2)])
 rows <- to_tab[, 2]
-cap.val<-'Summary (range, median, quartiles) of correlations and error estimates comparing filtered and biological \\ac{DO} time series for different simulation parameters ($DO_{die}$, $DO_{adv}$, $\\varepsilon_{pro}$, $\\varepsilon_{obs}$).  Values represent averages from multiple simulations with common parameters.  For example, row one is a summary of all simulations for which the diel \\ac{DO} component was zero ($n=729$).'
+cap.val<-'Summary (range, median, quartiles) of correlations and error estimates comparing filtered and biological \\ac{DO} time series for different simulation parameters ($DO_{die}$, $DO_{adv}$, $\\varepsilon_{pro}$, $\\varepsilon_{obs}$).  Values represent averages from multiple simulations with common parameters.  For example, row one is a summary of all simulations for which the diel \\ac{DO} component was zero ($n=729$).  See \\cref{fig:err_surf1} for results of all parameter combinations.'
 
 # foot.val<-'\\footnotesize \\textit{Note:} test' 
 
@@ -1117,7 +1118,7 @@ Parms <- c('Days', 'Hours', 'Tide')
 
 tab <- form_fun(to_tab[, -c(1:2)])
 rows <- to_tab[, 2]
-cap.val<-'Summary (range, median, quartiles) of correlations and error estimates comparing filtered and biological \\ac{DO} time series for simulations using different half window widths in the weighted regressions (days, hours, and proportion of tidal range).  Values represent averages from multiple simulations with common window values For example, row one is a summary of all simulations for which the half window width was one day ($n=729$).'
+cap.val<-'Summary (range, median, quartiles) of correlations and error estimates comparing filtered and biological \\ac{DO} time series for simulations using different half window widths in the weighted regressions (days, hours, and proportion of tidal range).  Values represent averages from multiple simulations with common window values For example, row one is a summary of all simulations for which the half window width was one day ($n=729$). See \\cref{fig:err_surf2} for results of all window combinations.'
 
 # foot.val<-'\\footnotesize \\textit{Note:} test' 
 

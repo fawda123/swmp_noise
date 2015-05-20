@@ -43,7 +43,7 @@ options(replace.assign=TRUE,width=90,digits=1)
 
 {\it Response to reviewer comments ``Improving estimates of ecosystem metabolism from dissolved oxygen time series'', by M. W. Beck, M. C. Murrell, and J. D. Hagy III}
 
-The authors wish to thank the reviewers and associate editor for providing thoughtful comments on our manuscript.  We have provided our response to each of these comments below, indicated in italics.  Line numbers refer to the original manuscript. The reviewer comments have been shortened for brevity.
+{\it The authors wish to thank the reviewers and associate editor for providing thoughtful comments on our manuscript.  We have provided our response to each of these comments below, indicated in italics.  Line numbers refer to the original manuscript. The reviewer comments have been shortened for brevity.}
 
 \Bigtxt{Reviewer 1:}
 
@@ -102,12 +102,11 @@ General comments:
 {\it Text was added to elaborate this point.
 
 Line 100: `The method targets the periodicity of the tidal component as a separate parameter during model fitting, which allows the ability to isolate the biological component of the dissolved oxygen time series.  As a result, the weighted regression approach can preserve the true biological signal in the output rather than risking removal of both the biological and physical components as with traditional deconvulution methods.  This approach offers a distinct advantage for estuaries where the magnitude of tidal effects on water quality observations can be severe.'
-
 }
 
-(2) I was generally confused, both in the authors’ application of their filtering method, and in the way they calculated their metabolic estimates, about the role of the third dimension (depth). The authors adapted the Hirsch et al. WRTDS method for a laminar or channel flow case (rivers and streams) for use in estuaries, where the regime is certainly not channelized or laminar. How was the method used to filter data from multiple depths simultaneously in the four case study systems? Did the authors apply the same weight vectors and half-window widths to the data from each depth in a given system? Or, perhaps the authors chose the four systems they did for their case studies because the depth at those particular stations was shallow enough such that only one series of DO data was needed? If this was the case, are the authors making the assumption that the water column in which the series of DO measurements was made at each of these stations was vertically homogeneous with respect to the processes and properties of interest over the entire period of measurement? Do the authors assume that the parcels of water flowing by the sensor in each case were vertically homogenous with respect to DO and also with respect to the strength of the biological processes (photosynthesis, respiration) that determine DO, even as the tide changed? I can envision reasonable justifications for each of these, but the authors must address them. If the latter case is true (i.e., data from only one depth used at each station), how would the authors propose applying their method in a deeper water column? Could it be? The method has a serious limitation if it can’t be used for a water column deeper than a few meters.
+(2) I was generally confused, both in the authors’ application of their filtering method, and in the way they calculated their metabolic estimates, about the role of the third dimension (depth). Did the authors apply the same weight vectors and half-window widths to the data from each depth in a given system? Or, perhaps the authors chose the four systems they did for their case studies because the depth at those particular stations was shallow enough such that only one series of DO data was needed? If the latter case is true (i.e., data from only one depth used at each station), how would the authors propose applying their method in a deeper water column? Could it be? The method has a serious limitation if it can’t be used for a water column deeper than a few meters.
 
-{\it Yes, only a single depth variable was used for each station with the assumption that the water column was vertically homogenous.  This is a reasonable assumption for the case studies since all NERRS sites were chosen specifically as shallow-water, productive estuaries.  The method is then of course limited to only shallow water systems, but we argue that it has broad appeal as these systems are widespread across the globe, in addition to the 28 reserve systems within NERRS.  Additionally, extending the method to stratified systems could be possible by applying the regression and metabolism calculations to each strata, although we suspect that data are a limiting factor.  This approach would require continuous monitoring of multiple depth layers, whereas most monitoring programs deploy only a single water quality monitor at the surface or weighted to the bottom.  We are aware of specific examples where near-continous vertical casts have been recorded for some time (e.g., Mobile Bay National Estuary Program, \href{http://mondata.disl.org/mondata/station_sensor.cfm?id=middlebay}{http://mondata.disl.org/mondata/station\_sensor.cfm?id=middlebay}), but this is not the norm.  We are certainly interested in applying the method to such datasets but are concerned that this may have limited appeal given the scarcity of data.
+{\it Yes, only a single depth variable was used for each station with the assumption that the water column was vertically homogenous.  This is a reasonable assumption for the case studies since all NERRS sites are considered shallow, productive estuaries.  The method is then of course limited to only shallow water systems, but we argue that it has broad appeal as these systems are widespread across the globe, in addition to the 28 reserve systems within NERRS.  Additionally, extending the method to stratified systems could be possible by applying the regression and metabolism calculations to each strata, although we suspect that data are a limiting factor.  This approach would require continuous monitoring of multiple depth layers, whereas most monitoring programs deploy only a single water quality monitor at the surface or weighted to the bottom.  We are aware of specific examples where near-continous vertical casts have been recorded for some time (e.g., Mobile Bay National Estuary Program, \href{http://mondata.disl.org/mondata/station_sensor.cfm?id=middlebay}{http://mondata.disl.org/mondata/station\_sensor.cfm?id=middlebay}), but this is not the norm.  We are certainly interested in applying the method to such datasets but are concerned that this may have limited appeal given the scarcity of data. 
 
 We have added some text to summarize the above points:
 
@@ -115,76 +114,130 @@ Line 256: `NERRS is a network of 28 shallow, productive estuary reserves...'
 
 Line 295: `NERRS sites are typically shallow and vertically-mixed such that one water quality monitor is considered to represent the entire water column, including the benthos.'
 
-Line 465: `The method may also have broad appeal for application in estuaries that are shallow and vertically-mixed.  Extension to stratified systems could be possible, provided water quality time series across depth strata are available.'   
+Line 445: `The regression method and open-water technique may also have broad appeal for application in estuaries that are shallow and vertically-mixed, such as those within NERRS.  Extension to stratified systems could be possible, provided water quality time series across depth strata are available.  The open-water technique generally assumes the water column is vertically mixed or that metabolic estimates derived from a surface sensor only apply to the upper layer in a stratified system (Staehr et al. 2010; Kemp and Testa 2012).  Vertically-integrated metabolic rates for a stratified system would require estimates from different depths, followed by additional validation to ensure rates agree with expectations.  In particular, application of the open-water method to each depth stratum would require an estimate of gas exchange across the pycnocline, whereas the technique implemented herein relied on a model for air-sea gas exchange at the surface.  Meaningful metabolic estimates could be obtained using such an approach, following the application of weighted regression to remove tidal influences from DO time series in each depth layer.'   
 }
-
 
 Further:
 
 (a) Unless I missed it, what was the method of integration by which the authors got from their volumetric estimates for each time step in equation (14) (specified in g O2 m-3 hr-1) to the depth- integrated (areal) estimates (in g O2 m-2 t-1) that appear in all of their figures and tables?
 
-(b) I am concerned (or perhaps just confused) about the method the authors chose for deriving daily estimates of P and R from the hourly fluxes calculated using equation (14). The description
- 
-of the method is not clear. Did the authors (1) calculate the individual hourly fluxes, then group them by “day” or “night,” then average them, and then multiply each by the duration of the day or night, or (2) calculate the individual hourly fluxes, then divide them by “day” or “night,” then add them together within their respective groups? Both methods have been used in the DO time- series metabolism literature; the second may be better since it doesn’t assume the rate of primary production is constant over the course of a given day.
+{\it Text was added for clarification on line 307: `Finally, volumetric rates were converted to depth-integrated (areal) estimates (g O$_2$ m$^{-2}$ d$^{-1}$) by multiplying by the mean water-column depth from the water quality sensor.  A half-meter was also added to these depths to account for approximate placement of the sensor slightly off of the bottom.' 
+}
+
+(b) I am concerned (or perhaps just confused) about the method the authors chose for deriving daily estimates of P and R from the hourly fluxes calculated using equation (14). The description of the method is not clear. Did the authors (1) calculate the individual hourly fluxes, then group them by “day” or “night,” then average them, and then multiply each by the duration of the day or night, or (2) calculate the individual hourly fluxes, then divide them by “day” or “night,” then add them together within their respective groups? Both methods have been used in the DO time- series metabolism literature; the second may be better since it doesn’t assume the rate of primary production is constant over the course of a given day.
+
+{\it We used an approach identical to Caffrey et al. 2013 to average DO flux in each day/night period, which then multiplied by different time periods to estimate production and respiration.  In honesty, the comment is slightly confusing because the two approaches as described would produce an identical result.  The first describes averaging DO flux within day/night groups, then multiplying the two values by the respective time in each day/night period, while the second describes a summation of DO flux within each day/night group.  We did a simple spreadsheet calculation using both approaches to verify an identical result.  For the purpose of the comment, we have revised the text to clarify the method:
+
+Line 300: `The diffusion-corrected DO flux estimates as hourly rates of DO change were first averaged during day and night periods for each 24 hour `metabolic day' in the time series. The `metabolic day' was considered the approximate 24 hour period between sunsets on two adjacent calendar days.  Hourly DO flux was considered respiration during night hours and net production during day hours.  Total respiration (Rt) rates were assumed constant during day and night such that daily rates were calculated as the average DO flux during night hours multiplied by 24. Daily gross production (Pg) was the average DO flux during day hours minus the average DO flux during night hours, multiplied by total sunlight time.  Net ecosystem metabolism was gross production (positive) plus total respiration (negative).'
+}
 
 (3) Notation and terminology:
 
 (a) The use of “Pg” to denote gross primary production is very confusing, especially since the units of Pg are in g (and Pg also being the SI unit for petagrams). Perhaps something else would be more appropriate? In addition, what is the “t” in “Rt” as the notation for respiration? Total? If so, the authors should specify when they introduce their variable (unless they did, and I missed it?).
 
+{\it These are standard terms that describe gross production and total respiration (see Caffrey et al. 2014, references therein).  The above revisions in response to the previous comment defines the acronyms accordingly.}
+
 (b) The word “aggregation” is used throughout the text. I gather from my reading of the ms that the authors mean binning or averaging, over some time or spatial scale. “Aggregation” is not a particularly precise term, because it could mean many different things. Perhaps the authors could consider replacing this word in the ms with a word or phrase that describes what they mean, e.g. “time averaging.”
 
+{\it We have noted all instances in the text where `aggregation' is used and revised for clarity, mostly replacing with `time averaging'.}
+
 (4) Duplication of presentation. If space is an issue, it seems as though Figs. 3 and 4 present the same data as Tables 1 and 2. I know heatmaps are all the rage right now, but I honestly felt the specific correlation coefficients in the tables told me a lot more than the heatmaps.
+
+{\it We have deciced to retain the figures because they do not show identical information, although similar.  The figures provide an overview of the correlation and error associated with each unique combination of simulation conditions (Fig. 3) and window widths (Fig. 4).  The tables provide a distribution of the correlation and error for each unique value where a criteria applied.  For example, the first row in table 1 shows the distribution of the correlation/error for all simulation results when the diel DO component was set at zero.  This information is not immediately clear from the figures because there are 27 tiles in Fig. 3 where the diel DO component was zero.
+
+Text was added to figure/table captions to emphasize these differences.  For example, figure 3 caption now includes `See Table 1 for a summary of results for each unique parameter', whereas Table 1 now includes ` See Fig. 3 for results of all parameter combinations.'
+}
 
 Specific comments:
 
 Abstract generally: If the authors could work in a sentence on the significance of their method vis-à-vis traditional time-series filtering techniques (see my comments above), I think they could increase the impact of their work. Additionally, I would have liked to see at least a few numbers or figures in the abstract (e.g., by what \% on average did the method reduce variance in the NEM estimate relative to those calculated from the unfiltered data, or how much did it reduce
 RMSE?).
 
+{\it The following was added to the abstract: `The method targets the periodicity of the tidal component while preserving the true biological signal, offering a distinct advantage over traditional deconvulution methods.'
+
+Percentage reductions were also included: `Variability from advection was reduced on average by 70.2\% for production and 74.3\% for respiration.'
+}
+
 p. 3, line 12: “integrated” by what dimension and over what interval? Depth? Time?
+
+{\it This term was removed as the details are in the text.}
 
 p. 3, line 22: “useful” is nonspecific and does the authors’ work a disservice; can they think of
 something more specific and impactful?
 
+{\it The above response includes percentage reductions to increase impact.}
+
 p. 3, lines 23-24: See my comment above regarding the method’s performance when the solar cycle and period of tidal height change were highly collinear. The method yielded estimates at the Elkhorn and Padilla sites which were significantly different from those obtained with the unfiltered (traditional) data. By the authors’ own admission, neither the filtered nor unfiltered data probably accurately represent what is truly happening at those sites. A sentence specifying those situations in which the method did not perform particularly well would be more honest, rather than simply saying when it generally did work well.
- 
+
+{\it The sentence was modified as follows: `The model was especially effective when the magnitude of tidal influence was high and correlations between tidal change and the solar cycle were low, whereas collinearity in the latter instance limited model performance.'
+}
 
 p. 3, line 26: “timescales”
 
+{\it Changed.}
+
 p. 4, lines 32-33: Reference to Gaarder and Gran (1927) missing here.
+
+{\it Citation added.}
 
 p. 4, lines 42-43: This simply isn’t true. There are dozens of reasons bottle incubations are more effective in certain situations, depending on the research objective. Open-water measurements may be more effective for evaluating certain kinds of events or trends, but if the authors are going to make this claim, they should specify what they mean.
 
+{\it The sentence was revised: `Open-water estimates also provide a more accessible means of tracking ecosystem change over time as compared to discrete sampling events with bottle-based approaches.'}
+
 p. 4, line 46: “Reliable estimates”
+
+{\it Changed.}
 
 p. 5, line 67: “advection, leading to…”
 
+{\it Comma added.}
+
 p. 6, line 81: “example illustrates”
+
+{\it Changed.}
 
 p. 7, lines 98-100: See my comments above about the method’s significance vis-à-vis traditional detrending methods. An expanded discussion of the difference here is warranted.
 
+{\it See the response to the first general comment, i.e., the additions to the final paragraph of the introduction.}
+
 p. 7, lines 101-102: “evaluate the ability”
+
+{\it Changed.}
 
 pp. 7-8: Appropriate place for clarifying role of depth, or why it is being ignored (my comment above).
 
+{\it Yes, see the response to the second general comment.  Also, the response to the next comment also addresses the role of depth vs. advection.}
+
 p. 8, lines 121-122: I buy the idea, but is there some justification in the literature for using tidal height as a proxy for advection?
 
-{\it See our response to reviewer 1 about the use of tidal height as a proxy for advection.}
+{\it See our response to reviewer 1 about the use of tidal height as a proxy for advection, i.e., the expansion of the paragraph on page 8... 'An important distinction between tidal height and advection...'}
 
-p. 9, lines 139-140 ff: I was generally confused about why different “time” vectors were used to represent days and hours (or is it “hour of day”) separately. Maybe just some clarification of terminology would help.
+p. 9, lines 139-140: I was generally confused about why different “time” vectors were used to represent days and hours (or is it “hour of day”) separately. Maybe just some clarification of terminology would help.
+
+{\it The weighted regression model evaluates weights associated with distance from the center of the window in days as well as hours within the day.  For example, if we care about modelling oxygen at 3 pm, we would weight all other observations close to 3pm in other days with high importance, with further diminishing importance as window distance increases in days from the center.  The weights widget in the supplementary information can be used to view the influence of both, in addition to the tidal weights.  The citation at the end of the paragraph for the multimedia section should help interpretation.  We also revised the line... `Windows for time (continuous throughout the day) and hour (within each day) are used...'
+}
 
 p. 12, line 196: What is the justification for using this particular range of O2 concentrations to generate the simulated data set?
 
+{\it The values were chosen based on a general approximation of the observed data from the case studies, text was added... `as a general approximation from the case studies below'}
+
 p. 12, line 204: “lunar”
 
-p. 13 ff: Equations appear to employ the wrong “del” for the partial derivative, i.e. d versus ¶
+{\it Changed.}
+
+p. 13 ff: Equations appear to employ the wrong “del” for the partial derivative, i.e. versus
+
+{\it This was changed to summation.}
 
 p. 14, line 237: The authors are characterizing a corr. coefficient of 0.63 as “similar”? Or did I
 miss something? On what specific basis in Tables 1 and 2 is the claim of similarity made?
 
+{\it `Similar' may have been too strong of a description for these results, so we have used `comparable' instead.  However, we argue that the filtered time series from simulation results produced a reasonable representation of the `true' biological signal for most scenarioes and we do not want to understate the significance of these results.  In general, only poor results were obtained for scenarios when advection was minimal and process uncertainty was high, which was previously noted on lines 450-451.}
+
 p. 17, lines 299-300: Related to my comment about depth, above. To get from a piston velocity
-to a “volumetric reaeration coefficient” (isn’t this just a depth-corrected piston velocity - why the need for even more jargon?), one must invoke some mixed layer depth. What was the depth (i.e., “H” in Thébault et al’s equation A11) used in each case? The Thébault paper seems to contain a
- 
-not-so-unique method of calculating gas transfer velocity (and air-sea flux), gussied up with new terminology for some of the parameters.
+to a “volumetric reaeration coefficient” (isn’t this just a depth-corrected piston velocity - why the need for even more jargon?), one must invoke some mixed layer depth. What was the depth (i.e., “H” in Thébault et al’s equation A11) used in each case? The Thébault paper seems to contain a not-so-unique method of calculating gas transfer velocity (and air-sea flux), gussied up with new terminology for some of the parameters.
+
+{\it In accordance with studies cited in the manuscript, we have not changed the terminology to reduce confusion between methods.  This works builds on the metabolic approach described in Caffrey et al. 2014 and ongoing work seeks to further develop these methods.  We anticipate that interested readers will consult our references for more details on the exact techniques.  Further, we have clarified the role of depth in the response to the previous comment about areal rates.}
 
 p. 17, lines 300-307: The precise method of obtaining the daily ecosystem metabolism estimates was not clear. (See my general comment 2, above.)
 
@@ -207,7 +260,7 @@ p. 27, lines 527-535: This paragraph belongs in the discussion section. Perhaps 
 
 p. 28: Will code be available publicly somewhere?
 
-{\it Yes, see the comment above.}
+{\it Yes, see the comment above and in response to reviewer 1.}
 
 Comments on figures and tables:
 
