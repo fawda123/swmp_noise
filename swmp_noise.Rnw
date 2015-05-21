@@ -307,7 +307,7 @@ ggplot(to_plo, aes(x = Day, y = DO_obs, group = L1)) +
 
 % example of error surfaces 
 \centering\vspace*{\fill}
-<<err_surf1, fig.height = 3.5, fig.width = 5.5, cache = T, echo = F, eval = T, fig.cap = "Heat maps of correlations and errors (\\ac{RMSE}) for filtered \\ac{DO} time series ($DO_{dtd}$) from weighted regression with `true' biological \\ac{DO} ($DO_{bio}$) for varying simulation parameters: strength of tidal association with \\ac{DO} signal ($DO_{adv}$), amount of process uncertainty ($\\varepsilon_{pro}$), amount of observation observation uncertainty ($\\varepsilon_{obs}$), and strength of diel \\ac{DO} component ($DO_{die}$).  Each tile represents the correlation or error from results for a given combination of simulation parameters averaged for all window widths (as in \\cref{fig:err_surf2}).  See \\cref{tab:dtd_perf1} for a summary of results for each unique parameter.">>=
+<<err_surf1, fig.height = 3.5, fig.width = 5.5, cache = T, echo = F, eval = T, fig.cap = "Heat maps of correlations and errors (\\ac{RMSE}) for filtered \\ac{DO} time series ($DO_{dtd}$) from weighted regression with `true' biological \\ac{DO} ($DO_{bio}$) for varying simulation parameters: strength of tidal association with \\ac{DO} signal ($DO_{adv}$), amount of process uncertainty ($\\varepsilon_{pro}$), amount of observation observation uncertainty ($\\varepsilon_{obs}$), and strength of diel \\ac{DO} component ($DO_{die}$).  Each tile represents the correlation or error from results for a given combination of simulation parameters averaged for all window widths (as in \\cref{fig:err_surf2}).  See \\cref{tab:dtd_perf1} for a summary of combined results for each unique parameter.">>=
 
 # load summary of model performance for simulations
 load('data/mod_perf.RData')
@@ -390,7 +390,7 @@ grid.arrange(p1, p2, ncol = 2)
 
 % example of error surfaces 
 \centering\vspace*{\fill}
-<<err_surf2, fig.height = 2.33, fig.width = 6, cache = T, echo = F, eval = T, fig.cap = "Heat maps of correlations and errors (\\ac{RMSE}) for filtered \\ac{DO} time series ($DO_{dtd}$) from weighted regression with `true' biological \\ac{DO} ($DO_{bio}$) for varying half window widths: days, hour of day, and proportion of tidal range.  Each tile represents the correlation or error from results for a given combination of window widths averaged for all simulation parameters (as in \\cref{fig:err_surf1}).  See \\cref{tab:dtd_perf2} for a summary of results for each unique window.">>=
+<<err_surf2, fig.height = 2.33, fig.width = 6, cache = T, echo = F, eval = T, fig.cap = "Heat maps of correlations and errors (\\ac{RMSE}) for filtered \\ac{DO} time series ($DO_{dtd}$) from weighted regression with `true' biological \\ac{DO} ($DO_{bio}$) for varying half window widths: days, hour of day, and proportion of tidal range.  Each tile represents the correlation or error from results for a given combination of window widths averaged for all simulation parameters (as in \\cref{fig:err_surf1}).  See \\cref{tab:dtd_perf2} for a summary of combined results for each unique window.">>=
 
 options(digits=3)
 
@@ -860,7 +860,7 @@ print(p1)
 % plots of summarized metabolism estimates, before/after detiding
 % all case studies
 \centering\vspace*{\fill}
-<<metab_sum, cache = T, eval = T, echo = F, cache = T, fig.height = 5.5, fig.width = 7, fig.cap = 'Means and standard errors of daily metabolism estimates (gross production, total respiration) aggregated by month.  Aggregated estimates are shown for observed and filtered \\ac{DO} time series.  May was removed from Rookery Bay because of incomplete data.'>>=
+<<metab_sum, cache = T, eval = T, echo = F, cache = T, fig.height = 5.5, fig.width = 7, fig.cap = 'Means and standard errors of daily metabolism estimates (gross production, total respiration) averaged by month.  Averaged results are shown for observed and filtered \\ac{DO} time series.  May was removed from Rookery Bay because of incomplete data.'>>=
 
 # load metabolism dataa
 load('data/met_ls.RData')
