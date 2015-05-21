@@ -53,7 +53,7 @@ I think that the caveats described above have been acknowledged by the authors, 
 
 {\it We agree this is an important issue that deserves additional discussion.  As noted, we have partially addressed these concerns on line 527 but have not explicitly described the ``end member'' problem.  We have added text to this section that elaborates these points. 
 
-`A useful approach for conceptualizing instances when weighted regression may be most appropriate can be described using an ``end member'' paradigm.  These end members are the terminal points of the water mass that is horizontally advected past the DO sensor.  One end member is typically characterized by tidal marshes during flood tide, whereas the second end member may be characterized by oxygenated oceanic waters during ebb tide.  An important distinction is made between end members that are influenced by actual biological processes that occur at each terminus and those that are not, where the former case is more likely a common occurrence at locations with large tidal amplitudes.  In the latter case, variation in dissolved oxygen at the DO sensor is solely related to physical advection and weighted regression should work as intended provided collinearity with the solar cycle is at a minimum.  For other sites where biological processes affect the DO at the end members, the tidal characteristics of a site and the chosen window widths are critical determinants of the ability of weighted regression to isolate the true metabolic signal.  Biological signals from diurnal or semidiurnal tides that exhibit rapid pregression with the solar cycle can be statistically isolated with relatively smaller window widths as the average (i.e., detided) signal can be quantified in fewer tidal cycles.  Conversely, mixed tides that exhibit prolonged periods of synchronicity with the solar cycle, as was observed for Elkhorn Slough, will require larger window widths to characterize the true metabolic signal.  Issues of collinearity at mixed sites add additional challenges as previously noted.  We conclude that weighted regression has the ability to describe the true metabolic signal regardless of tidal characteristcs and biological processes that vary at the end members, although choosing appropriate window widths and evaluating collinearity with the solar cycle are critical factors that must be considered in its application.'
+`A useful approach for conceptualizing instances when weighted regression may be most appropriate can be described using an ``end member'' paradigm.  These end members are the terminal points of the water mass that is horizontally advected past the DO sensor.  One end member is typically characterized by tidal marshes during flood tide, whereas the second end member may be characterized by oxygenated oceanic waters during ebb tide.  An important distinction is made between end members that are influenced by actual biological processes that occur at each terminus and those that are not, where the former case is more likely a common occurrence at locations with large tidal amplitudes.  In the latter case, variation in dissolved oxygen at the DO sensor is solely related to physical advection and weighted regression should work as intended provided collinearity with the solar cycle is at a minimum.  For other sites where biological processes affect the DO at the end members, the tidal characteristics of a site and the chosen window widths are critical determinants of the ability of weighted regression to isolate the true metabolic signal.  Biological signals from diurnal or semidiurnal tides that exhibit rapid pregression with the solar cycle can be statistically isolated with relatively smaller window widths as the average (i.e., detided) signal can be quantified in fewer tidal cycles.  Conversely, mixed tides that exhibit prolonged periods of synchronicity with the solar cycle, as was observed for Elkhorn Slough, will require larger window widths to characterize the true metabolic signal.  Issues of collinearity at mixed sites add additional challenges as previously noted.  Caution should be used with larger window widths as the potential to oversmooth and mute actual interday variation is increased.  For diurnal and semidiurnal sites, relatively small window widths that produce noticeable differences in metabolism estimates may have meaningful implications for metabolism, even if interday variation is smoothed.  We conclude that weighted regression has the ability to describe the true metabolic signal regardless of tidal characteristcs and biological processes that vary at the end members, although choosing appropriate window widths and evaluating collinearity with the solar cycle are critical factors that must be considered in its application.'
 }
 
 Specific questions or corrections:
@@ -237,26 +237,44 @@ miss something? On what specific basis in Tables 1 and 2 is the claim of similar
 p. 17, lines 299-300: Related to my comment about depth, above. To get from a piston velocity
 to a “volumetric reaeration coefficient” (isn’t this just a depth-corrected piston velocity - why the need for even more jargon?), one must invoke some mixed layer depth. What was the depth (i.e., “H” in Thébault et al’s equation A11) used in each case? The Thébault paper seems to contain a not-so-unique method of calculating gas transfer velocity (and air-sea flux), gussied up with new terminology for some of the parameters.
 
-{\it In accordance with studies cited in the manuscript, we have not changed the terminology to reduce confusion between methods.  This works builds on the metabolic approach described in Caffrey et al. 2014 and ongoing work seeks to further develop these methods.  We anticipate that interested readers will consult our references for more details on the exact techniques.  Further, we have clarified the role of depth in the response to the previous comment about areal rates.}
+{\it We have not changed the terminology to reduce confusion between our methods and those we cite.  This works builds on the metabolic approach described in Caffrey et al. 2014 and ongoing work here at EPA and elsewhere will further develop these methods.  We anticipate that interested readers will consult our references for more details on the exact techniques.  Further, we have clarified the role of depth in the response to the previous comment about areal rates.}
 
 p. 17, lines 300-307: The precise method of obtaining the daily ecosystem metabolism estimates was not clear. (See my general comment 2, above.)
 
+{\it See our response to the above comment.}
+
 p. 18, lines 319-321: I think this assumption is valid, but can the authors provide some justification or precedent? One citation would be sufficient.
+
+{\it We have unpublished data that generally support this claim, citation added.  To our knowledge, no studies have examined these relationships at the level of detail in our manuscript.}
 
 p. 19, lines 350-351: I disagree. These percentages from the filtered data do represent a decrease
 in the number of anomalous values by a factor of ~ 3, but they are not “near zero.” In one case,
 7.12\% of values were still anomalous.
 
+{\it Sentence was revised: `Anomalous values were substantially reduced for all case studies...'}
+
 p. 23, line 427: Particularly confusing use of the word “aggregated.” Aggregated or averaged by
 what, and over what time or spatial interval?
 
+{\it Sentence was revised: `Results for Sapelo Island suggested that time averaged estimates, either as monthly or annual means, were comparatively unchanged by filtering...'}
+
 Discussion generally: The discussion read less like a discussion than a simple summary of the rest of the paper. Perhaps a separate discussion isn’t really necessary?
+
+{\it The formatting for L\&O methods emphasizes that the discussion should not represent a substantial focus of the manuscript, rather the assessment section should represent most information emphasizing the results/conclusions.  Our discussion section describes the degree to which the method meets defined needs, potential for new insight, comparison with alternative approaches, and new questions that may have been raised.  Each of these points are desribed in the author guidelines (\href{http://onlinelibrary.wiley.com/journal/10.1002/(ISSN)1541-5856/homepage/ForAuthors.html#6}{http://onlinelibrary.wiley.com/journal/10.1002/(ISSN)1541-5856/homepage/ForAuthors.html\#6}) and are retained in the manuscript accordingly. 
+}
 
 p. 23, lines 440-441: “remove some variation”; the method doesn’t remove all variation
 
+{\it Changed, though we have used `a nontrivial amount' instead of `some'.}
+
 p. 26, lines 500-503: This seemed like it (or some similar text) belonged in the methods section, to describe why the sites were selected. In addition, the grammar of this sentence was confusing.
 
+{\it Sentence was revised and moved to line 269 in the assessment section: `Moreover, many daily metabolism estimates were not interpretable (i.e., `anomalous') using standard open water methods.'
+}
+
 p. 27, lines 527-535: This paragraph belongs in the discussion section. Perhaps after the paragraph ending on line 479.
+
+{\it Moved.} 
 
 p. 28: Will code be available publicly somewhere?
 
@@ -266,19 +284,21 @@ Comments on figures and tables:
 
 Figure 1 ff: One of my few questions about the simulation datasets centers on the way “biology” was parameterized. I appreciate that modulation in the DO signal due to biological processes was modeled as a purely sinusoidal function for purposes of evaluating the method, but even the purest biological signal will not be sinusoidal. Major differences are (1) that the peak of the biological curve will usually lag each day’s peak insolation by some number of hours (evident in the authors’ own data in Fig. 6) and that (2) there is a point of photoinhibition, where the perfect shape of the curve is “dented” by a decrease in photosynthetic activity before it begins its actual decline. I’ve not put either of these very eloquently, but I assume the authors know what I’m speaking of. Some brief acknowledgement in the methods section about the representation of the biological signal as a perfect curve like this would be instructive.
 
+{\it Text was added in the methods to clarity this point (line 196): `Although the representation of $DO_{die}$ as a simple sine wave does not account for lags with the solar cycle or periods of photoinhibition that may be observed in actual time series, we consider the approach sufficient for the simulations.'}
+
 Figure 6: What was the threshold PAR intensity used for defining the PAR shading? What are the units of PAR? Millmoles of what? Photons? Microeinsteins (µE)? Or W m-2?
+
+{\it Information added to figure legend.}
  
 Figure 8 ff: One effect of filtering with the authors’ method is that it appears to dramatically attenuate the interday variation in metabolic parameters evident in unfiltered data. Remember that the “discovery” of this temporal heterogeneity has been one of most widely celebrated features to emerge from analysis of high-frequency time series (of, e.g., D.O.). What is the implication of the authors’ method for the existence (or not) of this heterogeneity? Does this mean there really isn’t as much temporal heterogeneity in ecosystem respiration and in photosynthesis as this method has suggested? Some discussion would be instructive (perhaps
 replacing some of the repetitive text in the current discussion); the authors won’t have to look far into the literature to find many studies that have remarked on the apparent heterogeneity in unfiltered data.
 
+{\it This is a valid point that we discussed at length during manuscript preparation.  The degree of smoothing using filtered results to estimate metabolism is affected by the choice of window width, such that larger widths have the potential to oversmooth.  However, there is a tradeoff between the need for larger window widths and the characteristics of the dataset.  Smaller window widths are effective for sites with rapid pregression of the solar cycle with tidal variation, such that results are more likely to be valid.  Conversely, larger window widths are needed for sites with mixed tides although there is a greater potential for oversmoothing and reducing interday variation that is biologically relevant. We provide cautionary recommendations in the final section, including implications for resolving interday heterogeneity. Text that precedes the addition provides additional context (see the response to the first general comment from reviewer 1).
+
+`Caution should be used with larger window widths as the potential to oversmooth and mute actual interday variation is increased.  For diurnal and semidiurnal sites, relatively small window widths that produce noticeable differences in metabolism estimates may have meaningful implications for metabolism even if interday variation is smoothed.'}
+
 Table 3: Were the metabolic rates given here those calculated using the authors’ method?
 
-References cited in review:
-
-Gaarder, T. and H. H. Gran. 1927. Investigations of the production of plankton in the Oslo Fjord. Rapports et Procès-Verbaux des Réunions du Conseil Permanent International pour l'Exploration de la Mer 42: 1-48.
-
-Odum, H. T. 1956. Primary production in flowing waters. Limnology and Oceanography 1(2):
-102-117
-
+{\it These were based on our methods.  Text was added to the footnote for clarity: `...estimated using methods described herein with observed data'}
 
 \end{document}
