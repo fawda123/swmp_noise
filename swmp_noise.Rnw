@@ -550,7 +550,7 @@ meta <- meta[, c('Longitude', 'Latitude','Reserve.Name')]
 
 % example from SAPHD, phase out
 \centering\vspace*{\fill}
-<<phase_out, cache = T, fig.height = 3, fig.width = 5.5, out.width = '0.8\\textwidth', eval = T, echo = F, fig.cap = 'Continuous \\ac{DO} time series before (observed) and after (filtered) filtering with weighted regression (top) and tidal height (m) colored by total photosynthetically active radiation (bottom, mmol m$^{-2}$). Results are for the Sapelo Island station for a seven day period when high tide events were out of phase with diel periods, creating lower than expected observed \\ac{DO} during night and day periods. Filtered values are based on a weighted regression with half window widths of six days, one hour within each day, and tidal height proportion of one half.'>>=
+<<phase_out, cache = T, fig.height = 3, fig.width = 5.5, out.width = '0.8\\textwidth', eval = T, echo = F, fig.cap = 'Continuous \\ac{DO} time series before (observed) and after (filtered) filtering with weighted regression (top) and tidal height (m) colored by total photosynthetically active radiation (bottom, $\\mu$E m$^{-2}$ s$^{-1}$). Results are for the Sapelo Island station for a seven day period when high tide events were out of phase with diel periods, creating lower than expected observed \\ac{DO} during astronomical night and day periods. Filtered values are based on a weighted regression with half window widths of six days, one hour within each day, and tidal height proportion of one half.'>>=
 ######
 # SAPHD example
 
@@ -574,6 +574,10 @@ inst_subs <- inst_subs[inst.rng,]
 # category for plotting
 inst_subs$cats <- 'out'
 inst_subs$cats[inst_subs$Date > as.Date('2012-02-07')] <- 'in'
+
+# convert totpar (mmol m2 per 15 minutes) to microeinstens per second
+# 1 einstein is 1 mol of photon, milli to micro x 1000, 15 min to sec divide by 900
+inst_subs$TotPAR <- 1000/900 * inst_subs$TotPAR
 
 ##
 # custom theme, mod of theme_b
@@ -622,7 +626,7 @@ p2 <- ggplot(to_plo, aes(x = DateTimeStamp)) +
   theme_bw() +  
   my_theme + 
   scale_y_continuous(ylab) +
-  scale_colour_gradient(expression(paste("Total PAR (mmol ",m^-2,")")), low='blue', high='yellow',
+  scale_colour_gradient(expression(paste("Total PAR (", italic('\u03BC'), "E ", m^-2, ' ', s^-1, ")")), low='blue', high='yellow',
     guide = guide_colorbar(direction = "horizontal",barheight= 0.4)) +
   theme(legend.title.align = 1)
 
@@ -655,7 +659,7 @@ grid.arrange(
 
 % example from SAPHD, phase in
 \centering\vspace*{\fill}
-<<phase_in, cache = T, fig.height = 3, fig.width = 5.5, out.width = '0.8\\textwidth', eval = T, echo = F, fig.cap = 'Continuous \\ac{DO} time series before (observed) and after (filtered) filtering with weighted regression (top) and tidal height (m) colored by total photosynthetically active radiation (bottom, mmol m$^{-2}$). Results are for the Sapelo Island station for a seven day period when high tide events were in phase with diel periods, creating higher than expected observed \\ac{DO} during night and day periods. Filtered values are based on a weighted regression with half window widths of six days, one hour within each day, and tidal height proportion of one half.'>>=
+<<phase_in, cache = T, fig.height = 3, fig.width = 5.5, out.width = '0.8\\textwidth', eval = T, echo = F, fig.cap = 'Continuous \\ac{DO} time series before (observed) and after (filtered) filtering with weighted regression (top) and tidal height (m) colored by total photosynthetically active radiation (bottom, $\\mu$E m$^{-2}$ s$^{-1}$). Results are for the Sapelo Island station for a seven day period when high tide events were in phase with diel periods, creating higher than expected observed \\ac{DO} during astronomical night and day periods. Filtered values are based on a weighted regression with half window widths of six days, one hour within each day, and tidal height proportion of one half.'>>=
 ######
 # SAPHD example
 
@@ -679,6 +683,10 @@ inst_subs <- inst_subs[inst.rng,]
 # category for plotting
 inst_subs$cats <- 'out'
 inst_subs$cats[inst_subs$Date > as.Date('2012-02-07')] <- 'in'
+
+# convert totpar (mmol m2 per 15 minutes) to microeinstens per second
+# 1 einstein is 1 mol of photon, milli to micro x 1000, 15 min to sec divide by 900
+inst_subs$TotPAR <- 1000/900 * inst_subs$TotPAR
 
 ##
 # custom theme, mod of theme_b
@@ -727,7 +735,7 @@ p2 <- ggplot(to_plo, aes(x = DateTimeStamp)) +
   theme_bw() +  
   my_theme + 
   scale_y_continuous(ylab) +
-  scale_colour_gradient(expression(paste("Total PAR (mmol ",m^-2,")")), low='blue', high='yellow',
+  scale_colour_gradient(expression(paste("Total PAR (", italic('\u03BC'), "E ", m^-2, ' ', s^-1, ")")), low='blue', high='yellow',
     guide = guide_colorbar(direction = "horizontal",barheight= 0.4)) +
   theme(legend.title.align = 1)
 
