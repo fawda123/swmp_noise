@@ -122,7 +122,7 @@ Line 100: `The method targets the tidal component as an explicit variable using 
 
 (2) I was generally confused, both in the authors’ application of their filtering method, and in the way they calculated their metabolic estimates, about the role of the third dimension (depth). Did the authors apply the same weight vectors and half-window widths to the data from each depth in a given system? Or, perhaps the authors chose the four systems they did for their case studies because the depth at those particular stations was shallow enough such that only one series of DO data was needed? If the latter case is true (i.e., data from only one depth used at each station), how would the authors propose applying their method in a deeper water column? Could it be? 
 
-{\it Yes, we assumed DO was vertically homogenous.  This is a reasonable assumption for the case studies since all NERRS sites are shallow, productive estuaries.  The method is then of course limited to only shallow water systems, but we argue for broad appeal as these systems are widespread across the globe, in addition to the 28 reserve systems within NERRS.  Additionally, extending the method to stratified systems could be possible although additional data would be needed and the implementation would be much more complex (i.e., accounting for pycnocline exchange rates, etc.).  The following was added to clarity thse points:
+{\it Yes, we assumed DO was vertically homogenous.  This is a reasonable assumption for the case studies since all NERRS sites are shallow, productive estuaries.  The method is then of course limited to only shallow water systems, but we argue for broad appeal as these systems are widespread across the globe, in addition to the 28 reserve systems within NERRS.  Additionally, extending the method to stratified systems could be possible although additional data would be needed and the implementation would be much more complex (i.e., accounting for pycnocline exchange rates, etc.).  The following was added to clarify these points:
 
 Line 259: `NERRS is a network of 28 shallow, productive estuary reserves...'
 
@@ -258,7 +258,7 @@ p. 17, lines 300-307: The precise method of obtaining the daily ecosystem metabo
 
 p. 18, lines 319-321: I think this assumption is valid, but can the authors provide some justification or precedent? One citation would be sufficient.
 
-{\it We have unpublished data that generally support this claim, unpublished citation added.  To our knowledge, no studies have examined these relationships at the level of detail described in our manuscript so we cannot provide a peer-reviewed citation.}
+{\it We have unpublished data that support this claim, unpublished citation added.  To our knowledge, no studies have examined these relationships at the level of detail described in our manuscript so we cannot provide a peer-reviewed citation.}
 
 p. 19, lines 350-351: I disagree. These percentages from the filtered data do represent a decrease
 in the number of anomalous values by a factor of ~ 3, but they are not “near zero.” In one case,
