@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.8.29)  27 MAY 2015 14:11
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.8.29)  29 MAY 2015 11:26
 entering extended mode
 **review_response.tex
 (M:\docs\manuscripts\swmp_noise\review_response.tex
@@ -540,32 +540,90 @@ Package: xstring 2013/07/29  v1.7b  String manipulations (C Tellechea)
 (C:\Users\mbeck\AppData\Roaming\MiKTeX\2.9\tex\latex\outlines\outlines.sty
 Package: outlines 2012/1/23 1.1 Ch. Pecheur
 )
+("C:\Program Files\MiKTeX 2.9\tex\latex\amsmath\amsmath.sty"
+Package: amsmath 2013/01/14 v2.14 AMS math features
+\@mathmargin=\skip61
+
+For additional information on amsmath, use the `?' option.
+("C:\Program Files\MiKTeX 2.9\tex\latex\amsmath\amstext.sty"
+Package: amstext 2000/06/29 v2.01
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\amsmath\amsgen.sty"
+File: amsgen.sty 1999/11/30 v2.0
+\@emptytoks=\toks27
+\ex@=\dimen156
+))
+("C:\Program Files\MiKTeX 2.9\tex\latex\amsmath\amsbsy.sty"
+Package: amsbsy 1999/11/29 v1.2d
+\pmbraise@=\dimen157
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\amsmath\amsopn.sty"
+Package: amsopn 1999/12/14 v2.01 operator names
+)
+\inf@bad=\count151
+LaTeX Info: Redefining \frac on input line 210.
+\uproot@=\count152
+\leftroot@=\count153
+LaTeX Info: Redefining \overline on input line 306.
+\classnum@=\count154
+\DOTSCASE@=\count155
+LaTeX Info: Redefining \ldots on input line 378.
+LaTeX Info: Redefining \dots on input line 381.
+LaTeX Info: Redefining \cdots on input line 466.
+\Mathstrutbox@=\box31
+\strutbox@=\box32
+\big@size=\dimen158
+LaTeX Font Info:    Redeclaring font encoding OML on input line 566.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 567.
+\macc@depth=\count156
+\c@MaxMatrixCols=\count157
+\dotsspace@=\muskip11
+\c@parentequation=\count158
+\dspbrk@lvl=\count159
+\tag@help=\toks28
+\row@=\count160
+\column@=\count161
+\maxfields@=\count162
+\andhelp@=\toks29
+\eqnshift@=\dimen159
+\alignsep@=\dimen160
+\tagshift@=\dimen161
+\tagwidth@=\dimen162
+\totwidth@=\dimen163
+\lineht@=\dimen164
+\@envbody=\toks30
+\multlinegap=\skip62
+\multlinetaggap=\skip63
+\mathdisplay@stack=\toks31
+LaTeX Info: Redefining \[ on input line 2665.
+LaTeX Info: Redefining \] on input line 2666.
+)
 (C:\Users\mbeck\AppData\Roaming\MiKTeX\2.9\tex\latex\upquote\upquote.sty
 Package: upquote 2012/04/19 v1.3 upright-quote and grave-accent glyphs in verba
 tim
 )
 (M:\docs\manuscripts\swmp_noise\review_response.aux)
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 82.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 82.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 83.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 83.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\base\ts1cmr.fd"
 File: ts1cmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    ... okay on input line 83.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -601,19 +659,19 @@ LaTeX Font Info:    ... okay on input line 82.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-\AtBeginShipoutBox=\box31
-Package hyperref Info: Link coloring ON on input line 82.
+\AtBeginShipoutBox=\box33
+Package hyperref Info: Link coloring ON on input line 83.
 ("C:\Program Files\MiKTeX 2.9\tex\latex\hyperref\nameref.sty"
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 
 ("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\gettitlestring.sty"
 Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
-\c@section@level=\count151
+\c@section@level=\count163
 )
-LaTeX Info: Redefining \ref on input line 82.
-LaTeX Info: Redefining \pageref on input line 82.
-LaTeX Info: Redefining \nameref on input line 82.
+LaTeX Info: Redefining \ref on input line 83.
+LaTeX Info: Redefining \pageref on input line 83.
+LaTeX Info: Redefining \nameref on input line 83.
 
 (M:\docs\manuscripts\swmp_noise\review_response.out)
 (M:\docs\manuscripts\swmp_noise\review_response.out)
@@ -627,22 +685,21 @@ Missing character: There is no Â in font cmr12!
 Missing character: There is no ” in font cmr12!
  [1
 
-{C:/Users/mbeck/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 116.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 116.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 116.
- [2]
+{C:/Users/mbeck/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] [2] [3pdfTe
+X warning (ext4): destination with the same identifier (name{equation.0.1}) has
+ been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.141 
+      ]
 Missing character: There is no Â in font cmr12!
 Missing character: There is no ’ in font cmr12!
-Missing character: There is no Â in font cmr12!
-Missing character: There is no ’ in font cmr12!
- [3]
 Missing character: There is no Â in font cmr12!
 Missing character: There is no ’ in font cmr12!
  [4]
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ’ in font cmr12!
 Missing character: There is no Â in font cmr12!
 Missing character: There is no “ in font cmr12!
 Missing character: There is no Â in font cmr12!
@@ -699,6 +756,7 @@ Missing character: There is no Â in font cmr12!
 Missing character: There is no ” in font cmr12!
 Missing character: There is no Â in font cmr12!
 Missing character: There is no ’ in font cmr12!
+ [7]
 Missing character: There is no Â in font cmr12!
 Missing character: There is no ’ in font cmr12!
 Missing character: There is no Â in font cmr12!
@@ -707,7 +765,6 @@ Missing character: There is no Â in font cmr12!
 Missing character: There is no “ in font cmr12!
 Missing character: There is no Â in font cmr12!
 Missing character: There is no ” in font cmr12!
- [7]
 Missing character: There is no Â in font cmr12!
 Missing character: There is no ’ in font cmr12!
 Missing character: There is no Â in font cmr12!
@@ -724,6 +781,7 @@ Missing character: There is no Â in font cmr12!
 Missing character: There is no “ in font cmr12!
 Missing character: There is no Â in font cmr12!
 Missing character: There is no ” in font cmr12!
+ [8]
 Missing character: There is no Â in font cmr12!
 Missing character: There is no ’ in font cmr12!
 Missing character: There is no Ã in font cmr12!
@@ -732,7 +790,6 @@ Missing character: There is no Â in font cmr12!
 Missing character: There is no “ in font cmr12!
 Missing character: There is no Â in font cmr12!
 Missing character: There is no ” in font cmr12!
- [8]
 Missing character: There is no Â in font cmr12!
 Missing character: There is no “ in font cmr12!
 Missing character: There is no Â in font cmr12!
@@ -745,6 +802,7 @@ Missing character: There is no Â in font cmr12!
 Missing character: There is no “ in font cmr12!
 Missing character: There is no Â in font cmr12!
 Missing character: There is no ” in font cmr12!
+ [9]
 Missing character: There is no Â in font cmr12!
 Missing character: There is no “ in font cmr12!
 Missing character: There is no Â in font cmr12!
@@ -769,24 +827,10 @@ Missing character: There is no Â in font cmr12!
 Missing character: There is no ’ in font cmr12!
 Missing character: There is no Ã in font cmr12!
 Missing character: There is no © in font cmr12!
-
-[9]
 Missing character: There is no Â in font cmr12!
 Missing character: There is no “ in font cmr12!
 Missing character: There is no Â in font cmr12!
 Missing character: There is no ” in font cmr12!
-Missing character: There is no Â in font cmr12!
-Missing character: There is no “ in font cmr12!
-Missing character: There is no Â in font cmr12!
-Missing character: There is no ” in font cmr12!
-Missing character: There is no Â in font cmr12!
-Missing character: There is no ’ in font cmr12!
-Missing character: There is no Â in font cmr12!
-Missing character: There is no “ in font cmr12!
-Missing character: There is no Â in font cmr12!
-Missing character: There is no ” in font cmr12!
-Missing character: There is no Â in font cmr12!
-Missing character: There is no ’ in font cmr12!
  [10]
 Missing character: There is no Â in font cmr12!
 Missing character: There is no “ in font cmr12!
@@ -795,6 +839,10 @@ Missing character: There is no ” in font cmr12!
 Missing character: There is no Â in font cmr12!
 Missing character: There is no ’ in font cmr12!
 Missing character: There is no Â in font cmr12!
+Missing character: There is no “ in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ” in font cmr12!
+Missing character: There is no Â in font cmr12!
 Missing character: There is no ’ in font cmr12!
 Missing character: There is no Â in font cmr12!
 Missing character: There is no “ in font cmr12!
@@ -804,6 +852,15 @@ Missing character: There is no Â in font cmr12!
 Missing character: There is no ’ in font cmr12!
 Missing character: There is no Â in font cmr12!
 Missing character: There is no ’ in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no “ in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ” in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ’ in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ’ in font cmr12!
+ [11]
 Missing character: There is no Â in font cmr12!
 Missing character: There is no µ in font cmr12!
 Missing character: There is no Â in font cmr12!
@@ -818,38 +875,40 @@ Missing character: There is no Â in font cmr12!
 Missing character: There is no ’ in font cmr12!
 Missing character: There is no Â in font cmr12!
 Missing character: There is no ’ in font cmr12!
- [11]
+ [12]
 Missing character: There is no Â in font cmr12!
 Missing character: There is no ’ in font cmr12!
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 348.
-Package atenddvi Info: Last page = 12.
- [12]
-Package atveryend Info: Executing hook `AfterLastShipout' on input line 348.
- (M:\docs\manuscripts\swmp_noise\review_response.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 348.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 348.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 362.
+Package atenddvi Info: Last page = 13.
+ [13]
+Package atveryend Info: Executing hook `AfterLastShipout' on input line 362.
+
+(M:\docs\manuscripts\swmp_noise\review_response.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 362.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 362.
 Package rerunfilecheck Info: File `review_response.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 348.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 362.
  ) 
 Here is how much of TeX's memory you used:
- 10636 strings out of 493921
- 173340 string characters out of 3147282
- 303998 words of memory out of 3000000
- 13777 multiletter control sequences out of 15000+200000
- 7389 words of font info for 26 fonts, out of 3000000 for 9000
+ 11160 strings out of 493921
+ 179250 string characters out of 3147282
+ 314401 words of memory out of 3000000
+ 14281 multiletter control sequences out of 15000+200000
+ 8063 words of font info for 29 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 44i,6n,42p,2114b,371s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 44i,6n,42p,2114b,426s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbxti10.pfb><C:/
 Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Program 
 Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiK
 TeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.9/f
 onts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1
-/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/a
-msfonts/cm/cmti12.pfb>
-Output written on review_response.pdf (12 pages, 121512 bytes).
+/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/
+amsfonts/cm/cmsy8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/
+cm/cmti12.pfb>
+Output written on review_response.pdf (13 pages, 131640 bytes).
 PDF statistics:
- 94 PDF objects out of 1000 (max. 8388607)
- 13 named destinations out of 1000 (max. 500000)
+ 103 PDF objects out of 1000 (max. 8388607)
+ 15 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
