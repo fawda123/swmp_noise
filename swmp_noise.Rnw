@@ -92,7 +92,7 @@ options(replace.assign=TRUE,width=90,digits=1)
 \begin{document}
 
 \raggedbottom
-% \linenumbers
+\linenumbers
 \raggedright
 \urlstyle{same}
 \setlength{\parindent}{0.5in}
@@ -171,7 +171,7 @@ We acknowledge the significant efforts of research staff and field crews from th
 
 % example of creating simulated time series
 \centering\vspace*{\fill}
-<<do_sim, eval = T, echo = F, cache = T, fig.width = 7, fig.height = 6, eval.after='fig.cap', fig.cap = 'Example of each component of a simulated \\ac{DO} time series for testing weighted regression.  The time series were created using \\cref{do_obs,do_bio,do_unc,do_obs_all,do_sin,do_unc_n,deltdo,deltx,do_advp,do_adv}. Yellow indicates a twelve hour daylight period beginning at 630 each day.'>>=
+<<do_sim, eval = T, echo = F, cache = T, fig.width = 7, fig.height = 6, eval.after='fig.cap', fig.cap = 'Example of each component of a simulated \\ac{DO} time series for testing weighted regression.  The time series were created using \\cref{do_obs,do_bio,do_unc,do_obs_all,do_sin,do_unc_n,deltdo,do_advp}. Yellow indicates a twelve hour daylight period beginning at 630 each day.'>>=
 # create time vector
 vec <- c('2014-05-01 00:00:00', '2014-05-31 00:00:00')
 vec <- as.POSIXct(vec, format = '%Y-%m-%d %H:%M:%S')
@@ -314,7 +314,7 @@ ggplot(to_plo, aes(x = Day, y = DO_obs, group = L1)) +
 
 % example of error surfaces 
 \centering\vspace*{\fill}
-<<err_surf1, fig.height = 3.5, fig.width = 5.5, cache = T, echo = F, eval = T, fig.cap = "Heat maps of correlations and errors (\\ac{RMSE}) for filtered \\ac{DO} time series ($DO_{dtd}$) from weighted regression with `true' biological \\ac{DO} ($DO_{bio}$) for varying simulation parameters: strength of tidal association with \\ac{DO} signal ($DO_{adv}$), amount of process uncertainty ($\\varepsilon_{pro}$), amount of observation uncertainty ($\\varepsilon_{obs}$), and strength of diel \\ac{DO} component ($DO_{die}$).  Each tile represents the correlation or error from results for a given combination of simulation parameters averaged for all window widths (as in \\cref{fig:err_surf2}).  See \\cref{tab:dtd_perf1} for a summary of combined results for each unique parameter.">>=
+<<err_surf1, fig.height = 3.5, fig.width = 5.5, cache = T, echo = F, eval = T, fig.cap = "Heat maps of correlations and errors (\\ac{RMSE}) for filtered \\ac{DO} time series ($DO_{dtd}$) from weighted regression with `true' biological \\ac{DO} ($DO_{bio}$) for varying simulation parameters: strength of tidal association with \\ac{DO} signal ($DO_{adv}$), amount of process uncertainty ($\\varepsilon_{pro}$), amount of observation uncertainty ($\\varepsilon_{obs}$), and strength of diel \\ac{DO} component ($DO_{die}$).  Each tile represents the correlation or error from results for a given combination of simulation parameters averaged for all window widths (as in \\cref{fig:err_surf2}).">>=
 
 # load summary of model performance for simulations
 load('data/mod_perf.RData')
@@ -397,7 +397,7 @@ grid.arrange(p1, p2, ncol = 2)
 
 % example of error surfaces 
 \centering\vspace*{\fill}
-<<err_surf2, fig.height = 2.33, fig.width = 6, cache = T, echo = F, eval = T, fig.cap = "Heat maps of correlations and errors (\\ac{RMSE}) for filtered \\ac{DO} time series ($DO_{dtd}$) from weighted regression with `true' biological \\ac{DO} ($DO_{bio}$) for varying half window widths: days, hour of day, and proportion of tidal range.  Each tile represents the correlation or error from results for a given combination of window widths averaged for all simulation parameters (as in \\cref{fig:err_surf1}).  See \\cref{tab:dtd_perf2} for a summary of combined results for each unique window.">>=
+<<err_surf2, fig.height = 2.33, fig.width = 6, cache = T, echo = F, eval = T, fig.cap = "Heat maps of correlations and errors (\\ac{RMSE}) for filtered \\ac{DO} time series ($DO_{dtd}$) from weighted regression with `true' biological \\ac{DO} ($DO_{bio}$) for varying half window widths: days, hour of day, and proportion of tidal range.  Each tile represents the correlation or error from results for a given combination of window widths averaged for all simulation parameters (as in \\cref{fig:err_surf1}).">>=
 
 options(digits=3)
 
@@ -1008,152 +1008,6 @@ print(p)
 
 \section{Tables}
 
-% summary of simulation performance for detided and biological, sim parameters
-<<dtd_perf1, cache = F, echo = F, eval = T, results = 'asis'>>=
-
-# uses 'mod_perf' from, see readme
-load('data/mod_perf.RData')
-
-# calculate mean, se for dtd_cor and dtd_err
-dtd_perf <- llply(names(mod_perf)[2:8], # note indexing
-  .fun = function(x) {
-    ddply(
-      mod_perf,
-      .variables = x,
-      .fun = function(y) {
-        c(
-          min(y$cor),
-          quantile(y$cor, 0.25),
-          median(y$cor),
-          quantile(y$cor, 0.75),
-          max(y$cor),
-          min(y$err),
-          quantile(y$err, 0.25),
-          median(y$err),
-          quantile(y$err, 0.75),
-          max(y$err)
-        )
-    })}
-  )
-
-# rename first column for combining, create column for parameter,  then combine
-dtd_perf <- lapply(dtd_perf, 
-  function(x) { 
-    Parameter <- names(x)[1]
-    names(x)[1] <- 'Level'
-    x[,1] <- factor(x[,1])
-    Parameter <- rep(Parameter, nrow(x))
-    x <- data.frame(Parameter, x)
-    x
-    }
-  )
-dtd_perf <- do.call('rbind', dtd_perf)
-names(dtd_perf) <- c('Parameter', 'Level', 'Min cor', 'Low cor', 'Median cor', 'High cor', 'Max cor', 'Min err', 'Low err', 'Median err', 'High err', 'Max err')
-
-# subset by DO time series conditions
-to_tab <-dtd_perf[!dtd_perf$Parameter %in% c('dec_time', 'hour', 'Tide'), ]
-  
-# names for row categories in table
-Parms <- c('$\\boldsymbol{DO_{die}}$', 
-  '$\\boldsymbol{DO_{adv}}$',  
-  '$\\boldsymbol{\\varepsilon_{pro}}$', 
-  '$\\boldsymbol{\\varepsilon_{obs}}$'
-  )
-tab <- form_fun(to_tab[, -c(1:2)])
-rows <- to_tab[, 2]
-cap.val<-'Summary (range, median, quartiles) of correlations and error estimates comparing filtered and biological \\ac{DO} time series for different simulation parameters ($DO_{die}$, $DO_{adv}$, $\\varepsilon_{pro}$, $\\varepsilon_{obs}$).  Values represent averages from multiple simulations with common parameters.  For example, row one is a summary of all simulations for which the diel \\ac{DO} component was zero ($n=729$).  See \\cref{fig:err_surf1} for results of all parameter combinations.'
-
-# foot.val<-'\\footnotesize \\textit{Note:} test' 
-
-latex( 
-  tab,
-  file = '',
-  where = 'h',
-  rowlabel = 'Parameter',
-#   insert.bottom = foot.val,
-  caption = cap.val,
-  caption.loc = 'top',
-  rgroup = Parms,
-  n.rgroup = rep(3, 4),
-  cgroup = c('Correlation', 'RMSE'),
-  n.cgroup = c(5, 5),
-  rowname = rows,
-  colheads=rep(c('Min', '25\\textsuperscript{th}', 'Median', '75\\textsuperscript{th}', 'Max'),2),
-  label = 'tab:dtd_perf1'
-  )
-@
-
-% summary of simulation performance for detided and biological, window widths
-<<dtd_perf2, cache = F, echo = F, eval = T, results = 'asis'>>=
-
-# uses 'mod_perf' from 'dep_data.rnw'
-load('data/mod_perf.RData')
-
-# calculate median, se for dtd_cor and dtd_err
-dtd_perf <- llply(names(mod_perf)[1:8],
-  .fun = function(x) {
-    ddply(
-      mod_perf,
-      .variables = x,
-      .fun = function(y) {
-        c(
-          min(y$cor),
-          quantile(y$cor, 0.25),
-          median(y$cor),
-          quantile(y$cor, 0.75),
-          max(y$cor),
-          min(y$err),
-          quantile(y$err, 0.25),
-          median(y$err),
-          quantile(y$err, 0.75),
-          max(y$err)
-        )
-    })}
-  )
-
-# rename first column for combining, create column for parameter,  then combine
-dtd_perf <- lapply(dtd_perf, 
-  function(x) { 
-    Parameter <- names(x)[1]
-    names(x)[1] <- 'Level'
-    x[,1] <- factor(x[,1])
-    Parameter <- rep(Parameter, nrow(x))
-    x <- data.frame(Parameter, x)
-    x
-    }
-  )
-dtd_perf <- do.call('rbind', dtd_perf)
-names(dtd_perf) <- c('Parameter', 'Level', 'Min cor', 'Low cor', 'Median cor', 'High cor', 'Max cor', 'Min err', 'Low err', 'Median err', 'High err', 'Max err')
-
-# subset by windows
-to_tab <-dtd_perf[dtd_perf$Parameter %in% c('dec_time', 'hour', 'Tide'), ]
-  
-# names for row categories in table
-Parms <- c('Days', 'Hours', 'Tide')
-
-tab <- form_fun(to_tab[, -c(1:2)])
-rows <- to_tab[, 2]
-cap.val<-'Summary (range, median, quartiles) of correlations and error estimates comparing filtered and biological \\ac{DO} time series for simulations using different half window widths in the weighted regressions (days, hours, and proportion of tidal range).  Values represent averages from multiple simulations with common window values. For example, row one is a summary of all simulations for which the half window width was one day ($n=729$). See \\cref{fig:err_surf2} for results of all window combinations.'
-
-# foot.val<-'\\footnotesize \\textit{Note:} test' 
-
-latex( 
-  tab,
-  file = '',
-  rowlabel = 'Window',
-#   insert.bottom = foot.val,
-  caption = cap.val,
-  caption.loc = 'top',
-  rgroup = Parms,
-  n.rgroup = rep(3, 3),
-  cgroup = c('Correlation', 'RMSE'),
-  n.cgroup = c(5, 5),
-  rowname = rows,
-  colheads=rep(c('Min', '25\\textsuperscript{th}',  'Median', '75\\textsuperscript{th}', 'Max'),2),
-  label = 'tab:dtd_perf2'
-  )
-@
-
 % descriptive table of case studies
 <<case_att, cache = F, echo = F, eval = T, results = 'asis'>>=
 
@@ -1251,10 +1105,11 @@ rows <- rownames(tab)
 
 cap.val<-'Summary statistics of tidal component amplitudes (m), selected water quality parameters (\\ac{DO} mg L$^{-1}$, chlorophyll-a $\\mu$g L$^{-1}$, salinity psu, water temperature $^{\\circ}$C)  and metabolism estimates (gross production, respiration, and net ecosystem metabolism as g m$^{-2}$ d$^{-1}$ based on observed data) for each case study.  Tidal components are principal lunar semidiurnal (O1, frequency 25.82 hours), solar diurnal (P1, 24.07 hours), lunar semidiurnal (M2, 12.42 hours), and solar semidiurnal (S2, 12 hours) estimated from harmonic regressions of tidal height (\\texttt{oce} package in R, \\citealt{Foreman89}, \\citetalias{RDCT14}).  Water quality data are averages for the entire period of record for each site.  Metabolism estimates are means of daily integrated values.'
 
-foot.val<-'\\footnotesize\\textsuperscript{\\textit{a}}Pg: gross production, Rt: respiration, NEM: net ecosystem metabolism, estimated using methods described herein with observed data'
+foot.val<-'\\footnotesize\\textsuperscript{\\textit{a}}Pg: gross production, Rt: respiration, NEM: net ecosystem metabolism, estimated using methods described herein without removing advection effects.'
 
 latex( 
   tab,
+  where = '!h', 
   file = '',
   rowlabel = 'Site',
   insert.bottom = foot.val,
@@ -1268,6 +1123,7 @@ latex(
   )
 
 @
+\clearpage
 
 % correlations with tide before/after wtreg
 <<cor_res, cache = F, echo = F, eval = T, results = 'asis'>>=
@@ -1436,6 +1292,7 @@ latex(
   )
 
 @
+\clearpage
 
 % case study metabolism results, including perc anom
 <<case_res, cache = F, echo = F, eval = T, results = 'asis'>>=
@@ -1538,5 +1395,6 @@ latex(
   label = 'tab:case_res'
   )
 @
+\clearpage
 
 \end{document}

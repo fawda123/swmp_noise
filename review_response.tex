@@ -95,37 +95,44 @@
 
 I hope the authors can address this difficult question: does the model work better in diurnal tidal systems because the errors between the day and night conditions on the end-members cancel each other out? This is as opposed to the mixed tides where the errors can be heavily skewed towards respiration or production during the high high tide and thus lead to the large inaccuracies noted for Elkhorn Slough. This is an important point, because if the weighted regression approach is generating offsetting errors then it is not really working.
 
-I think that the caveats described above have been acknowledged by the authors, such as starting on line 527, but I would recommend framing the issues associated with the end member problem in a very straightforward way. 
+I think that the caveats described above have been acknowledged by the authors, such as starting on line 527, but I would recommend framing the issues associated with the “end member” problem in a very straightforward way. 
 
-{\it We suggest that the model can work equally well regardless of tidal characteristics, provided appropriate window widths are used and collinearity between tidal and solar cycles is minimal.  These points were previously mentioned (e.g., lines 431, 521) but additional explanation is needed based on the reviewer's comments.  We have added text to this section to emphasize how and why the model can effectively characterize and remove the tidal signal, emphasizing that the model can work equally well regardless of tidal regime. 
+{\it We suggest that the model can work well in any tidal regime provided that the correlation between tidal changes and the solar cycle is low at the time scale of interest.  As we acknowledged, this condition was often not met in the case of Elkhorn Slough, leading to significant problems in applying the open water method with a single DO time series regardless of the method used.  Critically, it is possible to know by analyzing the correlation of tides and the solar cycle that our method would not be a good choice before applying it to Elkhorn Slough.  The 2014 paper by Nidzieko et al. illustrated the complex and interesting dynamics there and showed that they are better explored with a more detailed data set than our method is intended to require.  It is useful to point out that simply ignoring advection is also not a good option in estuaries like Elkhorn Slough, unless perhaps you are only interested in the means at the annual or longer time scale.
 
-`Understanding physical advection in estuaries and how movement varies by tidal regime can help conceptualize how and why weighted regression reduces tidal effects on DO time series.  Noise in the biological signal caused by longitudinal movement of water past a sensor can be differently characterized depending on tidal regime and habitat characteristics of the estuary.  Sites with mixed tides can have prolonged periods up to several weeks where tidal maxima occur during periods of peak respiration or production.  For example, Nidzieko et al. (2014) and the current analysis have shown that high tide at Elkhorn Slough during summer months more often occurs during nighttime leading to overestimates of respiration.  This contrasts with semidiurnal or diurnal tides that pregress more rapidly with the solar cycle such that the effects of physical advection are more apparent on shorter time scales.  The metabolic history of water masses occurring at the `end members' of the tidal excursion also influences the relative noise in the DO signal.  Time series at sites within a tidal excursion that includes a mosaic of habitats (e.g., open ocean, seagrass beds, tidal marshes) will have a stronger signal of physical advection.  Choosing appropriate window widths for a given site depends entirely on the tidal regime and the types of habitat within an estuary.  Extreme examples, such as macrotidal sites with mixed tides and different habitat types, will require larger window widths to isolate the true metabolic signal as the moving regression for each observation must include sufficient observations to characterize the average.  Biological signals from diurnal or semidiurnal tides can be statistically isolated with relatively smaller window widths as the true metabolic signal can be quantified in fewer tidal cycles.  Weighted regression has the ability to describe the true metabolic signal regardless of tidal characteristics and biological processes that vary at the end members, although chosen window widths and collinearity with the solar cycle affect its application.'
+Our method works by statistically separating DO variability associated with tide height from DO variability associated with the solar cycle.  We think that it is unlikely that we would have obtained the results that we did by generating offsetting errors.
+
+Although we mentioned these points previously (e.g., lines 431, 521) we added additional explanation based on the reviewer’s comments. Specifically, we added text to this section to emphasize how and why the model can effectively characterize and remove the tidal signal, emphasizing that the model can work well in a variety of tidal regimes.
+
+`Tidal currents in estuaries can move water across a mosaic of habitat types that likely have different biological rates.  For example, the magnitudes of production and respiration, and the net metabolism may differ across salinity gradients, between open water and shallow water habitats, and inside and outside of tidal marshes and seagrass habitats.  These complex estuarine seascapes are especially prevalent at sites like those in the NERRS network.  The interaction between spatial differences in metabolic processes and tidal advection moving water masses among habitats contributes to tidal artifacts in open water metabolism calculations.  Advection alone, such as in an open coastal environment might actually generate little distortion of the metabolic signal within the DO record.  
+
+The objective of the weighted regression method is the remove or reduce variations associated with tides, allowing for an improved estimate of the average metabolic rates between the ``end members'' that define the tidal excursion about the DO sensor.  The method works because in most tidal regimes, tidal cycles pregress fully relative to the solar cycle within several weeks.  Pregression occurs quickly with semidiurnal tides and slightly more slowly with diurnal tides.  At time scales longer than this period, DO variations associated with metabolism can be separated statistically from DO variations associated with tides.  Locally-weighted regression is necessary because both the average metabolic rates associated with the solar cycle and the horizontal DO gradients created by spatial differences in metabolism are variable in time.  The temporal scale and the choice of window width can be based on the time required for pregression of tides relative to the solar cycle.
+
+Problems may arise in applying the method in certain situations, apparently most common with mixed tides, where complete phase pregression occurs across a seasonal time scales.  For example, Nidzieko et al. (2014) showed that the higher high tide, which floods high marsh habitats, can occur at night in Elkhorn Slough throughout summer causing both real and apparent changes in metabolism.  Large errors in standard open water metabolism calculations result because tide is generally rising during afternoon and falling in the early hours of the day, amplifying the true metabolic signal.  Because the tide and solar cycle are correlated, however, our method ascribes all variability to the tide, resulting in equally unsatisfactory and large underestimates of rates.  Weighted regression could be used, but only at a very long time scale, where the benefits of using it are not as great.  As Nidzieko et al. (2014) showed, these complex patterns are best quantified and understood with the benefit of a more detailed data set.'
 }
 
 Specific questions or corrections:
 
 1) This may be a naive question -  but is tidal height an accurate proxy for advection? It is intuitive that the higher the tidal amplitude the more advection that will occur over the period. However, it is also true that the fastest currents associated with tides occur in the mid-tide range, for example on a large ebb tide the highest currents (and presumably a significant part of the advection term) occur when the tide is actually near the mid-range in tide height. Equation 13 seems to contradict this fact, where the highest advection (DOadv) is associated with the highest tide measurement (H). This is in fact slack tide when very little advection is occurring.
 
-{\it We recognize that tide height is not the same measure as advection.  Weighted regression only requires a variable that is statistically correlated to advection.  The model is effective because it isolates the changes in DO to tidal height within the moving window, such that actual physical differences between tidal height and advection are inconsequential.  We have added additional text to emphasize this distinction, beginning on line 123.  We have also revised lines 204-213 in the methods to clarify differences between the simulated data and actual time series.
+{\it We recognize that tide height is not the same measure as advection, and specifically, that advective currents can vary in both magnitude and phase relative to tide height.  Equation 13 describes our method for computing a simulated component of the DO time series associated with advection.  This equation describes the DO changes, not the magnitude of the tidal current as the reviewer’s question suggests.  We decided that equation 13 actually provided excessive detail which confused more than it informed, and therefore we eliminated the equation from the text.  The correct interpretation is that the DOadv ``end members'' occur at either high or low tide when the water mass and associated DO gradient is maximally displaced either ``up-estuary'' or ``down-estuary.'' Our approach assumes that this occurs around high tide and low tide, respectively, such that DOadv is linearly related to H (i.e., our eq. 1). Because of this, our model is most applicable in the case of a standing wave, which is reasonable for the types of estuarine sites where this approach is most applicable.
 
-Line 123: `An important distinction between tidal height and advection is that each variable could provide different information about tidal regime.  For example, tidal heights at the minimum and maximum of the range for standing wave tides may be associated with periods of low advection when water masses are not moving rapidly past the sensor.  The relationship between tidal height and advection across multiple environments may be complex.  The weighted regression model is suited for application to different locations because it needs only a variable that indicates a particular point in the tidal cycle.  The specific influence of advection on the DO time series is isolated using the moving window approach such that the relationship between tidal height and advection does not need to be known.
-'
+Fortunately, our weighted regression method only requires a variable that is statistically correlated with DO changes associated with displacement of the water mass by advection.  We need not predict either the actual current speeds or the length of the tidal excursion, which we describe in eq. 10 and 11 only to conceptualize the processes that we model empirically.  We added additional text to make these points more clear, beginning on line 123. We also revised lines 204-213 in the methods to clarify differences between how we generated the simulated data and how what we expected in the actual time series.
+
+Line 123: `Tidal height is used as a proxy for advection because this measurement is widely available, easy to measure, and meets the model requirements, which is a variable that is correlated locally in time with DO variations attributable to advection.  Importantly, tide height need not predict the actual magnitude of advection.  This is important because, across estuarine locations, the relationship between tide height and tidal currents can be variable in both magnitude and phase, depending on local characteristics.  The weighted regression model is well-suited for the situation in estuaries because it empirically fits the local relationship between tide height and DO, such that no a priori knowledge of the relationship between tide height and either the magnitude of advection or the horizontal gradient in DO is needed.'
 
 Line 204: `A tidal series was simulated based on the principal lunar semidiurnal (M2) tide with a period of 12.42 hours (Foreman and Henry 1989).  The amplitude was set to 1 meter and centered  at 4 meters.  The tidal time series simulated DO changes with advection, $DO_{adv}$ (eq. (7) and Fig. 1). Conceptually, this vector represents the rate of change in DO as a function of horizontal water movement from tidal advection such that:
 \begin{equation} \tag{10}
 \frac{\delta DO_{adv}}{\delta t} = \frac{\delta DO}{\delta x} \cdot \frac{\delta x}{\delta t}
 \end{equation}
-where the change in DO from advection over time $t$ is the product of the change in DO over the change in tidal excursion $x$ and the change in tidal excursion over time.  The simulated tidal time series was used to create $DO_{adv}$ as a simple sine wave as in eq. (8).  This time series was centered at zero to simulate increasing or decreasing DO with tidal height change.  The final time series for observed DO was the sum of biological DO and advection DO (eq. (4) and Fig. 1).  For actual time series, changes in DO from advection can be described generally as a function of tidal height:
+where the change in DO from advection over time $t$ is the product of the change in DO over the change in tidal excursion $x$ and the change in tidal excursion over time.  The simulated tidal time series was used to create $DO_{adv}$ as a simple sine wave as in eq. (8).  This time series was centered at zero to simulate increasing or decreasing DO with tidal height change.  The final time series for observed DO was the sum of biological DO and advection DO (eq. (4) and Fig. 1). For time series from the NERRS monitoring sites, changes in DO associated with advection are modeled as linear function of tidal height as indicated by the parameter $\beta_{2}$ in eq.(1).  We can express the tidal component of DO variations alone as
 \begin{equation} \tag{11}
-DO_{adv} = f\left(H\right) 
-\end{equation}
-The functional relationship between tidal height and changes in DO from physical advection may vary depending on tidal regime, e.g., standing wave versus progress tides.  For weighted regression, all that is required is a variable that is statistically correlated with tide to quantify the influence on the DO time series.  Our simulated data assumes that tidal height is directly proportional to changes in DO and, therefore, statistically correlated.  This assumption may be invalid for actual time series but it is appropriate for evaluating the empirical qualities of the weighted regression model, as described in the previous section.'  
-
+DO_{adv} = \beta_{2}H
+\end{equation}'
 }
 
 2) The symbol for uncertainty in equation (6) and (7) and in the text on page 11 is not the same as the symbol used in figure 1, and both are different than at the bottom of page 13.
 
-{\it We have verified all equations, text, figures, and tables show the same same symbol, $\varepsilon$.}
+{\it We have verified all equations, text, figures, and tables show the same symbol, $\varepsilon$.}
 
 3) Line 247: should this be decreased process error?
 
@@ -148,42 +155,43 @@ Line 186: `For example, wind events can affect air-sea gas exchange (Ziegler and
 
 6) It would be beneficial to readers if the code for the analysis was distributed with the published paper.
 
-{\it we created a simple R package on GitHub for implementing weighted regression and estimating ecosystem metabolism. A link was added as supplementary information: \href{https://github.com/fawda123/WtRegDO}{https://github.com/fawda123/WtRegDO}}  
+{\it We created a simple R package on GitHub for implementing weighted regression and estimating ecosystem metabolism. A link was added as supplementary information: \href{https://github.com/fawda123/WtRegDO}{https://github.com/fawda123/WtRegDO}}  
 
 \Bigtxt{Reviewer 2:}
 
-Do the authors plan to make their R code available? They mention several times how useful it could be to others (a point on which I certainly agree), but it wont be useful unless its available!
+Do the authors plan to make their R code available? They mention several times how useful it could be to others (a point on which I certainly agree), but it won’t be useful unless it’s available!
 
 {\it We have added a link in the supplementary information for an R package to implement weighted regression and ecosystem metabolism: \href{https://github.com/fawda123/WtRegDO}{https://github.com/fawda123/WtRegDO}}
 
 General comments:
 
-(1) The new method offers significant advantages for the types of systems in the NERRS network, which are the focus of their study. The authors touch on this distinction briefly in lines 98-100, but I think they need to expand on the point and make it more prominent.
+(1) As the authors acknowledge, the practice in physical oceanography of filtering high frequency DO time-series data (or time series of other properties) to isolate certain signals is far from new. As far as I can tell, the major advantage of the authors’ proposed method over the traditional time-series methods (i.e., Kalman or band-pass filtering, or various applications of the autocorrelation function) is that the authors use weighted regression to create a separate, distinct time series that represents the tidal signal at each station, then use that time series to detrend the observed data. This has the distinct advantage of targeting the tidal signal explicitly, rather than simply filtering out all signals that happen to fall within a certain range of periodicity. The latter approach is fine in coastal or offshore systems, where the magnitudes of the tides (and of production and respiration themselves) are often not so high. But, the new method offers significant advantages for the types of systems in the NERRS network, which are the focus of their study. The authors touch on this distinction briefly in lines 98-100, but I think they need to expand on the point and make it more prominent.
 
-{\it NERRS sites are often characterized by heterogenous habitats in a complex mosaic, which simultaneously creates interesting research opportunities but also complicates evaluation of temporal variation of ecosystem characteristics.  As the reviewer notes, the weighted regression approach is ideal for such locations because it explicitly targets the tidal component using a dynamic fitting process.  This is in contrast which traditional deconvulution methods that are likely to produce suboptimal results in complex environments such as NERRS.  We have added text to emphasis the advantage of using weighted regression in estuarine environments.
+{\it We addressed this issue as part of our response to Reviewer 1.  We address this again here in brief.  We agree that NERRS sites are characterized by a complex mosaic of habitat types.  These habitat differences and associated differences in metabolism generate horizontal DO gradients in estuaries, which interact with tidal currents to complicate interpretation of metabolism from DO time series.  As the reviewer notes, the weighted regression approach is ideal for such locations because it explicitly targets the tidal component using a dynamic fitting process. The locally weighted approach is important because the magnitude of DO changes associated with tides is likely to vary through time as a result of changes in metabolism.  This variability would complicate application of traditional deconvulution methods.  We added text to emphasis the advantage of using weighted regression in estuarine environments like the NERRS sites.
 
-Line 100: `The method targets the tidal component as an explicit variable using dynamic model parameters that change with location in the time series.  This allows an isolation of the biological component of the DO time series that is independent of advection.  As a result, the weighted regression approach can preserve the true biological signal rather than risking removal of both the biological and physical components as with traditional deconvulution methods.  This offers an advantage for estuaries where the magnitude of tidal effects on water quality observations can be larger than in offshore or coastal environments.'
+Line 100: `The method targets the tidal component as an explicit variable using dynamic model parameters that change through time.  This approach makes it possible to estimate and reduce the effect of advection on the DO time series, even if this effect varies through time due to changes in metabolic rates.  Local fitting provides an advantage relative to traditional deconvulution methods. The method is most useful in estuaries where tidal effects interact with horizontal differences in metabolism and associated DO concentrations.  Although the method could be applied in open ocean environments, it may be less useful because horizontal DO gradients may be less in such systems, such that it could be sufficient to simply neglect advection as has commonly been done in the past.'
 }
 
-(2) I was generally confused, both in the authors application of their filtering method, and in the way they calculated their metabolic estimates, about the role of the third dimension (depth). Did the authors apply the same weight vectors and half-window widths to the data from each depth in a given system? Or, perhaps the authors chose the four systems they did for their case studies because the depth at those particular stations was shallow enough such that only one series of DO data was needed? If the latter case is true (i.e., data from only one depth used at each station), how would the authors propose applying their method in a deeper water column? Could it be? 
 
-{\it Yes, we assumed DO was vertically homogenous.  This is a reasonable assumption for the case studies since all NERRS sites are shallow, productive estuaries.  The method is then of course limited to only shallow water systems, but we argue for broad appeal as these systems are widespread across the globe, in addition to the 28 reserve systems within NERRS.  Additionally, extending the method to stratified systems could be possible although additional data would be needed and the implementation would be much more complex (i.e., accounting for pycnocline exchange rates, etc.).  The following was added to clarity thse points:
+(2) I was generally confused, both in the authors’ application of their filtering method, and in the way they calculated their metabolic estimates, about the role of the third dimension (depth). Did the authors apply the same weight vectors and half-window widths to the data from each depth in a given system? Or, perhaps the authors chose the four systems they did for their case studies because the depth at those particular stations was shallow enough such that only one series of DO data was needed? If the latter case is true (i.e., data from only one depth used at each station), how would the authors propose applying their method in a deeper water column? Could it be? 
+
+{\it Yes, we assumed DO was vertically homogenous. This is a reasonable assumption for the case studies since all NERRS sites are shallow, productive estuaries. The method is then of course limited to only shallow water systems, but we argue for broad appeal as shallow estuarine environments occur throughout the world in addition to the 28 reserve systems within NERRS. Additionally, extending the method to stratified systems could be possible although additional data would be needed and the implementation would be much more complex (i.e., accounting for pycnocline exchange rates, etc.). The following was added to clarify these points:
 
 Line 259: `NERRS is a network of 28 shallow, productive estuary reserves...'
 
-Line 285: `NERRS sites are typically shallow and vertically-mixed such that one water quality monitor is adequate for the entire water column, including the benthos.'
+Line 285: `NERRS sites are typically shallow and vertically-mixed such that one water quality monitor is adequate to characterize DO for the entire water column.'
 
-Line 445: `The regression method and open-water technique may also have broad appeal for application in estuaries that are shallow and vertically-mixed, such as those within NERRS. Extension to stratified systems may be possible with additional data and model validation.'   
+Line 445: `The regression method and open-water technique may also have broad appeal for application in estuaries that are shallow and vertically-mixed, such as those within the NERRS. Extension to stratified systems may be possible with additional data and model development.'   
 }
 
 Further:
 
 (a) Unless I missed it, what was the method of integration by which the authors got from their volumetric estimates for each time step in equation (14) (specified in g O2 m-3 hr-1) to the depth- integrated (areal) estimates (in g O2 m-2 t-1) that appear in all of their figures and tables?
 
-{\it Text was added for clarification on line 307: `Finally, volumetric rates were converted to depth-integrated (areal) estimates (g O$_2$ m$^{-2}$ d$^{-1}$) by multiplying by the mean water-column depth at the site.  Site depth was taken from the water quality sensor and a half-meter was also added to account for approximate placement slightly off of the bottom.' 
+{\it Text was added for clarification on line 307: `Finally, volumetric rates were converted to depth-integrated (areal) estimates (g O$_2$ m$^{-2}$ d$^{-1}$) by multiplying by the mean water-column depth at the site. Site depth was estimated from the pressure sensor on the water quality sonde, with a half-meter added to account for placement of the sonde just above the bottom.' 
 }
 
-(b) I am concerned (or perhaps just confused) about the method the authors chose for deriving daily estimates of P and R from the hourly fluxes calculated using equation (14). The description of the method is not clear. Did the authors (1) calculate the individual hourly fluxes, then group them by day or night, then average them, and then multiply each by the duration of the day or night, or (2) calculate the individual hourly fluxes, then divide them by day or night, then add them together within their respective groups? Both methods have been used in the DO time- series metabolism literature; the second may be better since it doesnt assume the rate of primary production is constant over the course of a given day.
+(b) I am concerned (or perhaps just confused) about the method the authors chose for deriving daily estimates of P and R from the hourly fluxes calculated using equation (14). The description of the method is not clear. Did the authors (1) calculate the individual hourly fluxes, then group them by “day” or “night,” then average them, and then multiply each by the duration of the day or night, or (2) calculate the individual hourly fluxes, then divide them by “day” or “night,” then add them together within their respective groups? Both methods have been used in the DO time- series metabolism literature; the second may be better since it doesn’t assume the rate of primary production is constant over the course of a given day.
 
 {\it We used an approach identical to Caffrey et al. 2014 (cited on lines 294, 298) to average DO flux in each day/night period, which is then multiplied by different time periods to estimate production and respiration.  Fortunately, the two approaches as described would produce an identical result, which we confirmed using a simple spreadsheet comparison.  For the purpose of the comment, we have revised the text to clarify the method:
 
@@ -192,19 +200,17 @@ Line 300: `The diffusion-corrected DO flux estimates as hourly rates of DO chang
 
 (3) Notation and terminology:
 
-(a) The use of Pg to denote gross primary production is very confusing, especially since the units of Pg are in g (and Pg also being the SI unit for petagrams). Perhaps something else would be more appropriate? In addition, what is the t in Rt as the notation for respiration? Total? If so, the authors should specify when they introduce their variable (unless they did, and I missed it?).
+(a) The use of “Pg” to denote gross primary production is very confusing, especially since the units of Pg are in g (and Pg also being the SI unit for petagrams). Perhaps something else would be more appropriate? In addition, what is the “t” in “Rt” as the notation for respiration? Total? If so, the authors should specify when they introduce their variable (unless they did, and I missed it?).
 
-{\it These are standard terms that describe gross production and total respiration (see Caffrey et al. 2014, references therein).  The above revision in response to the previous comment defines the acronyms accordingly.}
+{\it These are standard terms that have been used extensively in the past to describe gross production and total respiration (see Caffrey et al. 2014, references therein). The above revision in response to the previous comment defines the acronyms accordingly.}
 
-(b) The word aggregation is used throughout the text. I gather from my reading of the ms that the authors mean binning or averaging, over some time or spatial scale. Aggregation is not a particularly precise term, because it could mean many different things. Perhaps the authors could consider replacing this word in the ms with a word or phrase that describes what they mean, e.g. time averaging.
+(b) The word “aggregation” is used throughout the text. I gather from my reading of the ms that the authors mean binning or averaging, over some time or spatial scale. “Aggregation” is not a particularly precise term, because it could mean many different things. Perhaps the authors could consider replacing this word in the ms with a word or phrase that describes what they mean, e.g. “time averaging.”
 
 {\it We have noted all instances in the text where `aggregation' is used and revised for clarity, mostly replacing with `time averaging' or greater detail as needed.}
 
 (4) Duplication of presentation. If space is an issue, it seems as though Figs. 3 and 4 present the same data as Tables 1 and 2. I know heatmaps are all the rage right now, but I honestly felt the specific correlation coefficients in the tables told me a lot more than the heatmaps.
 
-{\it We are willing to remove these figures at the editor's request but we would prefer they be retained because they do not show identical information.  The figures provide an overview of the correlation and error associated with each unique combination of simulation conditions (Fig. 3) and window widths (Fig. 4).  The tables provide a distribution of the correlation and error for each unique parameter where a criteria applied.  For example, the first row in table 1 shows the distribution of the correlation/error for all simulation results when the diel DO component was set at zero.  This information is a summary whereas all values are shown in Fig. 3 as 27 tiles where the diel DO component was zero.
-
-Text was added to figure/table captions to emphasize these differences.  For example, figure 3 caption now includes `See Table 1 for a summary of combined results for each unique parameter', whereas Table 1 now includes `See Fig. 3 for results of all parameter combinations.'
+{\it We are willing to remove these figures at the editor’s request but we would prefer they be retained because they do not show identical information.  However, we have removed the tables because we feel the information does not provide a meaningful description of the results.  Please see our response to the reviewer’s comment on p. 14, line 237. 
 }
 
 Specific comments:
@@ -213,24 +219,24 @@ Abstract generally: If the authors could work in a sentence on the significance 
 
 {\it The following was added to the abstract: `The method targets the tidal component using a flexible association while preserving the true biological signal, offering an advantage over traditional deconvulution methods.'
 
-We have decided not to include results in the mansucript.  We feel that presenting simple summary numbers without adequate explanation would be more misleading than it is informative since the model did not work in all cases.  The abstract requirements for L\&O Methods is word-limited and we feel that we cannot adequately present this information within the allotted space.
+We have decided not to include results in the manuscript.  We feel that presenting simple summary numbers without adequate explanation would be more misleading than informative since the model did not work in all cases.  The abstract requirements for L\&O Methods is word-limited and we feel that we cannot adequately present this information within the allotted space.
 }
 
-p. 3, line 12: integrated by what dimension and over what interval? Depth? Time?
+p. 3, line 12: “integrated” by what dimension and over what interval? Depth? Time?
 
 {\it This term was removed as the details are now available in the text.}
 
-p. 3, line 22: useful is nonspecific and does the authors work a disservice; can they think of
+p. 3, line 22: “useful” is nonspecific and does the authors’ work a disservice; can they think of
 something more specific and impactful?
 
-{\it See our response to the first specific comment.  We have also revised some of the text for clarity: `Variability from advection was reduced in all cases, in addition to a reduction of the correlation with the tide. The model was especially effective when the magnitude of tidal influence was high and correlations between tidal change and the solar cycle were low, whereas collinearity in the latter instance limited model performance.'}
+{\it See our response to the first specific comment.  We have also revised some of the text for clarity: `Variability resulting from advection was reduced in all cases, greatly reducing the correlation of DO and metabolism estimates with tides. The model was especially effective when the magnitude of tidal influence was high and correlations between tidal change and the solar cycle were low at the time scales of interest.  When tides and the solar cycle were correlated for protracted periods, the model was less useful.'}
 
-p. 3, lines 23-24: See my comment above regarding the methods performance when the solar cycle and period of tidal height change were highly collinear. The method yielded estimates at the Elkhorn and Padilla sites which were significantly different from those obtained with the unfiltered (traditional) data. By the authors own admission, neither the filtered nor unfiltered data probably accurately represent what is truly happening at those sites. A sentence specifying those situations in which the method did not perform particularly well would be more honest, rather than simply saying when it generally did work well.
+p. 3, lines 23-24: See my comment above regarding the method’s performance when the solar cycle and period of tidal height change were highly collinear. The method yielded estimates at the Elkhorn and Padilla sites which were significantly different from those obtained with the unfiltered (traditional) data. By the authors’ own admission, neither the filtered nor unfiltered data probably accurately represent what is truly happening at those sites. A sentence specifying those situations in which the method did not perform particularly well would be more honest, rather than simply saying when it generally did work well.
 
 {\it The sentence was modified as follows: `The model was especially effective when the magnitude of tidal influence was high and correlations between tidal change and the solar cycle were low, whereas collinearity in the latter instance limited model performance.'
 }
 
-p. 3, line 26: timescales
+p. 3, line 26: “timescales”
 
 {\it Changed.}
 
@@ -238,27 +244,27 @@ p. 4, lines 32-33: Reference to Gaarder and Gran (1927) missing here.
 
 {\it Citation added.}
 
-p. 4, lines 42-43: This simply isnt true. There are dozens of reasons bottle incubations are more effective in certain situations, depending on the research objective. Open-water measurements may be more effective for evaluating certain kinds of events or trends, but if the authors are going to make this claim, they should specify what they mean.
+p. 4, lines 42-43: This simply isn’t true. There are dozens of reasons bottle incubations are more effective in certain situations, depending on the research objective. Open-water measurements may be more effective for evaluating certain kinds of events or trends, but if the authors are going to make this claim, they should specify what they mean.
 
-{\it The sentence was revised: `Open-water estimates also provide a more accessible means of tracking ecosystem change over time as compared to discrete sampling events with bottle-based approaches.'}
+{\it The sentence was revised: `Open-water estimates also provide a practical means of capturing events and ecosystem changes over time as compared to discrete sampling events with bottle-based approaches because monitors are present continuously.  While bottle-based measurements offer advantages in precision, it is not possible to sustain bottle measurements day after day, making it unlikely that sampling will occur during an unanticipated short-term event.  Moreover, more variability is captured in continuous data and statistical power for resolving long-term changes is greater compared to periodic measurements.'}
 
-p. 4, line 46: Reliable estimates
+p. 4, line 46: “Reliable estimates”
 
 {\it Changed.}
 
-p. 5, line 67: advection, leading to
+p. 5, line 67: “advection, leading to…”
 
 {\it Comma added.}
 
-p. 6, line 81: example illustrates
+p. 6, line 81: “example illustrates”
 
 {\it Changed.}
 
-p. 7, lines 98-100: See my comments above about the methods significance vis-à-vis traditional detrending methods. An expanded discussion of the difference here is warranted.
+p. 7, lines 98-100: See my comments above about the method’s significance vis-à-vis traditional detrending methods. An expanded discussion of the difference here is warranted.
 
 {\it See the response to the first general comment, i.e., the additions to the final paragraph of the introduction.}
 
-p. 7, lines 101-102: evaluate the ability
+p. 7, lines 101-102: “evaluate the ability”
 
 {\it Changed.}
 
@@ -270,7 +276,7 @@ p. 8, lines 121-122: I buy the idea, but is there some justification in the lite
 
 {\it See our response to reviewer 1 about the use of tidal height as a proxy for advection, i.e., the expansion of the paragraph on page 8... 'An important distinction between tidal height and advection...'}
 
-p. 9, lines 139-140: I was generally confused about why different time vectors were used to represent days and hours (or is it hour of day) separately. Maybe just some clarification of terminology would help.
+p. 9, lines 139-140: I was generally confused about why different “time” vectors were used to represent days and hours (or is it “hour of day”) separately. Maybe just some clarification of terminology would help.
 
 {\it The weighted regression model evaluates weights associated with distance from the center of the window in days as well as hours within the day.  For example, if we care about modelling oxygen at 3 pm, we would weight all other observations close to 3pm in other days with high importance, with further diminishing importance as window distance increases in days from the center.  The weights widget in the supplementary information can be used to view the influence of both, in addition to the tidal weights.  The citation at the end of the paragraph for the multimedia section should help interpretation.  We also revised the line... `Windows for time (continuous throughout the day) and hour (within each day) are used...'
 }
@@ -279,23 +285,26 @@ p. 12, line 196: What is the justification for using this particular range of O2
 
 {\it The values were chosen based on a general approximation of the observed data from the case studies, text was added... `as a rough approximation from the case studies below'}
 
-p. 12, line 204: lunar
+p. 12, line 204: “lunar”
 
 {\it Changed.}
 
-p. 13 ff: Equations appear to employ the wrong del for the partial derivative, i.e. versus
+p. 13 ff: Equations appear to employ the wrong “del” for the partial derivative, i.e. versus
 
-{\it This was changed to summation.}
+{\it The symbols were changed to show the correct partial derivative.}
 
-p. 14, line 237: The authors are characterizing a corr. coefficient of 0.63 as similar? Or did I
+p. 14, line 237: The authors are characterizing a corr. coefficient of 0.63 as “similar”? Or did I
 miss something? On what specific basis in Tables 1 and 2 is the claim of similarity made?
 
-{\it `Similar' may have been too strong of a description for these results.  Instead, we suggest that the filtered time series from simulation results produced a `reasonable representation' of the true biological signal for most scenarioes.  Poor results were only obtained for scenarios when advection was minimal and process uncertainty was high, which was previously noted on lines 450-451.}
+{\it Considering the reviewer’s response, we realized that tables 1 and 2 are not helpful because the distributional statistics depended on the simulations that we chose to run and analyze and don’t indicate what somebody may expect to get in an analysis of data from the real world.  In our revision, we described and explained the patterns in Fig 3/4 and their implications for our method.  We think that this is far more informative and thank the reviewer for this question.
+
+Line 234: `The filtered DO time series were compared to the simulated data to evaluate the ability of weighted regression to quantify and remove the variability due to advection (DOadv), leaving the biological response (DObio) (eq. 4); Fig 3).  Comparisons were made using Pearson correlation coefficients and the root mean square error (RMSE).  The ability of weighted regression to isolate DObio, indicated by high correlation and low RMSE, was not reduced by the introduction of advection into the simulated time series (i.e., DOobs) because weighted regression was able to quantify and remove this variability.  On the other hand, introduction of observation uncertainty (obs) decreased the ability of the model to quantify and remove advection.  Perhaps counterintuitively, increased magnitude of advection improved the model performance because a larger advection signal can be fitted empirically despite the presence of random error.  When the advection signal was small, it became difficult or impossible to quantify unless there was neither process uncertainty nor observation error.  This suggests that if the advection signal is in fact very small, it would be preferable not to quantify it and instead neglect it, as has been done previously.' 
+}
 
 p. 17, lines 299-300: Related to my comment about depth, above. To get from a piston velocity
-to a volumetric reaeration coefficient (isnt this just a depth-corrected piston velocity - why the need for even more jargon?), one must invoke some mixed layer depth. What was the depth (i.e., H in Thébault et als equation A11) used in each case? The Thébault paper seems to contain a not-so-unique method of calculating gas transfer velocity (and air-sea flux), gussied up with new terminology for some of the parameters.
+to a “volumetric reaeration coefficient” (isn’t this just a depth-corrected piston velocity - why the need for even more jargon?), one must invoke some mixed layer depth. What was the depth (i.e., “H” in Thébault et al’s equation A11) used in each case? The Thébault paper seems to contain a not-so-unique method of calculating gas transfer velocity (and air-sea flux), gussied up with new terminology for some of the parameters.
 
-{\it We have not changed the terminology to reduce confusion between our methods and those we cite.  This work builds on the metabolic approach described in Caffrey et al. 2014.  Ongoing work here at EPA and elsewhere will further develop these methods.  We anticipate that interested readers will consult our references for more details on the exact techniques.  Further, we have clarified the role of depth in the response to the previous comment about areal rates.}
+{\it We chose not to change our terminology because we want it to remain identical to that of Caffrey et al. 2014 and references therein, on which our work builds.  Since the focus of this paper is on improving the DO time series to remove advection, we don’t want to make other changes to the open water method and associated terminology in this paper.  In our response to comments elsewhere, we have clarified how we have addressed translation of volumetric rates to areal rates, and in general our treatment of the depth dimension.}
 
 p. 17, lines 300-307: The precise method of obtaining the daily ecosystem metabolism estimates was not clear. (See my general comment 2, above.)
 
@@ -303,25 +312,28 @@ p. 17, lines 300-307: The precise method of obtaining the daily ecosystem metabo
 
 p. 18, lines 319-321: I think this assumption is valid, but can the authors provide some justification or precedent? One citation would be sufficient.
 
-{\it We have unpublished data that support this claim, unpublished citation added.  To our knowledge, no studies have examined these relationships at the level of detail described in our manuscript so we cannot provide a peer-reviewed citation.}
+{\it We too think that this is intuitively true and agree that adding some justification would improve the paper.  Since nobody has attempted to remove advection effects from a DO time series for the purpose of open water metabolism calculations before, we don’t think that there is a paper that has examined this particular question.  To address it here, we utilized our simulations to (a) generate a simulated year-long DO time series with advection artifacts and (b) generate a year-long DO time series with no advection.  We then calculated open water metabolism using both time series and calculated a cumulative sum on the differences.  The exact period of time required for the means to converge with and without artifacts likely depends on the local regime, particularly the time required for full pregression of tide phase relative to solar cycle. We added a statement to the manuscript to address that we examined this assumption using our simulated data.
+
+`We assumed that annual mean values would not change after filtering because long-term metabolic averages are not likely to be biased from advection. We evaluated this assumption by computing metabolism for a 12 month simulated DO time series with and without advection.  These simulations showed that the means converge within the annual time scale, although variance of metabolism was substantially larger for the time series with advection.'
+}
 
 p. 19, lines 350-351: I disagree. These percentages from the filtered data do represent a decrease
-in the number of anomalous values by a factor of ~ 3, but they are not near zero. In one case,
+in the number of anomalous values by a factor of ~ 3, but they are not “near zero.” In one case,
 7.12\% of values were still anomalous.
 
-{\it Sentence was revised: `Anomalous values were substantially reduced for all case studies...'}
+{\it Sentence was revised: `Anomalous values were substantially reduced for all case studies and were virutally eliminated in two of four of the case studies.'}
 
-p. 23, line 427: Particularly confusing use of the word aggregated. Aggregated or averaged by
+p. 23, line 427: Particularly confusing use of the word “aggregated.” Aggregated or averaged by
 what, and over what time or spatial interval?
 
 {\it Sentence was revised: `Results for Sapelo Island suggested that time averaged estimates, either as monthly or annual means, were comparatively unchanged by filtering...'}
 
-Discussion generally: The discussion read less like a discussion than a simple summary of the rest of the paper. Perhaps a separate discussion isnt really necessary?
+Discussion generally: The discussion read less like a discussion than a simple summary of the rest of the paper. Perhaps a separate discussion isn’t really necessary?
 
 {\it The author guidelines for L\&O methods indicate that the discussion should describe the degree to which the method meets defined needs, potential for new insight, comparison with alternative approaches, and new questions that may have been raised (\href{http://onlinelibrary.wiley.com/journal/10.1002/(ISSN)1541-5856/homepage/ForAuthors.html#6}{http://onlinelibrary.wiley.com/journal/10.1002/(ISSN)1541-5856/homepage/ForAuthors.html\#6}).  We argue that the current discussion adequately covers these points so we have not removed it from the manuscript. 
 }
 
-p. 23, lines 440-441: remove some variation; the method doesnt remove all variation
+p. 23, lines 440-441: “remove some variation”; the method doesn’t remove all variation
 
 {\it Changed, though we have used `a significant amount' instead of `some'.}
 
@@ -340,23 +352,27 @@ p. 28: Will code be available publicly somewhere?
 
 Comments on figures and tables:
 
-Figure 1 ff: One of my few questions about the simulation datasets centers on the way biology was parameterized. I appreciate that modulation in the DO signal due to biological processes was modeled as a purely sinusoidal function for purposes of evaluating the method, but even the purest biological signal will not be sinusoidal. Major differences are (1) that the peak of the biological curve will usually lag each days peak insolation by some number of hours (evident in the authors own data in Fig. 6) and that (2) there is a point of photoinhibition, where the perfect shape of the curve is dented by a decrease in photosynthetic activity before it begins its actual decline. Ive not put either of these very eloquently, but I assume the authors know what Im speaking of. Some brief acknowledgement in the methods section about the representation of the biological signal as a perfect curve like this would be instructive.
+Figure 1: One of my few questions about the simulation datasets centers on the way “biology” was parameterized. I appreciate that modulation in the DO signal due to biological processes was modeled as a purely sinusoidal function for purposes of evaluating the method, but even the purest biological signal will not be sinusoidal. Major differences are (1) that the peak of the biological curve will usually lag each day’s peak insolation by some number of hours (evident in the authors’ own data in Fig. 6) and that (2) there is a point of photoinhibition, where the perfect shape of the curve is “dented” by a decrease in photosynthetic activity before it begins its actual decline. I’ve not put either of these very eloquently, but I assume the authors know what I’m speaking of. Some brief acknowledgement in the methods section about the representation of the biological signal as a perfect curve like this would be instructive.
 
-{\it Text was added in the methods to clarity this point (line 196): `Although the representation of $DO_{die}$ as a simple sine wave does not account for lags with the solar cycle or periods of photoinhibition that may be observed in actual time series, we consider the approach sufficient for the simulations.'}
+{\it We are aware of the dynamics that the reviewer mentions.  In thinking about it, we realized that the analysis should work effectively for any phase lag of DOdie relative to PAR since the day/night pattern is merely there for reference.  What is critical is that DOdie has a period of 24 hours while the tide has a period that is longer than 12 or 24 hours, causing the phase of the tide to fall increasingly behind the solar cycle, until after a sufficient number of days, the cycles are not correlated.    
+
+Text was added in the methods to clarity this point (line 196): `Although the representation of $DO_{die}$ as a simple sine wave ignores more complex dynamics associated with the photosynthesis-irradiance relationship as applied to the ecosystem, it is sufficient to address the analytical objectives of the simulations.'
+}
 
 Figure 6: What was the threshold PAR intensity used for defining the PAR shading? What are the units of PAR? Millmoles of what? Photons? Microeinsteins (µE)? Or W m-2?
 
-{\it The shading indicates day or night based on astronomical sunrise/set times for the location and date.  This was clarified in the captions.  Units for PAR were also added ($\mu$E m$^{-2}$ s$^{-1}$).}
+{\it The shading indicates day or night based on astronomical sunrise/set times for the location and date, rather than the PAR data.  This was clarified in the captions.  Units for PAR were also added ($\mu$E m$^{-2}$ s$^{-1}$).}
  
-Figure 8 ff: One effect of filtering with the authors method is that it appears to dramatically attenuate the interday variation in metabolic parameters evident in unfiltered data. Remember that the discovery of this temporal heterogeneity has been one of most widely celebrated features to emerge from analysis of high-frequency time series (of, e.g., D.O.). What is the implication of the authors method for the existence (or not) of this heterogeneity? Does this mean there really isnt as much temporal heterogeneity in ecosystem respiration and in photosynthesis as this method has suggested? Some discussion would be instructive (perhaps
-replacing some of the repetitive text in the current discussion); the authors wont have to look far into the literature to find many studies that have remarked on the apparent heterogeneity in unfiltered data.
+Figure 8: One effect of filtering with the authors’ method is that it appears to dramatically attenuate the interday variation in metabolic parameters evident in unfiltered data. Remember that the “discovery” of this temporal heterogeneity has been one of most widely celebrated features to emerge from analysis of high-frequency time series (of, e.g., D.O.). What is the implication of the authors’ method for the existence (or not) of this heterogeneity? Does this mean there really isn’t as much temporal heterogeneity in ecosystem respiration and in photosynthesis as this method has suggested? Some discussion would be instructive (perhaps
+replacing some of the repetitive text in the current discussion); the authors won’t have to look far into the literature to find many studies that have remarked on the apparent heterogeneity in unfiltered data.
 
-{\it This figure shows the effect of filtering on metabolism for a two-week period at Sapelo Island, with substantial muting of variation in the filtered results.  Based on our understanding of water quality and habitat at Sapelo Island, we are unaware of any factors that could contribute to interday variation of the magnitude seen in the observed data.  This interday variation is as large as the seasonal variation in metabolism (see the multimedia widget for Sapelo Island  \href{https://beckmw.shinyapps.io/detiding_cases/}{https://beckmw.shinyapps.io/detiding\_cases/}) such that daily variation in metabolic rates from biological processes alone is unlikely.  This analysis provides evidence that calls into question the popular belief that interday variation in metabolism can be quite large.  This hypothesis should be further investigated and we are hopeful that the method in our manuscript could provide a means to better understand patterns in metabolism across multiple time periods.  We have added text in the discussion to promote these ideas (line 479).    
+{\it We agree that this result is intriguing.  The short answer, in our view, is that the day-to-day variability is not real, but rather an artifact of advection.  For example, our results showed that prior to removing variability due to advection from a time series at Sapelo Island (Fig 8), the interday variation in metabolism was as large as the seasonal variation (see the multimedia widget for Sapelo Island https://beckmw.shinyapps.io/detiding cases/).  Based on our understanding of water quality and habitat at Sapelo Island, we can’t think of a mechanistic reason for such large interday variations.  Conversely, variations in nutrient inputs, phytoplankton biomass, temperature, etc., should generate considerable differences in metabolism rates at longer time scales.  In our own study (paper in prep) in Pensacola Bay, we conducted weekly metabolism measurements using BOD bottles at the same location as we had a DO sensor.  These results also showed that the bottle based measurements were less variable … an observation that was one motivation for this work.  We would stop short of saying that there is not day to day variability that weekly or monthly measurements don’t capture.  Potentially, after removing advection, one may still see variations that may be related to likely causes, leading to increased understanding of factors that affect metabolic rates in estuaries.  We added text in the discussion to address these issues (line 438).
 
-`These processes could contribute to interday variation in metabolic rates, although our results suggested that this variation may be reduced after removing tidal effects (Fig. 8).  In many cases, the interday variation observed in metabolism using the unfiltered data was as large or larger than the long-term seasonal variation, indicating substantial effects of physical advection.  Therefore, we propose that the current analysis challenges the popular belief that substantial interday variation in metabolism is the norm.  This hypothesis should be further investigated and the method proposed herein could be used to better understand temporal variation of metabolism at different scales.'}
+`The application to simulated DO time series with known characteristics and extension to continuous monitoring data from selected NERRS sites suggested the approach can isolate and remove a significant amount of variation in observed DO from tidal change.  In application to DO time series from NERRS sites, the method reduces apparent interday variation in metabolic rates.  This may indicate that such interday variations result substantially from artifacts of advection, rather than real drivers of metabolic processes. This hypothesis could be investigated further by applying our proposed method while collecting measurements of metabolism and causal factors at a relatively high frequency.  The regression method and open-water technique may have broad appeal for application...'
+}
 
-Table 3: Were the metabolic rates given here those calculated using the authors method?
+Table 3: Were the metabolic rates given here those calculated using the authors’ method?
 
-{\it These were based on our methods, without filtering.  Text was added to the footnote for clarity: `...estimated using methods described herein with observed data'}
+{\it These were based on our methods, without filtering.  Text was added to the footnote for clarity: `...estimated using methods described herein without removing advection effects.'}
 
 \end{document}
